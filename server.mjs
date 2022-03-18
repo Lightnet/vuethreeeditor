@@ -1,7 +1,11 @@
+/*
+  LICENSE: MIT
+  Created by: Lightnet
+*/
+
 // https://github.com/vitejs/vite/blob/main/packages/playground/ssr-vue/server.js
 //const fs = require('fs')
-//const path = require('path')
-//const express = require('express')
+
 
 import express from 'express';
 import fs from 'fs';

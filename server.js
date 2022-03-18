@@ -1,3 +1,7 @@
+/*
+  LICENSE: MIT
+  Created by: Lightnet
+*/
 
 // https://github.com/vitejs/vite/blob/main/packages/playground/ssr-vue/server.js
 const fs = require('fs')

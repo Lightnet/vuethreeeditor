@@ -1,5 +1,8 @@
 <script>
-
+/*
+  LICENSE: MIT
+  Created by: Lightnet
+*/
 
 export default {
   async setup() {

@@ -5,23 +5,26 @@
 */
 
 import AuthAccess from "../auth/AuthAccess.vue";
-import Three from "./Three.vue";
+//import Three from "./Three.vue";
 import Editor from "./Editor.vue";
+import ClientOnly from '../helper/ClientOnly.vue';
 
 export default {
   components: {
       AuthAccess
-    , Three
     , Editor
+    , ClientOnly
   }
 }
-
 </script>
 
 <template>
-  <Editor/>
+    <Editor/>
 </template>
 <!--
+<ClientOnly>
+</ClientOnly>
+<Editor/>
   <AuthAccess>
     <Three/>
   </AuthAccess>

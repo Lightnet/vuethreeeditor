@@ -1,4 +1,7 @@
-
+/*
+  LICENSE: MIT
+  Created by: Lightnet
+*/
 
 // https://vuejs.org/guide/components/provide-inject.html#app-level-provide
 // https://docs.w3cub.com/vue~3/api/global-api

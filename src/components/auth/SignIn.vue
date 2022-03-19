@@ -7,11 +7,11 @@
 import { computed } from 'vue'
 
 export default {
-  inject: ['message','status','authStatus'],
+  inject: ['message','status','authStatus','login'],
   data() {
     return {
-      alias:"",
-      passphrase:"",
+      alias:"q",
+      passphrase:"q",
     }
   },
   //provide() {
@@ -25,15 +25,12 @@ export default {
     console.log(this.message)
   },
   methods:{
-    clickLogin(event) {
-      console.log("login...")
-      //console.log(this.status)
-      //console.log(this)
-      this.status="auth"
-
-      //this.$authStatus("auth")
-      console.log(this.authStatus);
-      this.authStatus="auth"
+    async clickLogin(event) {
+      //console.log("login...")
+      //console.log(this.authStatus);
+      //this.authStatus="auth"
+      let baccess = await this.login(this.alias,this.passphrase)
+      console.log(baccess)
       
     },
     clickForgot(event) {
@@ -44,6 +41,7 @@ export default {
     clickUrl(event) {
       
       console.log(this.API_URL)
+      console.log(this.logout)
     
     }
   }

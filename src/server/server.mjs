@@ -10,8 +10,6 @@ import chalk from 'chalk';
 import http from 'http';
 import express from "express";
 import dotEnv from 'dotenv';
-//import bodyParser from 'body-parser';
-//import session  from 'express-session';
 import routes from './routes.mjs';
 import cors from "cors";
 import { networkInterfaces } from 'os';
@@ -25,14 +23,16 @@ const log = console.log;
 // load .env var
 dotEnv.config();
 
-//const SECRET = process.env.SECRET;
-//console.log(SECRET)
+const SECRET = process.env.SECRET;
+console.log(SECRET)
+const DATABASE_URL = process.env.DATABASE_URL;
+console.log(DATABASE_URL)
 
 //var DATABASE_URL = process.env.DATABASE_URL;
 //console.log("DATABASE_URL: ",DATABASE_URL)
 
 const app = express();
-const PORT =  process.env.PORT || 3000;
+const PORT =  process.env.PORT || 3003;
 const HOST = process.env.HOST ||"0.0.0.0";
 
 function getIPAddress() {
@@ -74,25 +74,14 @@ async function main(){
   app.set('PORT', PORT)
   app.set('HOST', HOST)
 
-  //app.use(session({
-    //secret: 'keyboard cat',
-    //resave: true,
-    //saveUninitialized: true,
-    //cookie: { secure: false }
-  //}))
-
-  // parse application/x-www-form-urlencoded
-  //app.use(bodyParser.urlencoded({ extended: false }))
-  // parse application/json
-  //app.use(bodyParser.json())
   app.use(express.json())
 
-  app.use('/favicon.ico', express.static('/favicon.ico'));
+  //app.use('/favicon.ico', express.static('/favicon.ico'));
 
   // Access the session as req.session
-  app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../client/index.html'));
-  })
+  //app.get('/', (req, res) => {
+    //res.sendFile(path.join(__dirname, '../client/index.html'));
+  //})
 
   let pages=[
       '/account'

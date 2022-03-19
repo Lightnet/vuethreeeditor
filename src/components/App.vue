@@ -7,6 +7,7 @@ import About from './pages/About.vue';
 import NotFound from './pages/NotFound.vue';
 import SignIn from './auth/SignIn.vue';
 import SignUp from './auth/SignUp.vue';
+import SignOut from './auth/SignOut.vue';
 
 import ThreePage from './three/ThreePage.vue';
 import AccessTest from './auth/AccessTest.vue';
@@ -18,6 +19,7 @@ const routes = {
   '/three': ThreePage,
   '/signin': SignIn,
   '/signup': SignUp,
+  '/signout': SignOut,
   '/accesstest': AccessTest,
   '/testlab': TestLab
 }
@@ -25,12 +27,8 @@ const routes = {
 export default {
   inject: ['message'],
   data() {
-    //let status = reactive({value:"login"});
-    //console.log(status);
     return {
         currentPath: window.location.hash
-      //, message: 'hello'
-      //, status: 'login'
       , status: reactive({value:"login"})
     }
   },
@@ -40,26 +38,19 @@ export default {
     }
   },
   provide() {
-    //console.log(this)
-    //const status = this.status;
     return {
       // explicitly provide a computed property
         message: computed(() => this.message)
       , status: computed({
         get:()=>{
-          //console.log(this.status)
           return this.status.value
         },set:(val)=>{
-          //console.log(val)
           this.status.value = val;
-          //console.log(this.status)
         }
       })
     }
   },
   mounted() {
-    //console.log(this.message)
-    //console.log(this.status)
     window.addEventListener('hashchange', () => {
       console.log(window.location.hash)
 		  this.currentPath = window.location.hash
@@ -76,11 +67,10 @@ export default {
     <a href="#/three">Three</a> |
     <a href="#/signin">Sign In</a> |
     <a href="#/signup">Sign up</a> |
+    <a href="#/signout">Sign out</a> |
     <a href="#/accesstest">Access Test</a> |
     <a href="#/testlab">Test Lab</a> |
     <a href="#/non-existent-path">Broken Link</a>
-    {{message}}
-    {{status}}
     </div>
   </template>
   <component :is="currentView" />

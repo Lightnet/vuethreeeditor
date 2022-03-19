@@ -11,20 +11,16 @@ export const entityPlugin = {
   install(app, options) {
     // configure the app
     const entities = ref([])
-    console.log(entities)
-
+    //console.log(entities)
     app.provide('entities', entities); // mutable
-
     app.config.globalProperties.$addEntity = (entity)=>{
       //console.log(this)
       //console.log(entities)
       if(!entity.id){
         entity.id = nanoid16()
       }
-      
       entities.value.push(entity)
       //console.log(this.entities)//nope
-
       console.log(entity)
       //console.log(options)
     }

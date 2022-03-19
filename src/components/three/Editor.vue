@@ -18,7 +18,10 @@ export default {
     , EditorSideBarLeft
     , EditorSideBarRight
     , EditorViewport3D
-  }
+  },
+  mounted(){
+    console.log("mount!")
+  },
 };
 </script>
 

@@ -10,6 +10,7 @@ import SignUp from './auth/SignUp.vue';
 
 import ThreePage from './three/ThreePage.vue';
 import AccessTest from './auth/AccessTest.vue';
+import TestLab from './pages/TestLab.vue';
 
 const routes = {
   '/': Home,
@@ -17,7 +18,8 @@ const routes = {
   '/three': ThreePage,
   '/signin': SignIn,
   '/signup': SignUp,
-  '/accesstest': AccessTest
+  '/accesstest': AccessTest,
+  '/testlab': TestLab
 }
 
 export default {
@@ -75,6 +77,7 @@ export default {
     <a href="#/signin">Sign In</a> |
     <a href="#/signup">Sign up</a> |
     <a href="#/accesstest">Access Test</a> |
+    <a href="#/testlab">Test Lab</a> |
     <a href="#/non-existent-path">Broken Link</a>
     {{message}}
     {{status}}

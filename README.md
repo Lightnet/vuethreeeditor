@@ -5,8 +5,9 @@
 
   To develop vuejs threejs editor in module design format.
 
-
-  troisjs package can render client only and not SSR server render.
+# Notes:
+- troisjs package can render client only and not SSR server render.
+  -  Bug around import and require conflicts from three and troisjs for camera orbit.
 
 # Set up:
   Need to install nodejs.

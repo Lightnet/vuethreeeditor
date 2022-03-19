@@ -19,7 +19,7 @@ export default {
 
 <template>
   <div class="sidebarleft">
-    <EntityViewProps/>
+    <EntityViewProps :view="'create'"/>
   </div>
 </template>
 

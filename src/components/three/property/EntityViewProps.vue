@@ -15,6 +15,12 @@ const routes = {
 }
 
 export default {
+  props: {
+    view: {
+      type: String,
+      default: ""
+    }
+  },
   data(){
     return {
       views:[
@@ -22,7 +28,7 @@ export default {
         ,"entities"
         ,"entity"
       ]
-      ,viewSelect:""
+      ,viewSelect:this.view
     }
   },
   components:{

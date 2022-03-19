@@ -12,12 +12,17 @@
 # Set up:
   Need to install nodejs.
 
+```
+npm install
+npm run dev
+```
 
+SSR server prerender (not working with troisjs)
 ```
 npm install
 npm run ssrbuild
 npm run generate
-npm run dev
+npm run devs
 ```
 
 # Links:

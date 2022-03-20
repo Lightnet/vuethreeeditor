@@ -4,10 +4,10 @@
   Created by: Lightnet
 */
 
-import { computed } from 'vue'
+//import { computed } from 'vue'
 
 export default {
-  inject: ['message','status'],
+  inject: ['register'],
   data() {
     return {
       alias:"",
@@ -19,20 +19,11 @@ export default {
     console.log(this.message)
   },
   methods:{
-    clickLogin(event) {
-      console.log("login...")
-      console.log(this.status)
-      console.log(this)
-      this.status="auth"
-      //console.log(this.$root.status)
-      //this.$root.status="auth"
+    async clickRegister(event) {
+      console.log("Register...")
+      let data = await this.register(this.alias,this.passphrase);
+      console.log(data)
     },
-    clickForgot(event) {
-      console.log("login...")
-      console.log(this.status)
-      console.log(this.$root.status)
-      //console.log(this.$root.status.value)
-    }
   }
 }
 </script>
@@ -40,7 +31,6 @@ export default {
   <div>
     <label> Alias: </label><input :value="alias" @input="event => alias = event.target.value" />
     <label> Passphrase: </label><input :value="passphrase" @input="event => passphrase = event.target.value" />
-    <button @click="clickLogin">Login</button> 
-    <button @click="clickForgot">Forgot</button> 
+    <button @click="clickRegister">Register</button> 
   </div>
 </template>

@@ -4,20 +4,23 @@
 */
 
 import { API } from "./API.mjs";
-
+import { nanoid32 } from "../../../lib/helper.mjs"
+import EntityScene from "../entity/EntityScene.vue"
+import EntityPointLight from "../entity/EntityPointLight.vue"
+import EntityBox from "../entity/EntityBox.vue"
 var ENTITIES=[]
 var loaded;
-if(global.ENTITIES){
+if(window.ENTITIES){
   loaded=true;
 }
 
 if(!loaded){
-  AddCompObjEntity({
+  addObjEntity({
     name:"scene"
     , isTransform:true
     , dataType:API.ENTITYTYPES.SCENE
     , comp:EntityScene
-    , compRef:EntitySceneRef
+    //, compRef:EntitySceneRef
     , shape:"BOX"
     , mass:1
     , parameters:[
@@ -30,12 +33,30 @@ if(!loaded){
       }
     ]
   })
-  AddCompObjEntity({
+
+  addObjEntity({
+    name:"pointlight"
+    , isTransform:true
+    , dataType:API.ENTITYTYPES.POINTLIGHT
+    , comp:EntityPointLight
+    //, compRef:EntityPointLightRef
+    , shape:"BOX"
+    , mass:1
+    , parameters:[
+      {
+        color:"#ffffff"
+        , intensity:1
+        , environment:null
+      }
+    ]
+  })
+  
+  addObjEntity({
     name:"box"
     , isTransform:true
     , dataType:API.ENTITYTYPES.BOX
     , comp:EntityBox
-    , compRef:EntityBoxRef
+    //, compRef:EntityBoxRef
     , shape:"BOX"
     , mass:1
     , parameters:[
@@ -63,10 +84,10 @@ if(!loaded){
     }]
   })
   loaded=true
-  global.ENTITIES=ENTITIES;
+  window.ENTITIES=ENTITIES;
 }
 
-export function addEntity(args){
+export function addObjEntity(args){
   let item = ENTITIES.find(item=>item.name==args.name)
   if(!item){
     ENTITIES.push(args)

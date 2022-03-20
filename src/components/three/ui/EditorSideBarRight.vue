@@ -1,25 +1,20 @@
-<script>
+<script setup>
 /*
   LICENSE: MIT
   Created by: Lightnet
 */
-
-//import { Box, Camera, LambertMaterial, PointLight, Renderer, Scene } from 'troisjs';
 import EntityViewProps from "../property/EntityViewProps.vue"
-export default {
-  //components: { Box, Camera, LambertMaterial, PointLight, Renderer, Scene },
-  components: {
-    EntityViewProps
-  }
-};
+
 </script>
 
 <template>
   <div class="sidebarright">
-    <EntityViewProps :view="'entities'"/>
+    <EntityViewProps :view="'entity'"/>
   </div>
 </template>
-
+<!-- 
+<EntityViewProps :view="'entities'"/>
+-->
 <style scoped>
 .sidebarright {
   position: fixed;

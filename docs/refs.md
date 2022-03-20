@@ -8,7 +8,7 @@ https://www.youtube.com/watch?v=sAj6tdVS2cA
 
 
 
-
+https://dev.to/shubhadip/adding-server-side-rendering-to-existing-vue-3-project-53oo
 https://stackblitz.com/edit/vitejs-vite-xemfaw?file=package.json&terminal=dev
 https://github.com/vitejs/vite/tree/main/packages/playground/ssr-vue
 https://vuejs.org/api/reactivity-advanced.html#triggerref

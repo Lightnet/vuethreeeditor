@@ -1,19 +1,148 @@
-<script>
+<script setup>
 /*
   LICENSE: MIT
   Created by: Lightnet
 */
+import { ref, inject, unref } from "vue";
 
-//import { Box, Camera, LambertMaterial, PointLight, Renderer, Scene } from 'troisjs';
-export default {
-  //components: { Box, Camera, LambertMaterial, PointLight, Renderer, Scene },
-};
+const entities = inject('entities');
+const updateEntity = inject('updateEntity');
+
+const selectEntity = ref("");
+const parameters = ref({});
+const entity = ref({});
+
+function onSelectEntity(event){
+  entity.value=null;
+  parameters.value = null;
+
+  console.log(event.target.value)
+  selectEntity.value=event.target.value
+  let refEntity= entities.value.find(item=>item.objectid == event.target.value)
+  if(refEntity){//if found
+    console.log(refEntity)
+    entity.value=refEntity;
+    parameters.value = refEntity.parameters;
+  }else{//clear if null
+    entity.value=null;
+    parameters.value = null;
+  }
+}
+
+function clickEntity(){
+  console.log(entity.value);
+  console.log(entity.value.objectid);
+  console.log(entity.value.name);
+}
+
+function onUpdatePosition(event){
+  //console.log(event.target.type);
+  console.log("name",event.target.name);
+  console.log("value",event.target.value);
+  console.log("id",entity.value.objectid)
+  entity.value.position[event.target.name]=Number(event.target.value);
+  updateEntity({
+      type:"position"
+    , objectid: entity.value.objectid
+    , value: entity.value.position
+  })
+}
+
+function onUpdateRotation(event){
+  console.log(event.target.type);
+  console.log(event.target.name);
+  console.log(event.target.value);
+  entity.value.rotation[event.target.name]=Number(event.target.value);
+  updateEntity({
+      type:"rotation"
+    , objectid: entity.value.objectid
+    , value: entity.value.rotation
+  })
+}
+
+function onUpdateScale(event){
+  console.log(event.target.type);
+  console.log(event.target.name);
+  console.log(event.target.value);
+  entity.value.scale[event.target.name]=Number(event.target.value);
+  updateEntity({
+      type:"scale"
+    , objectid: entity.value.objectid
+    , value: entity.value.scale
+  })
+}
+
+
+function onUpdateParameters(event){
+  console.log(event.target.type);
+  console.log(event.target.name);
+  console.log(event.target.value);
+  entity.value.parameters[event.target.name]=Number(event.target.value);
+  
+  updateEntity({
+      type:"parameters"
+    , objectid: entity.value.objectid
+    , value: entity.value.parameters
+  })
+}
+
 </script>
 
 <template>
   <div>
-    <label> Object </label>
+    <button @click="clickEntity"> Check Entity Obj </button>
   </div>
+  <div>
+    <label> Entity </label>
+    <select v-model="selectEntity" @change="onSelectEntity">
+      <option value=""> Select Entity </option>
+      <option v-for="entity in entities" :key="entity.objectid" :value="entity.objectid"> {{entity.name}} </option>
+    </select>
+  </div>
+  <template v-if="entity">
+    <div>
+      <label> Entity ID: {{entity.objectid}}</label>
+    </div>
+    <div>
+      <template v-if="entity.position">
+        <label> Position: </label><br/>
+        <template v-for="(value, propertyName) in entity.position" :key="propertyName">
+          <label> {{propertyName}}</label>
+          <input :name="propertyName" :value="value" @change="onUpdatePosition" /><br/>
+        </template>
+      </template>
+    </div>
+
+    <div>
+      <template v-if="entity.rotation">
+        <label> Rotation: </label><br/>
+        <template v-for="(value, propertyName) in entity.rotation" :key="propertyName">
+          <label> {{propertyName}}</label>
+          <input :name="propertyName" :value="value" @change="onUpdateRotation" /><br/>
+        </template>
+      </template>
+    </div>
+
+    <div>
+      <template v-if="entity.scale">
+        <label> Scale: </label><br/>
+        <template v-for="(value, propertyName) in entity.scale" :key="propertyName">
+          <label> {{propertyName}}</label>
+          <input :name="propertyName" :value="value" @change="onUpdateScale" /><br/>
+        </template>
+      </template>
+    </div>
+
+    <div>
+      <template v-if="parameters">
+        <label> Parameters: </label><br/>
+        <template v-for="(value, propertyName) in parameters" :key="propertyName">
+          <label> {{propertyName}}</label>
+          <input :name="propertyName" :value="value" @change="onUpdateParameters" />
+          </template>
+        </template>
+    </div>
+  </template>
 </template>
 
 <style>

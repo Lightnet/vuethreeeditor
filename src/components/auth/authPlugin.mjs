@@ -22,6 +22,7 @@ export const authPlugin = {
     }
 
     const token = ref("")
+    const user = ref("")
     const expire = ref(0)
     const authStatus = ref('login')
     //console.log(token)
@@ -30,6 +31,7 @@ export const authPlugin = {
     app.provide('AUTHKEY', '0000') // read only
     app.provide('authStatus', authStatus) //mutable
     app.provide('token', token) //mutable
+    app.provide('user', user) //mutable
     app.provide('expire', expire) //mutable
     app.component('auth-access', AuthAccess);
     
@@ -73,10 +75,19 @@ export const authPlugin = {
           // handle success
           console.log(response);
           data = response.data
+          if(data.api=="LOGIN"){
+            user.value = data.user;
+            token.value = data.token;
+            const decoded = parseJwt(response.data.token);
+            expire.value =decoded.exp;
+            console.log(expire.value)
+            authStatus.value ="auth"
+          }
           return data
         })
         .catch(function (error) {
           // handle error
+          authStatus.value ="unauth"
           console.log(error);
         })
     }

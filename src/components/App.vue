@@ -13,10 +13,12 @@ import ThreePage from './three/ThreePage.vue';
 import AccessTest from './auth/AccessTest.vue';
 import TestLab from './pages/TestLab.vue';
 
+//console.log(process.browser)
+
 const routes = {
   '/': Home,
   '/about': About,
-  '/three': ThreePage,
+  '/editor': ThreePage,
   '/signin': SignIn,
   '/signup': SignUp,
   '/signout': SignOut,
@@ -60,18 +62,20 @@ export default {
 </script>
 
 <template>
-  <template v-if="currentPath != '#/three'">
+  <template v-if="currentPath != '#/editor'">
     <div>
-    <a href="#/">Home</a> |
-    <a href="#/about">About</a> |
-    <a href="#/three">Three</a> |
-    <a href="#/signin">Sign In</a> |
-    <a href="#/signup">Sign up</a> |
-    <a href="#/signout">Sign out</a> |
-    <a href="#/accesstest">Access Test</a> |
-    <a href="#/testlab">Test Lab</a> |
-    <a href="#/non-existent-path">Broken Link</a>
+    <a href="#/">Home</a><span> | </span>
+    <a href="#/editor">Three Editor </a><span> | </span>
+    <a href="#/signin">Sign In</a><span> | </span>
+    <a href="#/signup">Sign up</a><span> | </span>
+    <a href="#/signout">Sign out</a><span> | </span>
+    <a href="#/accesstest">Access Test</a><span> | </span>
+    <a href="#/testlab">Test Lab</a><span> | </span>
+    <a href="#/non-existent-path">Broken Link</a><span> | </span>
     </div>
   </template>
   <component :is="currentView" />
 </template>
+<!-- 
+<a href="#/about">About</a> |
+-->

@@ -15,6 +15,13 @@
 </script>
 ```
 
+- https://github.com/vuejs/Discussion/issues/292
+- https://stackoverflow.com/questions/58097556/how-to-convert-a-vue-wrapped-object-to-a-normal-object
+```js
+//remove link ref to normal object json
+parameters:JSON.parse(JSON.stringify(parameters.value))
+```
+
 
 
 

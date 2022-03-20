@@ -26,6 +26,7 @@ const props = defineProps({
 const position = props.position || [0,0,0]
 const rotation = props.rotation || [0,0,0]
 const scale = props.scale || [0,0,0]
+const parameters = props.parameters || {width:1,height:1,depth:1,}
 //console.log(position);
 
 </script>
@@ -35,6 +36,9 @@ const scale = props.scale || [0,0,0]
     :position="{ x: position[0],y: position[1],z: position[2]}"
     :rotation="{ x: rotation[0],y: rotation[1],z: rotation[2]}"
     :scale="{ x: scale[0],y: scale[1],z: scale[2]}"
+    :width="parameters.width"
+    :height="parameters.height"
+    :depth="parameters.depth"
     >
     <LambertMaterial />
   </Box>

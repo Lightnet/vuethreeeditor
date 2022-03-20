@@ -19,7 +19,7 @@ function clickCreate(event){
   //console.log(event)
   console.log("CREATE?")
   //console.log(this)
-  console.log(parameters.value)
+  console.log(parameters)
   console.log(unref(parameters))
   addEntity({
       name:tmpEntity.value.name
@@ -27,7 +27,9 @@ function clickCreate(event){
     , dataType:tmpEntity.value.dataType
     , shape:tmpEntity.value.shape
     , mass:tmpEntity.value.mass
-    , parameters:unref(parameters)
+    //, parameters:unref(parameters)
+    //, parameters:parameters._rawValue
+    , parameters:JSON.parse(JSON.stringify(parameters.value))
     , material:tmpEntity.value.material
   });
 }

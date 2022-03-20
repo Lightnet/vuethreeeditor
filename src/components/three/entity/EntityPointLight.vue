@@ -10,12 +10,16 @@
 
 import { PointLight } from 'troisjs';
 const props = defineProps({
-    name: String
+    objectid: String
+  , dataType: String
+  , name: String
   , visible:Boolean
   , parameters:Object
   , position:Array
   , rotation:Array
   , scale:Array
+  , shape:String
+  , mass:Number
 })
 console.log(props);
 const position = props.position || [0,0,0]
@@ -31,5 +35,6 @@ const parameters = props.parameters || {color:"#000000",intensity:0,distance:0,d
     :position="{ x: position[0],y: position[1],z: position[2]}"
     :rotation="{ x: rotation[0],y: rotation[1],z: rotation[2]}"
     :scale="{ x: scale[0],y: scale[1],z: scale[2]}"
+    v-bind="parameters"
   />
 </template>

@@ -6,19 +6,16 @@
 
 import { AmbientLight } from 'troisjs';
 const props = defineProps({
-    name: String
-  , visible:Boolean
-  , parameters:Object
-  , position:Array
-  , rotation:Array
-  , scale:Array
+    objectid: String
+  , dataType: String
+  , name: String
+  , visible: Boolean
+  , parameters: Object
 })
-const position = props.position || [0,0,0]
-const rotation = props.rotation || [0,0,0]
-const scale = props.scale || [1,1,1]
-console.log(props);
+//console.log(props);
+const parameters = props.parameters || {color:"#000000",intensity:1}
 </script>
 
 <template>
-  <AmbientLight />
+  <AmbientLight v-bind="parameters"/>
 </template>

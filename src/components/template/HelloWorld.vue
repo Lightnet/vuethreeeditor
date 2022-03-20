@@ -1,3 +1,9 @@
+<script>
+export default {
+  inheritAttrs:false
+}
+
+</script>
 <script setup>
 
   let name = "John";

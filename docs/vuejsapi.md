@@ -2,6 +2,15 @@
 # Information:
   Work in progress and notes.
 
+# ref:
+
+- https://vuejs.org/api/reactivity-advanced.html#toraw
+```js
+const foo = {}
+const reactiveFoo = reactive(foo)
+
+console.log(toRaw(reactiveFoo) === foo) // true
+```
 
 # Tips:
   Never use global varables as it can be edit.

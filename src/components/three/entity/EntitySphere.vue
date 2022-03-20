@@ -3,16 +3,15 @@
   LICENSE: MIT
   Created by: Lightnet
 */
+
 // https://vuedose.tips/going-3d-with-trois-js-and-vue-3/
-// https://troisjs.github.io/guide/lights/
-// https://vuejs.org/guide/extras/reactivity-transform.html#reactive-props-destructure
-// https://vuejs.org/api/sfc-script-setup.html#defineprops-defineemits
-import { SphereGeometry, LambertMaterial } from 'troisjs';
+
+import { Sphere, LambertMaterial } from 'troisjs';
 
 const props = defineProps({
-    name: String
-  , objectid:String
-  , dataType:String
+    objectid: String
+  , dataType: String
+  , name: String
   , visible:Boolean
   , parameters:Object
   , position:Array
@@ -26,21 +25,21 @@ const props = defineProps({
 const position = props.position || [0,0,0]
 const rotation = props.rotation || [0,0,0]
 const scale = props.scale || [1,1,1]
-const parameters = props.parameters || {width:1,height:1}
+const parameters = props.parameters || {radius:1,widthSegments:32,heightSegments:16}
 //console.log(position);
+console.log(parameters);
 
 </script>
 
 <template>
-  <SphereGeometry 
+  <Sphere 
     :position="{ x: position[0],y: position[1],z: position[2]}"
     :rotation="{ x: rotation[0],y: rotation[1],z: rotation[2]}"
     :scale="{ x: scale[0],y: scale[1],z: scale[2]}"
-    :width="parameters.width"
-    :height="parameters.height"
+    v-bind="parameters"
     >
     <LambertMaterial />
-  </SphereGeometry>
+  </Sphere>
 </template>
 <!--
 <Box>

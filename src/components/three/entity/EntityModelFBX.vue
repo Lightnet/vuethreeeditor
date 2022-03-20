@@ -7,9 +7,9 @@
 import { FbxModel, LambertMaterial } from 'troisjs';
 
 const props = defineProps({
-    name: String
-  , objectid:String
-  , dataType:String
+    objectid: String
+  , dataType: String
+  , name: String
   , visible:Boolean
   , parameters:Object
   , position:Array

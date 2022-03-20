@@ -8,9 +8,17 @@
 import { API } from "./API.mjs";
 import { nanoid32 } from "../../../lib/helper.mjs"
 import EntityScene from "../entity/EntityScene.vue"
+import EntityCamera from "../entity/EntityCamera.vue"
+
 import EntityPointLight from "../entity/EntityPointLight.vue"
+import EntityAmbientLight from "../entity/EntityAmbientLight.vue"
+
 import EntityBox from "../entity/EntityBox.vue"
+import EntityCylinder from "../entity/EntityCylinder.vue"
 import EntityPlane from "../entity/EntityPlane.vue"
+import EntitySphere from "../entity/EntitySphere.vue"
+
+
 var ENTITIES=[]
 var loaded;
 if(window.ENTITIES){
@@ -38,6 +46,24 @@ if(!loaded){
   })
 
   addObjEntity({
+    name:"camera"
+    , isTransform:true
+    , dataType:API.ENTITYTYPES.CAMERA
+    , comp:EntityCamera
+    //, compRef:EntitySceneRef
+    , shape:"BOX"
+    , mass:1
+    , parameters:[
+      {
+        fov:50
+        , aspect:1
+        , near:0.1
+        , far:2000
+      }
+    ]
+  })
+
+  addObjEntity({
     name:"pointlight"
     , isTransform:true
     , dataType:API.ENTITYTYPES.POINTLIGHT
@@ -49,7 +75,24 @@ if(!loaded){
       {
         color:"#ffffff"
         , intensity:1
-        , environment:null
+        , distance :0
+        , decay :1
+      }
+    ]
+  })
+
+  addObjEntity({
+    name:"AmbientLight"
+    , isTransform:false
+    , dataType:API.ENTITYTYPES.AMBIENTLIGHT
+    , comp:EntityAmbientLight
+    //, compRef:EntityPointLightRef
+    , shape:null
+    , mass:1
+    , parameters:[
+      {
+        color:"#ffffff"
+        , intensity:1
       }
     ]
   })
@@ -88,6 +131,34 @@ if(!loaded){
   })
 
   addObjEntity({
+    name:"Cylinder"
+    , isTransform:true
+    , dataType:API.ENTITYTYPES.CYLINDER
+    , comp:EntityCylinder
+    //, compRef:EntityBoxRef
+    , shape:"CYLINDER"
+    , mass:1
+    , parameters:[
+      {
+        radiusTop:1
+        , radiusBottom : 1 
+        , height: 1 
+        , radialSegments: 8
+      },
+    ],
+    material:[{
+        index:0
+      , objectid:nanoid32()
+      , dataType:"meshStandardMaterial"
+      , name:"meshStandardMaterial"
+      , color:"#ffffff"
+      , wireframe:false
+    }]
+  })
+
+
+
+  addObjEntity({
     name:"plane"
     , isTransform:true
     , dataType:API.ENTITYTYPES.PLANE
@@ -99,6 +170,31 @@ if(!loaded){
       {
           width:1
         , height: 1 
+      },
+    ],
+    material:[{
+        index:0
+      , objectid:nanoid32()
+      , dataType:"meshStandardMaterial"
+      , name:"meshStandardMaterial"
+      , color:"#ffffff"
+      , wireframe:false
+    }]
+  })
+
+  addObjEntity({
+    name:"sphere"
+    , isTransform:true
+    , dataType:API.ENTITYTYPES.SPHERE
+    , comp:EntitySphere
+    //, compRef:EntityBoxRef
+    , shape:"SPHERE"
+    , mass:1
+    , parameters:[
+      {
+        radius:1
+        , widthSegments: 32
+        , heightSegments: 16
       },
     ],
     material:[{

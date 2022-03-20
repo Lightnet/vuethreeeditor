@@ -42,12 +42,60 @@ function onSelectEntity(event){
   parameters.value = entity.parameters[0];
 }
 
+function checkType(prop,value){
+  let setType="text";
+  if(typeof value=="number"){
+    setType="number"
+  }
+  if (typeof value=="boolean"){
+    setType="checkbox"
+  }
+  if(prop=="color"){
+    setType="color";
+  }
+  return setType;
+}
+
+function existCheckBox(prop,value){
+  let setType=null;
+  if (typeof value=="boolean"){
+    setType="checkbox"
+  }
+  if(setType){
+    return {
+      checked:value
+    }
+  }else{
+    return {}
+  }
+}
+
 onMounted(()=>{
   //console.log(entities)
   let entity= entities.find(item=>item.name == selectEntity.value)
   tmpEntity.value=entity;
   parameters.value = entity.parameters[0];
 })
+
+function updateParameters(event){
+  console.log(event.target.name)
+  console.log(event.target.type)
+  if(event.target.type=="color"){
+    parameters.value[event.target.name] = String(event.target.value)
+  }else if(event.target.type=="text"){
+    parameters.value[event.target.name] = String(event.target.value)
+  }else if(event.target.type=="number"){
+    parameters.value[event.target.name] = Number(event.target.value)
+  }else if(event.target.type=="checkbox"){
+    parameters.value[event.target.name] = Boolean(event.target.checked)
+  }else{
+    parameters.value[event.target.name] = String(event.target.value)
+  }
+}
+
+function checkParams(){
+  console.log(parameters.value);
+}
 </script>
 
 <template>
@@ -63,9 +111,11 @@ onMounted(()=>{
     <div>
       <label> Entity:{{selectEntity}} </label><br/>
       <template v-if="parameters">
-        <label v-for="(value, propertyName) in parameters" :key="propertyName"> {{propertyName}}
-          <input :name="propertyName" :value="value" />
-        </label>
+        <template v-for="(value, propertyName) in parameters" :key="propertyName">
+        <label > {{propertyName}}</label>
+        <input :name="propertyName" :type="checkType(propertyName,value)" v-bind="existCheckBox" :value="value" @change="updateParameters" /><br/>
+        </template>
+        <button @click="checkParams"> Check Params </button>
       </template>
       
     </div>

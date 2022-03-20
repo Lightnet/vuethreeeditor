@@ -17,8 +17,13 @@ const entities = inject('entities');
 const renderer = ref();
 
 onMounted(() =>{
+  //https://troisjs.github.io/guide/core/raf.html
+
   console.log("mount editor...")
   console.log(renderer.value)
+  //renderer.value.onBeforeRender(() => {//works
+    //console.log("update...")
+  //});
 });
 
 function checkEntityComp(entity){

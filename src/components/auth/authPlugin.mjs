@@ -28,23 +28,13 @@ export const authPlugin = {
     //console.log(token)
     const API_URL="http://localhost:3003" 
 
+    app.provide('API_URL', API_URL) // read only
     app.provide('AUTHKEY', '0000') // read only
     app.provide('authStatus', authStatus) //mutable
     app.provide('token', token) //mutable
     app.provide('user', user) //mutable
     app.provide('expire', expire) //mutable
     app.component('auth-access', AuthAccess);
-    
-    app.mixin({
-      data(){
-        return{
-          API_URL:API_URL
-        }
-      },
-      //created() {
-        //console.log("printing from created.")
-      //},
-    })
 
     function login(alias,passphrase){
       //console.log(API_URL)

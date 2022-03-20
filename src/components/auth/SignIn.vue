@@ -21,10 +21,6 @@ export default {
       //console.log(this.status)
       console.log(this.authStatus)
     },
-    clickUrl(event) {
-      console.log(this.API_URL)
-      console.log(this.logout)
-    }
   }
 }
 </script>
@@ -34,7 +30,6 @@ export default {
     <label> Passphrase: </label><input :value="passphrase" @input="event => passphrase = event.target.value" />
     <button @click="clickLogin">Login</button> 
     <button @click="clickForgot">Forgot</button> 
-    <button @click="clickUrl">clickUrl</button> 
   </div>
   <div v-if="authStatus == 'auth'">
     <label> Login Auth! </label>

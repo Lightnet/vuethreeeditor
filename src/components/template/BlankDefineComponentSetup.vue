@@ -4,7 +4,7 @@ import { defineComponent } from '@vue/composition-api'
 export default defineComponent({
   name:"Blank",
   props:[],
-  setup() {
+  setup(props) {
     let name = "John";
 
     return {
@@ -17,7 +17,7 @@ export default defineComponent({
 })
 </script>
 <template>
-  <label>Hello</label>
+  <label>Hello,{{name}}</label>
 </template>
 <style scoped>
 

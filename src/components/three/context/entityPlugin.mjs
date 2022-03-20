@@ -41,6 +41,7 @@ export const entityPlugin = {
         newEntity.material = entity.material
       }
 
+      //entities.value.push(ref(newEntity))
       entities.value.push(newEntity)
       //console.log(entities)
       //console.log(entity)
@@ -50,9 +51,9 @@ export const entityPlugin = {
     const updateEntity = (args)=>{
       console.log(args)
       if(args.type){
-        console.log("HELLO?")
+        //console.log("HELLO?")
         entities.value = entities.value.map(item=>{
-          if(item.id==args.id){
+          if(item.objectid==args.objectid){
             console.log(item)
             if(args.type=="position"){
               item.position = args.value;

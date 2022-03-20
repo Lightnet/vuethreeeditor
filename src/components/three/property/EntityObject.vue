@@ -9,12 +9,10 @@ const entities = inject('entities');
 const updateEntity = inject('updateEntity');
 
 const selectEntity = ref("");
-const parameters = ref({});
 const entity = ref({});
 
 function onSelectEntity(event){
   entity.value=null;
-  parameters.value = null;
 
   console.log(event.target.value)
   selectEntity.value=event.target.value
@@ -22,17 +20,16 @@ function onSelectEntity(event){
   if(refEntity){//if found
     console.log(refEntity)
     entity.value=refEntity;
-    parameters.value = refEntity.parameters;
   }else{//clear if null
     entity.value=null;
-    parameters.value = null;
   }
 }
 
 function clickEntity(){
-  console.log(entity.value);
-  console.log(entity.value.objectid);
-  console.log(entity.value.name);
+  //console.log(entity.value);
+  //console.log(entity.value.objectid);
+  //console.log(entity.value.name);
+  console.log(entities);
 }
 
 function onUpdatePosition(event){
@@ -71,7 +68,6 @@ function onUpdateScale(event){
     , value: entity.value.scale
   })
 }
-
 
 function onUpdateParameters(event){
   console.log(event.target.type);
@@ -134,14 +130,15 @@ function onUpdateParameters(event){
     </div>
 
     <div>
-      <template v-if="parameters">
+      <template v-if="entity.parameters">
         <label> Parameters: </label><br/>
-        <template v-for="(value, propertyName) in parameters" :key="propertyName">
+        <template v-for="(value, propertyName) in entity.parameters" :key="propertyName">
           <label> {{propertyName}}</label>
-          <input :name="propertyName" :value="value" @change="onUpdateParameters" />
-          </template>
+          <input :name="propertyName" :value="value" @change="onUpdateParameters" /><br/>
         </template>
+      </template>
     </div>
+
   </template>
 </template>
 

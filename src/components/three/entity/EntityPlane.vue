@@ -3,30 +3,47 @@
   LICENSE: MIT
   Created by: Lightnet
 */
-
 // https://vuedose.tips/going-3d-with-trois-js-and-vue-3/
 // https://troisjs.github.io/guide/lights/
-import { Scene } from 'troisjs';
+// https://vuejs.org/guide/extras/reactivity-transform.html#reactive-props-destructure
+// https://vuejs.org/api/sfc-script-setup.html#defineprops-defineemits
+import { PlaneGeometry, LambertMaterial } from 'troisjs';
+
 const props = defineProps({
     name: String
+  , objectid:String
+  , dataType:String
   , visible:Boolean
   , parameters:Object
   , position:Array
   , rotation:Array
   , scale:Array
+  , material:Array
+  , shape:String
+  , mass:Number
 })
+//console.log(props);
 const position = props.position || [0,0,0]
 const rotation = props.rotation || [0,0,0]
 const scale = props.scale || [1,1,1]
-console.log(props);
+const parameters = props.parameters || {width:1,height:1}
+//console.log(position);
+
 </script>
 
 <template>
-  <Scene
+  <PlaneGeometry 
     :position="{ x: position[0],y: position[1],z: position[2]}"
     :rotation="{ x: rotation[0],y: rotation[1],z: rotation[2]}"
     :scale="{ x: scale[0],y: scale[1],z: scale[2]}"
-  >
-    <slot></slot>
-  </Scene>
+    :width="parameters.width"
+    :height="parameters.height"
+    >
+    <LambertMaterial />
+  </PlaneGeometry>
 </template>
+<!--
+<Box>
+    <LambertMaterial />
+  </Box>
+-->

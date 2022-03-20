@@ -4,9 +4,7 @@
   Created by: Lightnet
 */
 
-// https://vuedose.tips/going-3d-with-trois-js-and-vue-3/
-// https://troisjs.github.io/guide/lights/
-import { Scene } from 'troisjs';
+import { RectAreaLight } from 'troisjs';
 const props = defineProps({
     name: String
   , visible:Boolean
@@ -22,11 +20,9 @@ console.log(props);
 </script>
 
 <template>
-  <Scene
+  <RectAreaLight
     :position="{ x: position[0],y: position[1],z: position[2]}"
     :rotation="{ x: rotation[0],y: rotation[1],z: rotation[2]}"
     :scale="{ x: scale[0],y: scale[1],z: scale[2]}"
-  >
-    <slot></slot>
-  </Scene>
+   />
 </template>

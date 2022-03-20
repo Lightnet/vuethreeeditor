@@ -3,11 +3,8 @@
   LICENSE: MIT
   Created by: Lightnet
 */
-// https://vuedose.tips/going-3d-with-trois-js-and-vue-3/
-// https://troisjs.github.io/guide/lights/
-// https://vuejs.org/guide/extras/reactivity-transform.html#reactive-props-destructure
-// https://vuejs.org/api/sfc-script-setup.html#defineprops-defineemits
-import { Box, LambertMaterial } from 'troisjs';
+// https://troisjs.github.io/guide/models/
+import { FbxModel, LambertMaterial } from 'troisjs';
 
 const props = defineProps({
     name: String
@@ -37,20 +34,19 @@ function onPointerEvent(event) {
 </script>
 
 <template>
-  <Box 
+  <GltfModel 
+    
     :position="{ x: position[0],y: position[1],z: position[2]}"
     :rotation="{ x: rotation[0],y: rotation[1],z: rotation[2]}"
     :scale="{ x: scale[0],y: scale[1],z: scale[2]}"
-    :width="parameters.width"
-    :height="parameters.height"
-    :depth="parameters.depth"
 
     @click="onPointerEvent"
     >
     <LambertMaterial />
-  </Box>
+  </GltfModel>
 </template>
 <!--
+src="/path/to/your/model.gltf"
 <Box>
   <LambertMaterial />
 </Box>

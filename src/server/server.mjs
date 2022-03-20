@@ -120,7 +120,8 @@ async function main(){
     console.log(`Local host IP Address on `,chalk.green(`http://${localhost}:${PORT}`));
     //console.log(`IP address 1 on http://localhost:${PORT} <- Default for dev testing...`);
     //log("");
-    log("Web Server on "+chalk.green(`http://localhost:${PORT} `) + chalk.red('Default for dev testing.'));
+    log("Web Server on "+chalk.green(`http://localhost:${PORT} `) + chalk.red('Dev API Url.'));
+    log("Web Server on "+chalk.green(`http://localhost:3000 `) + chalk.red('Dev API web.'));
     //log("");
     //console.log(`IP address 2 on http://${HOST}:${PORT}`)// does not work but if "0.0.0.0" this will aollow outside access
     //console.log(`IP address 3 on http://127.0.0.1:${PORT}`);//does not work script // Content Security Policy 

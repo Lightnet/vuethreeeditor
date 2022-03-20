@@ -3,11 +3,14 @@
   Created by: Lightnet
 */
 
+// https://troisjs.github.io/guide/meshes/geometries.html
+
 import { API } from "./API.mjs";
 import { nanoid32 } from "../../../lib/helper.mjs"
 import EntityScene from "../entity/EntityScene.vue"
 import EntityPointLight from "../entity/EntityPointLight.vue"
 import EntityBox from "../entity/EntityBox.vue"
+import EntityPlane from "../entity/EntityPlane.vue"
 var ENTITIES=[]
 var loaded;
 if(window.ENTITIES){
@@ -83,6 +86,32 @@ if(!loaded){
       , wireframe:false
     }]
   })
+
+  addObjEntity({
+    name:"plane"
+    , isTransform:true
+    , dataType:API.ENTITYTYPES.PLANE
+    , comp:EntityPlane
+    //, compRef:EntityBoxRef
+    , shape:"BOX"
+    , mass:1
+    , parameters:[
+      {
+          width:1
+        , height: 1 
+      },
+    ],
+    material:[{
+        index:0
+      , objectid:nanoid32()
+      , dataType:"meshStandardMaterial"
+      , name:"meshStandardMaterial"
+      , color:"#ffffff"
+      , wireframe:false
+    }]
+  })
+
+
   loaded=true
   window.ENTITIES=ENTITIES;
 }

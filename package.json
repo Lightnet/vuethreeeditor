@@ -7,10 +7,12 @@
   "type": "module",
   "scripts": {
     "dev": "npm-run-all --parallel vite nodemon",
+    "devn": "npm-run-all --parallel buildw nodemon",
     "nodemon": "nodemon src/server/server.mjs",
     "vite": "vite",
     "devs": "nodemon server.mjs",
     "build": "vite build",
+    "buildw": "vite build --watch",
     "preview": "vite preview",
     "ssrbuild": "npm run build:client && npm run build:server",
     "build:client": "vite build --ssrManifest --outDir dist/client",

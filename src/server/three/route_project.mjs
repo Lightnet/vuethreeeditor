@@ -50,7 +50,8 @@ router.post('/project', async(req, res) => {
   }else{
     return res.send({error:'failtoken'});
   }
-  //const {api} = req.body;
+  console.log(req.body)
+  const {api} = req.body;
 
   if(api==API.PROJECT){
     let data = req.body;
@@ -70,6 +71,7 @@ router.post('/project', async(req, res) => {
   }
 
   if(api== API.CREATE){
+    console.log("create??")
     let data = req.body;
     const Project = db.model('Project');
     try{
@@ -103,7 +105,7 @@ router.post('/project', async(req, res) => {
       await newScene.save();
       //let saveScene = await newScene.save();
       //log(saveScene);
-
+      console.log("")
       return res.json({api:'CREATE',project:saveProject});
 
     }catch(e){

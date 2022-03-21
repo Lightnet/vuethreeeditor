@@ -2,6 +2,9 @@
 /*
   LICENSE: MIT
   Created by: Lightnet
+
+  Information: Testing.
+
 */
 
 import AuthAccess from "../auth/AuthAccess.vue";

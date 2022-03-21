@@ -1,64 +1,63 @@
 <script setup>
+/*
+  LICENSE: MIT
+  Created by: Lightnet
+*/
 
-// https://vuejs.org/api/reactivity-core.html#computed
-import { computed, reactive, ref, unref } from '@vue/runtime-core';
-import Home from './pages/Home.vue';
-import About from './pages/About.vue';
-import NotFound from './pages/NotFound.vue';
-import SignIn from './auth/SignIn.vue';
-import SignUp from './auth/SignUp.vue';
-import SignOut from './auth/SignOut.vue';
-import ThreePage from './three/ThreePage.vue';
-import AccessTest from './auth/AccessTest.vue';
-import TestLab from './pages/TestLab.vue';
-import { inject, onMounted, onUnmounted } from 'vue';
-
+import { inject, onMounted, onUnmounted, onUpdated, ref, watch, watchEffect } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
+const currentPath = ref("/");
 const getAccess = inject('getAccess');
+const router = useRouter();
+const route = useRoute();
+console.log(router);
+console.log(route);
 
-const routes = {
-  '/': Home,
-  '/about': About,
-  '/editor': ThreePage,
-  '/signin': SignIn,
-  '/signup': SignUp,
-  '/signout': SignOut,
-  '/accesstest': AccessTest,
-  '/testlab': TestLab
-}
-const currentPath = ref(window.location.hash);
-const currentView = computed(() =>{
-  console.log(routes[unref(currentPath).slice(1) || '/'] || NotFound)
-  return routes[unref(currentPath).slice(1) || '/'] || NotFound
+//watch(route,(route,prevRoute)=>{//pass
+  //console.log(route)
+//})
+watch(route,()=>{//pass
+  console.log(route)
+  console.log(route.path)
+  console.log(route.name)
+  console.log(route.query)
+  currentPath.value=route.path;
 })
 
-function hashchange(){
-  console.log(window.location.hash)
-  currentPath.value = window.location.hash
-}
+watchEffect(() =>{ // ref() pass
+  //console.log(route)//nope
+  //console.log("watchEffect")
+  //console.log(currentPath.value)
+})
+
+onUpdated(()=>{
+  console.log("update...")
+  //console.log(route);
+})
+//function hashchange(){
+  //console.log(window.location.hash)
+  //currentPath.value = window.location.hash
+//}
 onMounted(()=>{
   getAccess();
-  window.addEventListener('hashchange', hashchange)
+  //window.addEventListener('hashchange', hashchange)
 })
 onUnmounted(()=>{
-  window.removeEventListener('hashchange', hashchange)
+  //window.removeEventListener('hashchange', hashchange)
 })
-</script>
 
+</script>
 <template>
-  <template v-if="currentPath != '#/editor'">
-    <div>
-    <a href="#/">Home</a><span> | </span>
-    <a href="#/editor">Three Editor </a><span> | </span>
-    <a href="#/signin">Sign In</a><span> | </span>
-    <a href="#/signup">Sign up</a><span> | </span>
-    <a href="#/signout">Sign out</a><span> | </span>
-    <a href="#/accesstest">Access Test</a><span> | </span>
-    <a href="#/testlab">Test Lab</a><span> | </span>
-    <a href="#/non-existent-path">Broken Link</a><span> | </span>
-    </div>
-  </template>
-  <component :is="currentView" />
+  <div>
+    <template v-if="currentPath.indexOf('/editor')!==0">
+      <router-link to="/">Home</router-link><span> | </span>
+      <router-link to="/about">About</router-link><span> | </span>
+      <router-link to="/signin">Sign In</router-link><span> | </span>
+      <router-link to="/signup">Sign Up</router-link><span> | </span>
+      <router-link to="/editor">Editor</router-link>
+    </template>
+  </div>
+  <div style="height:100%">
+    <router-view></router-view>
+  </div>
 </template>
-<!-- 
-<a href="#/about">About</a> |
--->

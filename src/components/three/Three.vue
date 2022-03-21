@@ -2,6 +2,8 @@
 /*
   LICENSE: MIT
   Created by: Lightnet
+
+  Information: Test Three.js
 */
 
 // https://vuedose.tips/going-3d-with-trois-js-and-vue-3/

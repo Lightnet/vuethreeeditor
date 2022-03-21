@@ -12,11 +12,14 @@ import App from './components/App.vue'
 import authPlugin from './components/auth/authPlugin.mjs'
 import entityPlugin from './components/three/context/entityPlugin.mjs';
 
+import router from "./components/router"
+
 const app = createApp(App);
 app.config.unwrapInjectedRef = true
 //app.use(TroisJSVuePlugin);
 app.use(authPlugin);
 app.use(entityPlugin);
+app.use(router);
 
 /*
 const app = createApp({

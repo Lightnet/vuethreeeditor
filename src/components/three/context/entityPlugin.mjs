@@ -81,6 +81,79 @@ export const entityPlugin = {
     }
     app.provide('deleteEntityID',deleteEntityID)
 
+    //need to set up url save, delete, update entity objects
+
+    
+  // fetch for saving data
+  async function apiSaveEntity(projectid, sceneid, entity){
+    if(isEmpty(projectid)||isEmpty(sceneid)){
+      log('save entity empty fields ids.');
+      return;
+    }
+    let data = await useFetch('api/entity',{
+      method:'POST'
+      , headers: {"Content-Type": "application/json"}
+      , body:JSON.stringify({ 
+          api:'CREATE'
+        , projectid: projectid
+        , sceneid: sceneid
+        , data:entity})
+    });
+    //log(data);
+    if(data.error){
+      log("ERROR FETCH Save Entity!");
+      //msgError('Fetch Error on Save Object3D');
+      return;
+    }
+    log("useFetch save Entity!");
+  }
+
+  // fetch for delete data
+  async function apiDeleteEntity(id){
+    if(isEmpty(id)){
+      log('delete entity null.');
+      return;
+    }
+    let data = await useFetch('api/entity',{
+      method:'DELETE'
+      , headers: {"Content-Type": "application/json"}
+      , body:JSON.stringify({ 
+          api:'DELETE'
+        , objectid: id
+      })
+    });
+    //log(data);
+    if(data.error){
+      log("ERROR FETCH DELETE Entity!");
+      //msgError('Fetch Error on Save Object3D');
+      return;
+    }
+    log("useFetch delete Entity!");
+  }
+
+  // fetch for update data
+  async function apiUpdateEntity(entity){
+    if(!entity){
+      log('update entity null.');
+      return;
+    }
+    let data = await useFetch('api/entity',{
+      method:'PUT'
+      , headers: {"Content-Type": "application/json"}
+      , body:JSON.stringify({ 
+          api:'UPDATE'
+        , data: entity
+      })
+    });
+    //log(data);
+    if(data.error){
+      log("ERROR FETCH UPDATE Entity!");
+      //msgError('Fetch Error on Save Object3D');
+      return;
+    }
+    log("useFetch UPDATE Entity!");
+  }
+
   }
 }
 

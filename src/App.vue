@@ -3,7 +3,6 @@
   LICENSE: MIT
   Created by: Lightnet
 */
-//console.log(process.browser)
 
 export default {
   async setup() {

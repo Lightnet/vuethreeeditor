@@ -9,7 +9,7 @@
 
 import { inject, onMounted, onUnmounted, ref, unref } from 'vue';
 //import { Box, Camera, LambertMaterial, PointLight, Renderer, Scene, AmbientLight } from 'troisjs';
-import { AmbientLight,Box,LambertMaterial, Camera, Renderer, Scene,Mesh } from 'troisjs';
+import { AmbientLight,Box,LambertMaterial, Camera, Renderer, Scene, Mesh } from 'troisjs';
 //import { TransformControls } from '../../../mod/TransformControls.mjs'
 import { TransformControls } from 'three/examples/jsm/controls/TransformControls'
 
@@ -24,8 +24,7 @@ const oribtControls = ref();
 const scene = ref();
 const refBox = ref();
 //const enabled = ref(true);
-
-console.log(TransformControls);
+//console.log(TransformControls);
 
 function controlTransform(e){
   console.log(e.code)
@@ -45,6 +44,13 @@ function controlTransform(e){
   }
 }
 
+function detectTransformHandle ( event ) {
+  if(event.value == true){
+    oribtControls.value.enabled = false;
+  }else{
+    oribtControls.value.enabled = true;
+  }
+}
 onMounted(() =>{
   //https://troisjs.github.io/guide/core/raf.html
 
@@ -62,15 +68,8 @@ onMounted(() =>{
   //Transform Controls
   const controls = new TransformControls(oribtControls.value.object, renderer.value.renderer.domElement)
   transformControls.value=controls;
-
-  transformControls.value.addEventListener('dragging-changed', function ( event ) {
-    if(event.value == true){
-      oribtControls.value.enabled = false;
-    }else{
-      oribtControls.value.enabled = true;
-    }
-  });
-  console.log(refBox.value);
+  transformControls.value.addEventListener('dragging-changed', detectTransformHandle);
+  //console.log(refBox.value);
   controls.attach( refBox.value.mesh );
   scene.value.add(controls)
   //console.log(scene.value)
@@ -80,6 +79,7 @@ onMounted(() =>{
 
 onUnmounted(() =>{
   window.removeEventListener( 'keydown', controlTransform);
+  transformControls.value.removeEventListener( 'keydown', detectTransformHandle);
 });
 
 function checkEntityComp(entity){
@@ -99,7 +99,8 @@ function checkEntityComp(entity){
     <Camera ref="camera" :position="{ z: 10 }" />
     <Scene ref="scene">
       <AmbientLight :intensity="0.1"/>
-      <Box ref="refBox">
+      <Mesh ref="refBox" />
+      <Box >
         <LambertMaterial />
       </Box>
       <!--
@@ -112,7 +113,6 @@ function checkEntityComp(entity){
   </div>
 </template>
 <!--
-<EntityBox/>
 <AmbientLight :intensity="0.1"/>
 <PointLight :position="{ y: 50, z: 50 }" />
 <Box>

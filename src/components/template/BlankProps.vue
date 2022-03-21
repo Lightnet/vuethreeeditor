@@ -1,6 +1,6 @@
 <script setup>
 // https://blog.ninja-squad.com/2021/09/30/script-setup-syntax-in-vue-3/
-import { useAttrs, ref, onMounted, onUnmounted, computed, defineProps } from "vue";
+import { useAttrs, ref, onMounted, onUnmounted, computed } from "vue";
 
 //const attrs = useAttrs();//class style
 //console.log(attrs)

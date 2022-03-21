@@ -15,6 +15,10 @@
 
 //Import the mongoose module
 import mongoose from 'mongoose';
+import ProjectSchema from './mongoose/project.mjs';
+import SceneSchema from './mongoose/scene.mjs';
+import EntitySchema from './mongoose/entity.mjs';
+import AssetSchema from './mongoose/asset.mjs';
 import UserSchema from "./mongoose/user.mjs";
 
 import { log } from './log.mjs';
@@ -41,6 +45,10 @@ export default async function clientDB(){
 
   //console.log("init DB")
   mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
+  mongoose.model('Project', ProjectSchema)
+  mongoose.model('Scene', SceneSchema)
+  mongoose.model('Entity', EntitySchema)
+  mongoose.model('Asset', AssetSchema)
   mongoose.model('User', UserSchema)
 
   //import('./mongoose/character.mjs');

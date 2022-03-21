@@ -17,11 +17,12 @@ import { refreshBaseToken } from '../controllers/RefreshBaseToken.mjs';
 import { refreshToken } from '../controllers/RefreshToken.mjs';
 import { verifyBaseToken } from '../middleware/VerifyBaseToken.mjs';
 import { verifyToken } from '../middleware/VerifyToken.mjs';
+import jwt from "jsonwebtoken";
 const router = express.Router();
 
 var secret = process.env.SECRET;
 //var enableSession = process.env.ISSESSION || true;
-var enableCookie = process.env.ISCOOKIE || true;
+//var enableCookie = process.env.ISCOOKIE || true;
 
 //log("SECRET:", secret)
 // https://github.com/expressjs/express/issues/2518
@@ -107,13 +108,14 @@ router.post('/signin', verifyBaseToken ,async function (req, res) {
         //req.session.token = token;
       //}
 
-      if(enableCookie){
+      //if(enableCookie){
         //res.cookie("user", user.name)
+        console.log("TOKEN?",token)
         res.cookie("token", token,{
             httpOnly: true
           , maxAge: 24 * 60 * 60 * 1000
         })
-      }
+      //}
       let tokenKey = user.generateTokenKey(req)
       try{
         await user.save()
@@ -288,6 +290,34 @@ router.put('/passphrase',async function (req, res) {
 // https://mfikri.com/en/blog/react-express-mysql-authentication
 router.get('/token', refreshToken); // get token last 15s
 router.get('/basetoken', refreshBaseToken); // get token last 15s
+
+router.get('/access',async function (req, res) {
+  //log(req.session);
+  console.log(req.cookies)
+  console.log(req.cookies.token)
+  const token = req.cookies.token;
+  if(token == null) return res.sendStatus(401);
+  var decoded = jwt.verify(token, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {
+    if(err) return res.sendStatus(403);
+    //need to work on this later...
+    console.log(decoded);
+
+    let tokenkey = jwt.sign({
+      id: decoded.id
+    , hash: crypto.createHash('md5').update(req.ip + req.socket.remoteAddress).digest('hex')
+    , name: decoded.name
+    }, process.env.ACCESS_TOKEN_SECRET,{
+      expiresIn: '15s'
+    });
+
+    log("PASS verifyToken")
+    return res.json({
+      user:decoded.name,
+      token:tokenkey
+    });
+  })
+})
+
 
 //router.get('/session',async function (req, res) {
   //log(req.session);

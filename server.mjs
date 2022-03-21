@@ -13,6 +13,7 @@ import path,{ dirname } from 'path';
 import { fileURLToPath } from 'url';
 import compression from 'compression';
 import serveStatic from "serve-static";
+import cookieParser from 'cookie-parser';
 import entryserver from "./dist/server/entry-server.cjs"
 import { createServer } from "vite";
 
@@ -35,6 +36,8 @@ async function vcreateServer(
   //console.log(manifest)
 
   const app = express()
+  app.use(cookieParser())
+  app.use(express.json())
 
   /**
    * @type {import('vite').ViteDevServer}

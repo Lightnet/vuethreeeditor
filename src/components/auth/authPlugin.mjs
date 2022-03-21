@@ -36,6 +36,22 @@ export const authPlugin = {
     app.provide('expire', expire) //mutable
     app.component('auth-access', AuthAccess);
 
+    //need to fixed this later...
+    async function getAccess(){
+      console.log("check for access from refresh or new?")
+      const response = await axios.get(API_URL+'/access');
+      console.log(response)
+      if((response.statusText=='OK')&&(response.status==200)){
+        const decoded = parseJwt(response.data.token);
+        
+        authStatus.value="auth";
+        token.value = response.data.token;
+        expire.value = decoded.exp;
+        user.value = response.data.user;
+      }
+    }
+    app.provide('getAccess',getAccess)
+
     function login(alias,passphrase){
       //console.log(API_URL)
       const instance = axios.create({

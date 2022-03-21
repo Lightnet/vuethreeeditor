@@ -24,9 +24,9 @@ const log = console.log;
 dotEnv.config();
 
 const SECRET = process.env.SECRET;
-console.log(SECRET)
+//console.log(SECRET)
 const DATABASE_URL = process.env.DATABASE_URL;
-console.log(DATABASE_URL)
+//console.log(DATABASE_URL)
 
 //var DATABASE_URL = process.env.DATABASE_URL;
 //console.log("DATABASE_URL: ",DATABASE_URL)
@@ -69,6 +69,8 @@ async function main(){
   app.use(cookieParser())
   //public | dist > folder
   app.use(express.static('dist'));
+  //app.use(express.static('public'));
+  //app.use(express.static('.'));
 
   //app.set('trust proxy', 1) // trust first proxy
   app.set('PORT', PORT)
@@ -89,7 +91,7 @@ async function main(){
     , '/signin'
     , '/signout'
     , '/testlab'
-    , '/texteditor'
+    //, '/texteditor'
   ]
   //  https://www.w3schools.com/jsref/jsref_indexof_array.asp
   // load page index
@@ -120,7 +122,7 @@ async function main(){
     console.log(`Local host IP Address on `,chalk.green(`http://${localhost}:${PORT}`));
     //console.log(`IP address 1 on http://localhost:${PORT} <- Default for dev testing...`);
     //log("");
-    log("Web Server on "+chalk.green(`http://localhost:${PORT} `) + chalk.red('Dev API Url.'));
+    log("[API] Server on "+chalk.green(`http://localhost:${PORT} `) + chalk.red('Dev API Url.'));
     log("Web Server on "+chalk.green(`http://localhost:3000 `) + chalk.red('Dev API web.'));
     //log("");
     //console.log(`IP address 2 on http://${HOST}:${PORT}`)// does not work but if "0.0.0.0" this will aollow outside access

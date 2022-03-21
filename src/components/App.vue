@@ -11,7 +11,9 @@ import SignOut from './auth/SignOut.vue';
 import ThreePage from './three/ThreePage.vue';
 import AccessTest from './auth/AccessTest.vue';
 import TestLab from './pages/TestLab.vue';
-import { onMounted, onUnmounted } from 'vue';
+import { inject, onMounted, onUnmounted } from 'vue';
+
+const getAccess = inject('getAccess');
 
 const routes = {
   '/': Home,
@@ -34,6 +36,7 @@ function hashchange(){
   currentPath.value = window.location.hash
 }
 onMounted(()=>{
+  getAccess();
   window.addEventListener('hashchange', hashchange)
 })
 onUnmounted(()=>{

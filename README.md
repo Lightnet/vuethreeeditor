@@ -15,7 +15,7 @@
 
 ```
 npm install
-npm run dev
+npm run devn
 ```
 
 SSR server prerender (not working with troisjs)

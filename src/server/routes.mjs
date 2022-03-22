@@ -10,7 +10,6 @@ import route_test from "./routes/route_test.mjs";
 
 import route_three from './routes/route_three.mjs';
 
-
 const router = express.Router();
 //router.use('/favicon.ico', express.static('images/favicon.ico'));
 

@@ -1,3 +1,8 @@
+/*
+  LICENSE: MIT
+  Created by: Lightnet
+*/
+
 import { createApp } from './main.mjs'
 import { renderToString } from 'vue/server-renderer'
 import { basename } from 'path'

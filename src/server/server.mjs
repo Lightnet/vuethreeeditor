@@ -32,7 +32,8 @@ const DATABASE_URL = process.env.DATABASE_URL;
 //console.log("DATABASE_URL: ",DATABASE_URL)
 
 const app = express();
-const PORT =  process.env.PORT || 3003;
+//const PORT =  process.env.PORT || 3003;
+const PORT =  process.env.PORT || 3000;
 const HOST = process.env.HOST ||"0.0.0.0";
 
 function getIPAddress() {

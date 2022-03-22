@@ -1,3 +1,8 @@
+/*
+  LICENSE: MIT
+  Created by: Lightnet
+*/
+
 import App from './App.vue'
 import { createSSRApp  } from 'vue'
 import { createRouter } from './router'

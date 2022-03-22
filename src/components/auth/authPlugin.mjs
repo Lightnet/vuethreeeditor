@@ -29,7 +29,8 @@ export const authPlugin = {
     const expire = ref(0)
     const authStatus = ref('login')
     //console.log(token)
-    const API_URL="http://localhost:3003" 
+    //const API_URL="http://localhost:3003"
+    const API_URL="http://localhost:3000"
 
     app.provide('API_URL', API_URL) // read only
     app.provide('AUTHKEY', '0000') // read only

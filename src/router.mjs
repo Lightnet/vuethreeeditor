@@ -1,4 +1,7 @@
-
+/*
+  LICENSE: MIT
+  Created by: Lightnet
+*/
 
 import {
   createMemoryHistory,

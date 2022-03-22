@@ -1,3 +1,8 @@
+/*
+  LICENSE: MIT
+  Created by: Lightnet
+*/
+
 import { createApp } from './main'
 
 const { app, router } = createApp()

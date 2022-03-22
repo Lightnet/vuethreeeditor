@@ -15,6 +15,7 @@ import compression from 'compression';
 import serveStatic from "serve-static";
 import cookieParser from 'cookie-parser';
 import entryserver from "./dist/server/entry-server.cjs"
+import routes from "./src/server/routes.mjs";
 import { createServer } from "vite";
 
 //import * as manifestjson from "./dist/client/ssr-manifest.json" // nope
@@ -38,6 +39,7 @@ async function vcreateServer(
   const app = express()
   app.use(cookieParser())
   app.use(express.json())
+  app.use(routes);
 
   /**
    * @type {import('vite').ViteDevServer}

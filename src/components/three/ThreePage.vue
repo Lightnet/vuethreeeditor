@@ -6,11 +6,11 @@
   Information: Testing.
 
 */
-//if(typeof window !== 'undefined'){
-  
-//}else{
+if(!import.meta.env.SSR){
+  //return;
+}else{
   //return {};
-//}
+}
 import AuthAccess from "../auth/AuthAccess.vue";
 import Three from "./Three.vue";
 import Editor from "./Editor.vue";

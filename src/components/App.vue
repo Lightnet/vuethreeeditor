@@ -59,6 +59,7 @@ onUnmounted(()=>{
       </template>
       
       <router-link to="/editor">Editor</router-link>
+      <router-link to="/threecannon">Three Cannon</router-link>
     </template>
   </div>
   <div style="height:100%">

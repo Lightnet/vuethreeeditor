@@ -1,0 +1,1 @@
+There will be three.js assets files.

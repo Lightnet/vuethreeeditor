@@ -11,8 +11,17 @@ https://askcodez.com/trois-js-etiquettes-de-sprites-de-texte-2d.html
 https://gist.github.com/jefedeoro/51dd4496d15cc6b3a9ff3b8c80e88d6c
 
 
-
-
+https://stackoverflow.com/questions/15248872/dynamically-create-2d-text-in-three-js
+https://github.com/SeregPie/THREE.TextSprite
+```js
+let sprite = new THREE.TextSprite({
+  text: 'Hello World!',
+  fontFamily: 'Arial, Helvetica, sans-serif',
+  fontSize: 12,
+  color: '#ffbbff',
+});
+scene.add(sprite);
+```
 
 
 

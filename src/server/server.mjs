@@ -69,8 +69,9 @@ async function main(){
   app.use(cors())
   app.use(cookieParser())
   //public | dist > folder
+  app.use(express.static('assets'));
+  app.use(express.static('public'));
   app.use(express.static('dist'));
-  //app.use(express.static('public'));
   //app.use(express.static('.'));
 
   //app.set('trust proxy', 1) // trust first proxy

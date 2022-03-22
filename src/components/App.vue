@@ -58,11 +58,13 @@ onUnmounted(()=>{
         <router-link to="/signup">Sign Up</router-link><span> | </span>
       </template>
       
-      <router-link to="/editor">Editor</router-link>
-      <router-link to="/threecannon">Three Cannon</router-link>
+      <router-link to="/editor">Editor</router-link><span> | </span>
+      <router-link to="/three">Three</router-link><span> | </span>
+      <router-link to="/three2">Three2</router-link><span> | </span>
+      <router-link to="/threecannon">Three Cannon</router-link><span> | </span>
     </template>
   </div>
-  <div style="height:100%">
+  <div id="view" style="height:calc(100% - 18px);width:calc(100% - 20px);">
     <router-view></router-view>
   </div>
 </template>

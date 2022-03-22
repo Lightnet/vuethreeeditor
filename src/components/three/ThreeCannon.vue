@@ -25,12 +25,11 @@ function onBeforeStep() {
 }
 
 function initMesh(iMesh){
-  console.log(iMesh)
-
-  console.log(iMesh.userData)
-  console.log(iMesh.userData.bodies)
-  console.log(iMesh.userData.body)
-  //iMesh.userData.body
+  //console.log(iMesh)
+  //console.log(iMesh.userData)
+  //console.log(iMesh.userData.bodies)
+  //console.log(iMesh.userData.body)
+  //iMesh.userData.body//nope
   //iMesh.userData.body.position.set(rndFS(2), rnd(5, 7), 0);
   //iMesh.userData.body.angularVelocity.set(0, 0, 0, 0);
   //iMesh.userData.body.velocity.set(0, 0, 0);
@@ -40,9 +39,8 @@ function initMesh(iMesh){
 }
 
 function initMeshPlane(iMesh){
-  console.log(iMesh)
-
-  //imesh.userData.body
+  //console.log(iMesh)
+  //imesh.userData.body//nope
   //iMesh.userData.body.position.set(rndFS(2), rnd(5, 7), 0);
   //iMesh.userData.body.angularVelocity.set(0, 0, 0, 0);
   //iMesh.userData.body.velocity.set(0, 0, 0);

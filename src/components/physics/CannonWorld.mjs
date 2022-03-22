@@ -18,10 +18,11 @@ export default defineComponent({
   created() {
     this._parent = this.getParent()
     if (!this._parent) console.error('Missing parent (Scene, Group...)')
-
     this.cannon = useCannon({ gravity: this.gravity, broadphase: this.broadphase })
   },
   mounted() {
+    //console.log(this.renderer)
+    //console.log(this.scene)
     this.renderer.onBeforeRender(this.step)
   },
   unmounted() {

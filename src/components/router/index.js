@@ -10,7 +10,9 @@ import SignUp from '../auth/SignUp.vue';
 import SignOut from '../auth/SignOut.vue';
 import EditorPage from '../three/EditorPage.vue';
 import NotFound from '../pages/NotFound.vue';
-import ThreeCannonPage from "../three/ThreeCannon.vue"
+import ThreeCannonPage from "../three/ThreeCannonPage.vue"
+import ThreePage from "../three/ThreePage.vue"
+import Three2 from "../three/Three2.vue"
 //import AccessTest from '../auth/AccessTest.vue';
 
 const routes = [
@@ -18,6 +20,8 @@ const routes = [
   {path:"/about",name:"About",component:About},
   {path:"/editor",name:"Editor",component:EditorPage},
   {path:"/threecannon",name:"ThreeCannon",component:ThreeCannonPage},
+  {path:"/three",name:"Three",component:ThreePage},
+  {path:"/three2",name:"Three2",component:Three2},
   {path:"/signin",name:"Sign In",component:SignIn},
   {path:"/signup",name:"Sign Up",component:SignUp},
   {path:"/signout",name:"Sign Out",component:SignOut},

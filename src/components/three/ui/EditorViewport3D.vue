@@ -102,11 +102,11 @@ function checkEntityComp(entity){
       <Box >
         <LambertMaterial />
       </Box>
-      <!--
+      
       <template v-for="entity in  entities" :key="entity.id">
         <component :is="checkEntityComp(entity)" v-bind="entity" />
       </template>
-      -->
+      
     </Scene>
   </Renderer>
   </div>

@@ -16,6 +16,7 @@ export const API = {
   , WARN:"WARN"
   , LOG:"LOG"
   , INFO:"INFO"
+  , PROJECT:"PROJECT"
   , TYPES:{
       MESSAGE:"MESSAGE"
     , MESSAGES:"MESSAGES"

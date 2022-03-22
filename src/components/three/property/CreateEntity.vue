@@ -7,6 +7,8 @@ import { ref, inject, onMounted, toRef, toRefs, unref } from "vue";
 import { ENTITIES } from "../context/EntityComponents.mjs";
 
 const addEntity = inject('addEntity');
+const projectID = inject('projectID');
+const sceneID = inject('sceneID');
 
 //let entities = [];
 const entities = ENTITIES;
@@ -22,7 +24,9 @@ function clickCreate(event){
   console.log(parameters)
   console.log(unref(parameters))
   addEntity({
-      name:tmpEntity.value.name
+      projectid:projectID.value
+    , sceneid:sceneID.value
+    , name:tmpEntity.value.name
     , isTransform:tmpEntity.value.isTransform
     , dataType:tmpEntity.value.dataType
     , shape:tmpEntity.value.shape

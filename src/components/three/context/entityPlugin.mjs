@@ -6,14 +6,39 @@
 // https://vuejs.org/guide/reusability/plugins.html#introduction
 
 import { ref } from 'vue'
-import { nanoid16 } from '../../../lib/helper.mjs'
+import { isEmpty, nanoid16 } from '../../../lib/helper.mjs'
+import useFetch from '../../hook/useFetch.mjs'
 
 export const entityPlugin = {
   install(app, options) {
     // configure the app
-    const entities = ref([])
+    const entities = ref([]) // mutable
+    const projectID = ref("")
+    const projectName = ref("")
+    const sceneID = ref("")
+    const sceneName = ref("")
+
+    const selectObject = ref({})
+    const selectObjectID = ref("")
+    const selectObjectUUID = ref("")
+
+    const enablePhysics = ref(false)
+    const enableOrbitControl = ref(true)
+    const log = console.log;
+    
     //console.log(entities)
     app.provide('entities', entities); // mutable
+    app.provide('projectID', projectID);
+    app.provide('projectName', projectName);
+    app.provide('sceneID', sceneID);
+    app.provide('sceneName', sceneName);
+
+    app.provide('selectObject', selectObject);
+    app.provide('selectObjectID', selectObjectID);
+    app.provide('selectObjectUUID', selectObjectUUID);
+
+    app.provide('enablePhysics', enablePhysics);
+    app.provide('enableOrbitControl', enableOrbitControl);
     // need to set up filter...
     const addEntity = (entity)=>{
       
@@ -41,11 +66,14 @@ export const entityPlugin = {
         newEntity.material = entity.material
       }
 
+      apiSaveEntity(entity.projectid, entity.sceneid, newEntity)
+
       //entities.value.push(ref(newEntity))
       entities.value.push(newEntity)
       //console.log(entities)
       //console.log(entity)
     }
+
     app.provide('addEntity',addEntity)
 
     const updateEntity = (args)=>{
@@ -67,6 +95,10 @@ export const entityPlugin = {
             if(args.type=="parameters"){
               item.parameters = args.value;
             }
+
+            apiUpdateEntity(item);
+
+
             return item;
           }
           return item;
@@ -76,10 +108,18 @@ export const entityPlugin = {
     app.provide('updateEntity',updateEntity)
 
     const deleteEntityID = (id)=>{
+
+      apiDeleteEntity(id);
       entities.value = entities.value.filter(item=>item.objectid!==id)
       //console.log(entities)
     }
     app.provide('deleteEntityID',deleteEntityID)
+
+    const mapEntityID = (objs)=>{
+      entities.value = objs;
+    }
+
+    app.provide('mapEntityID',mapEntityID)
 
     //need to set up url save, delete, update entity objects
 

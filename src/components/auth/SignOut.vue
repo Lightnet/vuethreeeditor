@@ -4,22 +4,26 @@
   Created by: Lightnet
 */
 export default {
-  inject: ['logout'],
+  inject: ['logout','authStatus'],
   data() {
     return {
     }
   },
   methods:{
-    clickLogout(event) {
+    async clickLogout(event) {
       console.log("logout...")
-      this.logout()
+      let status = await this.logout()
+      console.log(status);
     },
   }
 }
 </script>
 <template>
-  <div>
+  <div v-if="authStatus=='auth'">
     <label>Are you sure to sign out ? </label>
     <button @click="clickLogout">Logout</button> 
+  </div>
+  <div v-else>
+    <label>Logout! </label>
   </div>
 </template>

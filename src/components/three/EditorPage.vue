@@ -4,7 +4,7 @@
   Created by: Lightnet
 */
 import { ref} from 'vue';
-//import AuthAccess from "../auth/AuthAccess.vue";
+import AuthAccess from "../auth/AuthAccess.vue";
 import Editor from  "./Editor.vue"
 import { useRouter, useRoute } from 'vue-router';
 const router = useRouter();
@@ -20,5 +20,7 @@ if(projectid){
 </script>
 
 <template>
-  <Editor :projectid="projectID"/>
+  <AuthAccess>
+    <Editor :projectid="projectID"/>
+  </AuthAccess>
 </template>

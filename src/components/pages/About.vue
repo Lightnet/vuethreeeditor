@@ -13,5 +13,6 @@ const route = useRoute()
 
 </script>
 <template>
-  <h1>About</h1>
+  <label>About</label><br/>
+  <label>User:{{user}}</label>
 </template>

@@ -4,6 +4,7 @@
 import { inject } from 'vue';
 import { useRouter, useRoute } from 'vue-router'
 import ProjectsPageVue from '../three/ProjectsPage.vue';
+import AuthAccess from "../auth/AuthAccess.vue";
 
 const user = inject('user')
 const token = inject('token')
@@ -15,7 +16,9 @@ const route = useRoute()
 
 </script>
 <template>
-  <ProjectsPageVue/>
+  <AuthAccess>
+    <ProjectsPageVue/>
+  </AuthAccess>
 </template>
 <!--
 <template>

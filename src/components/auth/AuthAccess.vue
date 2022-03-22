@@ -8,27 +8,6 @@
 
 export default {
   inject: ['message','authStatus'],
-  data() {
-    return {
-      //status:"init"
-    }
-  },
-  mounted() {
-
-    console.log(this.$root.status)
-    console.log(this.message)
-  },
-  computed: {
-    // a computed getter
-    checkAccess(){
-      console.log(this.authStatus)
-      if(this.authStatus == "auth"){
-        return true;
-      }else{
-        return false;
-      }
-    }
-  }
 }
 </script>
 
@@ -38,11 +17,14 @@ export default {
     	Submit <!-- fallback content -->
   	</slot>
   </template>
-  <template v-else-if="authStatus=='unath'">
-    <label> Unauth! </label>
-  </template>
   <template v-else-if="authStatus=='loading'">
     <label> loading... </label>
+  </template>
+  <template v-else-if="authStatus=='login'">
+    <label> Login Required! </label>
+  </template>
+  <template v-else-if="authStatus=='unath'">
+    <label> Unauth! </label>
   </template>
   <template v-else>
     <label> Error! </label>

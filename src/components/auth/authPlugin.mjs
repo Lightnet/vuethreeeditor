@@ -10,6 +10,7 @@
 import axios from 'axios'
 import { ref } from 'vue'
 import { parseJwt } from '../../lib/helper.mjs'
+import useFetch from '../hook/useFetch.mjs'
 import AuthAccess from "./AuthAccess.vue"
 export const authPlugin = {
   install(app, options) {
@@ -20,6 +21,8 @@ export const authPlugin = {
     if (version < 3) {
       console.warn('This plugin requires Vue 3')
     }
+
+    const log = console.log;
 
     const token = ref("")
     const user = ref("")
@@ -138,8 +141,25 @@ export const authPlugin = {
     }
     app.provide('register',register)
 
-    const logout = ()=>{
+    const logout = async ()=>{
       console.log("logout is being called")
+      instance.post('/signout')
+        .then(response=>{
+          if((response.statusText=='OK')&&(response.status==200)){
+            let data = response.data;
+            console.log(data)
+            if(data.error){
+              log('Fetch Error Signout');
+              return;
+            }
+            if(data.api=='LOGOUT'){
+              console.log("sign out");
+              authStatus.value="login";
+            }
+          }
+        }).catch(error=>{
+          console.log(error)
+        });
     }
 
     app.provide('logout',logout)

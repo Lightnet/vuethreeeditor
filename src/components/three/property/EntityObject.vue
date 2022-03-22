@@ -9,6 +9,7 @@ const entities = inject('entities');
 const updateEntity = inject('updateEntity');
 
 const selectEntity = ref("");
+const isRadian = ref(true);
 const entity = ref({});
 
 function onSelectEntity(event){
@@ -49,12 +50,35 @@ function onUpdateRotation(event){
   console.log(event.target.type);
   console.log(event.target.name);
   console.log(event.target.value);
-  entity.value.rotation[event.target.name]=Number(event.target.value);
+  let val = event.target.value
+  if(!isRadian.value){
+    val = val * (Math.PI/180)
+  }
+  entity.value.rotation[event.target.name]=Number(val);
   updateEntity({
       type:"rotation"
     , objectid: entity.value.objectid
     , value: entity.value.rotation
   })
+}
+
+function convertRadToDeg(val){
+  if(!isRadian.value){
+    val = val *  180 / Math.PI;
+  }
+  return val;
+}
+
+function numToAxe(val){
+  if(val==0){
+    return "X"
+  }
+  if(val==1){
+    return "Y"
+  }
+  if(val==2){
+    return "Z"
+  }
 }
 
 function onUpdateScale(event){
@@ -143,7 +167,7 @@ function existCheckBox(prop,value){
       <template v-if="entity.position">
         <label> Position: </label><br/>
         <template v-for="(value, propertyName) in entity.position" :key="propertyName">
-          <label> {{propertyName}}</label>
+          <label> {{numToAxe(propertyName)}}</label>
           <input :name="propertyName" :value="value" @change="onUpdatePosition" /><br/>
         </template>
       </template>
@@ -151,10 +175,10 @@ function existCheckBox(prop,value){
 
     <div>
       <template v-if="entity.rotation">
-        <label> Rotation: </label><br/>
+        <label> Rotation: </label> <button @click="isRadian = !isRadian">{{isRadian ? "Radian" : "Degree"}} </button> <br/>
         <template v-for="(value, propertyName) in entity.rotation" :key="propertyName">
-          <label> {{propertyName}}</label>
-          <input :name="propertyName" :value="value" @change="onUpdateRotation" /><br/>
+          <label> {{numToAxe(propertyName)}}</label>
+          <input :name="propertyName" :value="convertRadToDeg(value)" @change="onUpdateRotation" /><br/>
         </template>
       </template>
     </div>
@@ -163,7 +187,7 @@ function existCheckBox(prop,value){
       <template v-if="entity.scale">
         <label> Scale: </label><br/>
         <template v-for="(value, propertyName) in entity.scale" :key="propertyName">
-          <label> {{propertyName}}</label>
+          <label> {{numToAxe(propertyName)}}</label>
           <input :name="propertyName" :value="value" @change="onUpdateScale" /><br/>
         </template>
       </template>

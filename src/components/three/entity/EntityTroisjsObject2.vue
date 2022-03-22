@@ -1,4 +1,12 @@
 <script>
+/*
+  LICENSE: MIT
+  Created by: Lightnet
+
+  Information: Testing getting renderer, scene.
+
+*/
+
 // https://github.com/troisjs/trois/blob/master/src/core/Scene.ts
 import { BoxGeometry, Mesh, MeshBasicMaterial } from 'three';
 import { RendererInjectionKey, SceneInjectionKey } from 'troisjs'

@@ -18,6 +18,9 @@ import EntityCylinder from "../entity/EntityCylinder.vue"
 import EntityPlane from "../entity/EntityPlane.vue"
 import EntitySphere from "../entity/EntitySphere.vue"
 
+import EntityModelFBX from "../entity/EntityModelFBX.vue"
+import EntityModelGLTF from "../entity/EntityModelGLTF.vue"
+
 
 var ENTITIES=[]
 var loaded;
@@ -156,8 +159,6 @@ if(!loaded){
     }]
   })
 
-
-
   addObjEntity({
     name:"plane"
     , isTransform:true
@@ -195,6 +196,52 @@ if(!loaded){
         radius:1
         , widthSegments: 32
         , heightSegments: 16
+      },
+    ],
+    material:[{
+        index:0
+      , objectid:nanoid32()
+      , dataType:"meshStandardMaterial"
+      , name:"meshStandardMaterial"
+      , color:"#ffffff"
+      , wireframe:false
+    }]
+  })
+
+  addObjEntity({
+    name:"modelfbx"
+    , isTransform:true
+    , dataType:API.ENTITYTYPES.MODELFBX
+    , comp:EntityModelFBX
+    //, compRef:EntityBoxRef
+    , shape:"BOX"
+    , mass:1
+    , parameters:[
+      {
+        src:"/box.fbx"
+      },
+    ],
+    material:[{
+        index:0
+      , objectid:nanoid32()
+      , dataType:"meshStandardMaterial"
+      , name:"meshStandardMaterial"
+      , color:"#ffffff"
+      , wireframe:false
+    }]
+  })
+
+  addObjEntity({
+    name:"modelgltf"
+    , isTransform:true
+    , dataType:API.ENTITYTYPES.MODELGLTF
+    , comp:EntityModelGLTF
+    //, compRef:EntityBoxRef
+    , shape:"BOX"
+    , mass:1
+    , parameters:[
+      {
+        src:"/box.gltf"
       },
     ],
     material:[{

@@ -8,13 +8,14 @@
 - axios
 - vite
 - mongoose
+- cannon-es
 
 # Information:
   Work In Progress!
 
   To develop vuejs, Troisjs and threejs editor in module design format.
 
-  Troisjs package reduce time to develop on vuejs components.
+  Troisjs package reduce time to develop on vuejs components. Looking the Troisjs src code that have easy coding.
 
 # Notes:
 - troisjs package can render client only and not SSR server render.

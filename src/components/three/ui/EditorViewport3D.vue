@@ -63,6 +63,7 @@ onMounted(() =>{
   //});
   //console.log(unref(renderer).three.cameraCtrl)
   //orbit camera
+  /*
   oribtControls.value=renderer.value.three.cameraCtrl;
   //Transform Controls
   const controls = new TransformControls(oribtControls.value.object, renderer.value.renderer.domElement)
@@ -72,13 +73,13 @@ onMounted(() =>{
   controls.attach( refBox.value.mesh );
   scene.value.add(controls)
   //console.log(scene.value)
-  
   window.addEventListener( 'keydown', controlTransform);
+  */
 });
 
 onUnmounted(() =>{
-  window.removeEventListener( 'keydown', controlTransform);
-  transformControls.value.removeEventListener( 'keydown', detectTransformHandle);
+  //window.removeEventListener( 'keydown', controlTransform);
+  //transformControls.value.removeEventListener( 'keydown', detectTransformHandle);
 });
 
 function checkEntityComp(entity){
@@ -99,9 +100,12 @@ function checkEntityComp(entity){
     <Scene ref="scene">
       <AmbientLight :intensity="0.1"/>
       <Mesh ref="refBox" />
-      <Box >
+      
+      <!--
+        <Box >
         <LambertMaterial />
       </Box>
+      -->
       
       <template v-for="entity in  entities" :key="entity.id">
         <component :is="checkEntityComp(entity)" v-bind="entity" />

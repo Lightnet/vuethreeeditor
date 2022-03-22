@@ -73,13 +73,53 @@ function onUpdateParameters(event){
   console.log(event.target.type);
   console.log(event.target.name);
   console.log(event.target.value);
-  entity.value.parameters[event.target.name]=Number(event.target.value);
+  //entity.value.parameters[event.target.name]=Number(event.target.value);
+
+  if(event.target.type=="color"){
+    entity.value.parameters[event.target.name] = String(event.target.value)
+  }else if(event.target.type=="text"){
+    entity.value.parameters[event.target.name] = String(event.target.value)
+  }else if(event.target.type=="number"){
+    entity.value.parameters[event.target.name] = Number(event.target.value)
+  }else if(event.target.type=="checkbox"){
+    entity.value.parameters[event.target.name] = Boolean(event.target.checked)
+  }else{
+    entity.value.parameters[event.target.name] = String(event.target.value)
+  }
   
   updateEntity({
       type:"parameters"
     , objectid: entity.value.objectid
     , value: entity.value.parameters
   })
+}
+
+function checkType(prop,value){
+  let setType="text";
+  if(typeof value=="number"){
+    setType="number"
+  }
+  if (typeof value=="boolean"){
+    setType="checkbox"
+  }
+  if(prop=="color"){
+    setType="color";
+  }
+  return setType;
+}
+
+function existCheckBox(prop,value){
+  let setType=null;
+  if (typeof value=="boolean"){
+    setType="checkbox"
+  }
+  if(setType){
+    return {
+      checked:value
+    }
+  }else{
+    return {}
+  }
 }
 
 </script>
@@ -134,7 +174,7 @@ function onUpdateParameters(event){
         <label> Parameters: </label><br/>
         <template v-for="(value, propertyName) in entity.parameters" :key="propertyName">
           <label> {{propertyName}}</label>
-          <input :name="propertyName" :value="value" @change="onUpdateParameters" /><br/>
+          <input :name="propertyName" :type="checkType(propertyName,value)" :value="value" @change="onUpdateParameters" v-bind="existCheckBox" /><br/>
         </template>
       </template>
     </div>

@@ -131,7 +131,7 @@ router.put('/project', async(req, res) => {
   }else{
     return res.send({error:'failtoken'});
   }
-  
+  const {api} =req.body;
   if(api==API.UPDATE){
     let data = req.body;
     const Project = db.model('Project');
@@ -168,6 +168,7 @@ router.delete('/project', async(req, res) => {
   }else{
     return res.send({error:'failtoken'});
   }
+  const {api} =req.body;
 
   if(api==API.DELETE){
     let data = req.body;

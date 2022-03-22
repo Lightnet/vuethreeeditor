@@ -10,17 +10,17 @@ const currentPath = ref("/");
 const getAccess = inject('getAccess');
 const router = useRouter();
 const route = useRoute();
-console.log(router);
-console.log(route);
+//console.log(router);
+//console.log(route);
 
 //watch(route,(route,prevRoute)=>{//pass
   //console.log(route)
 //})
 watch(route,()=>{//pass
-  console.log(route)
-  console.log(route.path)
-  console.log(route.name)
-  console.log(route.query)
+  //console.log(route)
+  //console.log(route.path)
+  //console.log(route.name)
+  //console.log(route.query)
   currentPath.value=route.path;
 })
 
@@ -30,10 +30,10 @@ watchEffect(() =>{ // ref() pass
   //console.log(currentPath.value)
 })
 
-onUpdated(()=>{
-  console.log("update...")
+//onUpdated(()=>{
+  //console.log("update...")
   //console.log(route);
-})
+//})
 //function hashchange(){
   //console.log(window.location.hash)
   //currentPath.value = window.location.hash

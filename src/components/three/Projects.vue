@@ -4,15 +4,10 @@
   Created by: Lightnet
 */
 // executed in setup() scope (for each instance)
-// https://vuejs.org/api/sfc-script-setup.html#defineprops-defineemits
 
-import { onMounted,h, ref } from 'vue';
+import { onMounted,h, ref, toRaw } from 'vue';
 import { isEmpty } from '../../lib/helper.mjs';
 import useFetch from "../hook/useFetch.mjs";
-
-const props = defineProps({
-  projectID:String
-});
 
 const log = console.log;
 
@@ -38,15 +33,15 @@ async function getProejctList(){
     log("ERROR FETCH PROJECT LIST")
     return;
   }
-  log(data);
+  //log(data);
   if(data.api=='LIST'){
-    console.log(data.projects)
+    //console.log(data.projects)
     projects.value =data.projects;
   }
 }
 
 onMounted(()=>{
-  console.log("project MOUNT!")
+  //console.log("project MOUNT!")
   getProejctList();
 })
 
@@ -77,14 +72,21 @@ async function createProject(){
   if(data.api=='CREATE'){
     log('API created Project!');
     //setProjects(state=>[...state,data.project])
-    projects = [...projects,data.project]
+    projects.value = [...projects.value,data.project]
     //setIsOpenModal(false);
+    view.value="project";
   }
 }
 
-function clickEditProject(){
+function clickEditProject(id){
+  let project = projects.value.find(item=>item.id == id)
+
+  console.log(project)
+  projectName.value = project.name;
+  projectDesciption.value = project.description;
+  projectID.value = project.id;
   //check
-  view.value="create";
+  view.value="edit";
 }
 
 async function editProject(){
@@ -109,64 +111,70 @@ async function editProject(){
   log(data);
   if(data.api=='UPDATE'){
     log('API created Project!');
-    projects = projects.map(item=> item.id == data.project.id ? {...item, name:data.project.name,description:data.project.description   }: item );
+    projects.value = projects.value.map(item=> item.id == data.project.id ? {...item, name:data.project.name,description:data.project.description   }: item );
     //setProjects(projects.map(item=> item.id == data.project.id ? {...item, name:data.project.name,description:data.project.description   }: item ))
     //setIsOpenModal(false);
+    view.value="project";
   }
 }
 
-function clickDeleteProject(){
+function clickDeleteProject(id){
   view.value="delete";
+  let project = projects.value.find(item=>item.id == id)
+  console.log(project)
+  projectName.value = project.name;
+  projectDesciption.value = project.description;
+  projectID.value = project.id;
 }
 
 async function deleteProject(){
   if(isEmpty(projectID.value)){
-      log("Empty projectID!");
-      return;
-    }
-    let data = await useFetch('api/project',{
-      method:'DELETE'
-      , headers: {"Content-Type": "application/json"}
-      , body: JSON.stringify({ 
-          api:'DELETE'
-        , id:projectID.value
-      })
-    });
-    if(data.error){
-      log("ERROR FETCH DELETE PROJECT");
-      return;
-    }
-    log(data);
-    if(data.api=='DELETE'){
-      log('API delete Project!');
-      //setProjects(projects.filter(item=> item.id != data.projectid ))
-      //setIsOpenModal(false);
-    }
+    log("Empty projectID!");
+    return;
+  }
+  let data = await useFetch('api/project',{
+    method:'DELETE'
+    , headers: {"Content-Type": "application/json"}
+    , body: JSON.stringify({ 
+        api:'DELETE'
+      , id:projectID.value
+    })
+  });
+  if(data.error){
+    log("ERROR FETCH DELETE PROJECT");
+    return;
+  }
+  log(data);
+  if(data.api=='DELETE'){
+    log('API delete Project!');
+    projects.value = projects.value.filter(item=> item.id != data.projectid )
+    //setProjects(projects.filter(item=> item.id != data.projectid ))
+    //setIsOpenModal(false);
+    view.value="project";
+  }
 }
 
 function clickViewProject(){
   view.value="project";
 }
 
-function loadProject(id){
-  console.log(id)
-  emit('loadProject',id)
+function clickLoadProject(id){
+  let project = projects.value.find(item=>item.id == id)
+  //console.log(project)
+  projectName.value = project.name;
+  projectDesciption.value = project.description;
+  projectID.value = project.id;
+  view.value="loadproject";
 }
 
-const renderTest = () => {//pass
-  let ltest = h('label',"test");
-  return h('div', [ltest]);
-};
-
-function test(){
-  console.log(projectName.value)
+function loadProject(){
+  emit('loadProject',toRaw(projectID.value))
 }
 
 </script>
 
 <template>
   <div>
-    <renderTest />
     <label> Projects: </label><button @click="clickCreateProject"> Create </button>
   </div>
   <template v-if="view =='project'">
@@ -186,9 +194,9 @@ function test(){
             <td> {{project.name}} </td>
             <td> {{project.description}} </td>
             <td>
-              <button @click="clickEditProject"> Edit </button>
-              <button @click="loadProject(project.id)"> Load </button>
-              <button @click="clickDeleteProject"> Delete </button>
+              <button @click="clickEditProject(project.id)"> Edit </button>
+              <button @click="clickLoadProject(project.id)"> Load </button>
+              <button @click="clickDeleteProject(project.id)"> Delete </button>
             </td>
           </tr>
         </template>
@@ -196,6 +204,14 @@ function test(){
       </tbody>
     </table>
   </div>
+  </template>
+
+  <template v-if="view =='loadproject'">
+    <label> ID: </label> <label> {{projectID}}</label><br/>
+    <label> Name:</label><label> {{projectName}}</label><br/>
+    <label> Desciption: </label> <label> {{projectDesciption}}</label><br/>
+    <button @click="loadProject"> Load </button>
+    <button @click="clickViewProject"> Cancel </button>
   </template>
 
   <template v-if="view =='create'">

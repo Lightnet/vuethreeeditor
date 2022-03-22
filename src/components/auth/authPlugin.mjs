@@ -14,9 +14,8 @@ import AuthAccess from "./AuthAccess.vue"
 export const authPlugin = {
   install(app, options) {
     // configure the app
-
     const version = Number(app.version.split('.')[0])
-    console.log("app.version: ",app.version)
+    //console.log("app.version: ",app.version)
     //console.log("version: ",version)
     if (version < 3) {
       console.warn('This plugin requires Vue 3')

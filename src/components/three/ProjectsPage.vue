@@ -5,17 +5,16 @@
 */
 import AuthAccess from "../auth/AuthAccess.vue";
 import Projects from  "./Projects.vue"
-import { useRouter, useRoute } from 'vue-router';
+import { useRouter } from 'vue-router';
 const router = useRouter();
-const route = useRoute();
-
-console.log(route.path)
-console.log(route.name)
-console.log(route.query)
-
+//const route = useRoute();
+//console.log(route.path)
+//console.log(route.name)
+//console.log(route.query)
 function loadProject(id){
-  console.log(id)
-  console.log("loadproject",id)
+  //console.log(id)
+  //console.log("loadproject",id)
+  router.push('/editor?projectid='+id)
 }
 
 </script>

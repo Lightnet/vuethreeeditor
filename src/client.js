@@ -7,6 +7,7 @@
 // https://docs.w3cub.com/vue~3/api/global-api
 // https://morioh.com/p/d5f7657ee12d
 //import { TroisJSVuePlugin } from 'troisjs';
+import "./styles/globals.css"
 import { createApp } from 'vue'
 import App from './components/App.vue'
 import authPlugin from './components/auth/authPlugin.mjs'

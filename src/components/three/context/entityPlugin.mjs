@@ -83,30 +83,29 @@ export const entityPlugin = {
 
     //need to set up url save, delete, update entity objects
 
-    
-  // fetch for saving data
-  async function apiSaveEntity(projectid, sceneid, entity){
-    if(isEmpty(projectid)||isEmpty(sceneid)){
-      log('save entity empty fields ids.');
-      return;
+    // fetch for saving data
+    async function apiSaveEntity(projectid, sceneid, entity){
+      if(isEmpty(projectid)||isEmpty(sceneid)){
+        log('save entity empty fields ids.');
+        return;
+      }
+      let data = await useFetch('api/entity',{
+        method:'POST'
+        , headers: {"Content-Type": "application/json"}
+        , body:JSON.stringify({ 
+            api:'CREATE'
+          , projectid: projectid
+          , sceneid: sceneid
+          , data:entity})
+      });
+      //log(data);
+      if(data.error){
+        log("ERROR FETCH Save Entity!");
+        //msgError('Fetch Error on Save Object3D');
+        return;
+      }
+      log("useFetch save Entity!");
     }
-    let data = await useFetch('api/entity',{
-      method:'POST'
-      , headers: {"Content-Type": "application/json"}
-      , body:JSON.stringify({ 
-          api:'CREATE'
-        , projectid: projectid
-        , sceneid: sceneid
-        , data:entity})
-    });
-    //log(data);
-    if(data.error){
-      log("ERROR FETCH Save Entity!");
-      //msgError('Fetch Error on Save Object3D');
-      return;
-    }
-    log("useFetch save Entity!");
-  }
 
   // fetch for delete data
   async function apiDeleteEntity(id){

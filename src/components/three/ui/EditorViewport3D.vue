@@ -10,8 +10,7 @@
 import { inject, onMounted, onUnmounted, ref, unref } from 'vue';
 //import { Box, Camera, LambertMaterial, PointLight, Renderer, Scene, AmbientLight } from 'troisjs';
 import { AmbientLight,Box,LambertMaterial, Camera, Renderer, Scene, Mesh } from 'troisjs';
-//import { TransformControls } from '../../../mod/TransformControls.mjs'
-import { TransformControls } from 'three/examples/jsm/controls/TransformControls'
+import { TransformControls } from 'three/examples/jsm/controls/TransformControls';
 
 import EntityBox from '../entity/EntityBox.vue';
 import { ENTITIES } from '../context/EntityComponents.mjs';
@@ -54,7 +53,7 @@ function detectTransformHandle ( event ) {
 onMounted(() =>{
   //https://troisjs.github.io/guide/core/raf.html
 
-  console.log("mount editor...")
+  //console.log("mount editor...")
   //console.log(renderer.value)
   //let render = unref(renderer.value)
   //console.log(render)
@@ -112,15 +111,7 @@ function checkEntityComp(entity){
   </Renderer>
   </div>
 </template>
-<!--
-<AmbientLight :intensity="0.1"/>
-<PointLight :position="{ y: 50, z: 50 }" />
-<Box>
-  <LambertMaterial />
-</Box>
-<Renderer :height="'400px'" :width="'800'">
--->
-<style scoped>
+<style>
 .viewport {
   position: fixed;
   top: 20px;

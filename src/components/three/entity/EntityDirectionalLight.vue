@@ -2,6 +2,7 @@
 /*
   LICENSE: MIT
   Created by: Lightnet
+  work need to set position 0,1,0 for light target to 0,0,0
 */
 
 import { DirectionalLight } from 'troisjs';
@@ -25,5 +26,7 @@ console.log(props);
   <DirectionalLight
     :position="{ x: position[0],y: position[1],z: position[2]}"
     :rotation="{ x: rotation[0],y: rotation[1],z: rotation[2]}"
-    :scale="{ x: scale[0],y: scale[1],z: scale[2]}" />
+    :scale="{ x: scale[0],y: scale[1],z: scale[2]}"
+    v-bind="props.parameters"
+    />
 </template>

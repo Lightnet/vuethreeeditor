@@ -12,6 +12,10 @@ import EntityCamera from "../entity/EntityCamera.vue"
 
 import EntityPointLight from "../entity/EntityPointLight.vue"
 import EntityAmbientLight from "../entity/EntityAmbientLight.vue"
+import EntityDirectionalLight from "../entity/EntityDirectionalLight.vue"
+import EntityHemisphereLight from "../entity/EntityHemisphereLight.vue"
+import EntityRectAreaLight from "../entity/EntityRectAreaLight.vue"
+import EntitySpotLight from "../entity/EntitySpotLight.vue"
 
 import EntityBox from "../entity/EntityBox.vue"
 import EntityCylinder from "../entity/EntityCylinder.vue"
@@ -71,12 +75,79 @@ if(!loaded){
     , isTransform:true
     , dataType:API.ENTITYTYPES.POINTLIGHT
     , comp:EntityPointLight
-    //, compRef:EntityPointLightRef
     , shape:"BOX"
     , mass:1
     , parameters:[
       {
         color:"#ffffff"
+        , intensity:1
+        , distance :0
+        , decay :1
+      }
+    ]
+  })
+
+  addObjEntity({
+    name:"DirectionalLight"
+    , isTransform:true
+    , dataType:API.ENTITYTYPES.DIRECTONALLIGHT
+    , comp:EntityDirectionalLight
+    , shape:"BOX"
+    , mass:1
+    , parameters:[
+      {
+        color:"#ffffff"
+        , intensity:1
+      }
+    ]
+  })
+
+  addObjEntity({
+    name:"HemisphereLight"
+    , isTransform:true
+    , dataType:API.ENTITYTYPES.HEMISPHERELIGHT
+    , comp:EntityHemisphereLight
+    , shape:"BOX"
+    , mass:1
+    , parameters:[
+      {
+        skyColor:"#ffffff"
+        , groundColor: "#ffffff"
+        , intensity: 1
+      }
+    ]
+  })
+
+  addObjEntity({
+    name:"RectAreaLight"
+    , isTransform:true
+    , dataType:API.ENTITYTYPES.RECTAREALIGHT
+    , comp:EntityRectAreaLight
+    , shape:"BOX"
+    , mass:1
+    , parameters:[
+      {
+        color:"#ffffff"
+        , intensity:1
+        , width : 10
+        , height :10
+      }
+    ]
+  })
+
+  addObjEntity({
+    name:"SpotLight"
+    , isTransform:true
+    , dataType:API.ENTITYTYPES.SPOTLIGHT
+    , comp:EntitySpotLight
+    , shape:"BOX"
+    , mass:1
+    , parameters:[
+      {
+        color:"#ffffff"
+        , distance: 0
+        , angle: Math.PI/2
+        , penumbra: 0
         , intensity:1
         , distance :0
         , decay :1

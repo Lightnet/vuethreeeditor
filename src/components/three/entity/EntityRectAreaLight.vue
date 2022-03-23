@@ -2,6 +2,7 @@
 /*
   LICENSE: MIT
   Created by: Lightnet
+  working face camera dir
 */
 
 import { RectAreaLight } from 'troisjs';
@@ -26,5 +27,6 @@ console.log(props);
     :position="{ x: position[0],y: position[1],z: position[2]}"
     :rotation="{ x: rotation[0],y: rotation[1],z: rotation[2]}"
     :scale="{ x: scale[0],y: scale[1],z: scale[2]}"
+    v-bind="props.parameters"
    />
 </template>

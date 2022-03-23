@@ -10,7 +10,7 @@
 //import { Box, Camera, LambertMaterial, PointLight, Renderer, Scene, AmbientLight } from 'troisjs';
 
 import { inject, onMounted, onUnmounted, ref } from 'vue';
-import { AmbientLight, Camera, Renderer, Scene, Mesh } from 'troisjs';
+import { Camera, Renderer, Scene } from 'troisjs';
 
 import EntityBox from '../entity/EntityBox.vue';
 import EntityTransformControl from '../editor/EntityTransformControl.vue';
@@ -23,7 +23,6 @@ const selectObjectUUID = inject(SelectObjectUUIDInjectKey);
 
 const renderer = ref();
 const scene = ref();
-const refBox = ref();
 
 onMounted(() =>{
   //https://troisjs.github.io/guide/core/raf.html
@@ -46,6 +45,10 @@ function checkEntityComp(entity){
   }
 }
 
+function updateObjectInfo(){
+
+}
+
 //resize="window"
 </script>
 <template>
@@ -53,10 +56,11 @@ function checkEntityComp(entity){
   <Renderer ref="renderer"  resize="div" orbitCtrl >
     <Camera ref="camera" :position="{ z: 10 }" />
     <Scene ref="scene">
-      <AmbientLight :intensity="0.1"/>
-      <Mesh ref="refBox" />
+      <!--
+        <AmbientLight :intensity="0.01"/>
+        <Box><LambertMaterial /></Box>
+      -->
       <EntityTransformControl :selectObjectID="selectObjectUUID"/>
-      <!--<Box><LambertMaterial /></Box>-->
       <template v-for="entity in  entities" :key="entity.id">
         <component :is="checkEntityComp(entity)" v-bind="entity" />
       </template>

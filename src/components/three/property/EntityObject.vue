@@ -161,6 +161,12 @@ function checkType(prop,value){
   if(prop=="color"){
     setType="color";
   }
+  if(prop=="skyColor"){
+    setType="color";
+  }
+  if(prop=="groundColor"){
+    setType="color";
+  }
   return setType;
 }
 

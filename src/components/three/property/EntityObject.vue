@@ -12,6 +12,10 @@ const selectEntity = ref("");
 const isRadian = ref(true);
 const entity = ref({});
 
+const isTransform = ref(false);
+const isParameters = ref(false);
+const isMaterial = ref(false);
+
 function onSelectEntity(event){
   entity.value=null;
 
@@ -118,6 +122,31 @@ function onUpdateParameters(event){
   })
 }
 
+function onUpdateMaterial(event){
+  console.log(event.target.type);
+  console.log(event.target.name);
+  console.log(event.target.value);
+  //entity.value.parameters[event.target.name]=Number(event.target.value);
+
+  if(event.target.type=="color"){
+    entity.value.parameters[event.target.name] = String(event.target.value)
+  }else if(event.target.type=="text"){
+    entity.value.parameters[event.target.name] = String(event.target.value)
+  }else if(event.target.type=="number"){
+    entity.value.parameters[event.target.name] = Number(event.target.value)
+  }else if(event.target.type=="checkbox"){
+    entity.value.parameters[event.target.name] = Boolean(event.target.checked)
+  }else{
+    entity.value.parameters[event.target.name] = String(event.target.value)
+  }
+  
+  updateEntity({
+      type:"parameters"
+    , objectid: entity.value.objectid
+    , value: entity.value.parameters
+  })
+}
+
 function checkType(prop,value){
   let setType="text";
   if(typeof value=="number"){
@@ -163,6 +192,11 @@ function existCheckBox(prop,value){
     <div>
       <label> Entity ID: {{entity.objectid}}</label>
     </div>
+    <template v-if="(entity.position != null) || (entity.rotation !=null) || (entity.scale != null)">
+    <div>
+      <label> Transform</label> <button @click="isTransform = !isTransform"> {{isTransform ? "-":"+"}} </button>
+    </div>
+    <template v-if="isTransform">
     <div>
       <template v-if="entity.position">
         <label> Position: </label><br/>
@@ -192,13 +226,32 @@ function existCheckBox(prop,value){
         </template>
       </template>
     </div>
+    </template>
 
+    </template>
+
+  
     <div>
       <template v-if="entity.parameters">
-        <label> Parameters: </label><br/>
-        <template v-for="(value, propertyName) in entity.parameters" :key="propertyName">
-          <label> {{propertyName}}</label>
-          <input :name="propertyName" :type="checkType(propertyName,value)" :value="value" @change="onUpdateParameters" v-bind="existCheckBox" /><br/>
+        <label> Parameters: </label> <button @click="isParameters = !isParameters"> {{isParameters ? "-":"+"}} </button> <br/>
+        <template v-if="isParameters">
+          <template v-for="(value, propertyName) in entity.parameters" :key="propertyName">
+            <label> {{propertyName}}</label>
+            <input :name="propertyName" :type="checkType(propertyName,value)" :value="value" @change="onUpdateParameters" v-bind="existCheckBox" /><br/>
+          </template>
+        </template>
+      </template>
+    </div>
+
+
+    <div>
+      <template v-if="entity.material">
+        <label> Materials: </label> <button @click="isMaterial = !isMaterial"> {{isMaterial ? "-":"+"}} </button> <br/>
+        <template v-if="isMaterial">
+          <template v-for="(value, propertyName) in entity.material" :key="propertyName">
+            <label> {{propertyName}}</label>
+            <input :name="propertyName" :type="checkType(propertyName,value)" :value="value" @change="onUpdateMaterial" v-bind="existCheckBox" /><br/>
+          </template>
         </template>
       </template>
     </div>

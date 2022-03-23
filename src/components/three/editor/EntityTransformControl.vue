@@ -77,6 +77,9 @@ onUnmounted(() =>{
 function controlTransform(e){
   console.log(e.code)
   switch ( e.code ) {
+    case 'KeyQ': // W
+      transformControls.value.setSpace( transformControls.value.space === 'local' ? 'world' : 'local' );
+      break;
     case 'KeyW': // W
       transformControls.value.setMode( 'translate' );
       break;
@@ -86,8 +89,17 @@ function controlTransform(e){
     case 'KeyR': // R
       transformControls.value.setMode( 'scale' );
       break;
+    case 'NumpadSubtract': // R
+      transformControls.value.setSize( Math.max( transformControls.value.size - 0.1, 0.1 ) );
+      break;
+    case 'NumpadAdd': // R
+      transformControls.value.setSize( transformControls.value.size + 0.1 );
+      break;
+    case 'Space': // R
+      transformControls.value.enabled = ! transformControls.value.enabled;
+      break;
     case 'Escape': // Esc
-      //controls.reset(); // nope
+      transformControls.value.reset();
       break;
   }
 }

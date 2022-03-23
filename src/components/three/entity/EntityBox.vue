@@ -5,6 +5,9 @@
 */
 // https://vuedose.tips/going-3d-with-trois-js-and-vue-3/
 import { Box, LambertMaterial } from 'troisjs';
+import { inject } from 'vue';
+
+const selectObjectUUID = inject("selectObjectUUID");
 
 const props = defineProps({
     objectid: String
@@ -27,8 +30,12 @@ const parameters = props.parameters || {width:1,height:1,depth:1,}
 //console.log(position);
 
 function onPointerEvent(event) {
-  console.log(event);
-  console.log(event.component.mesh)
+  //console.log(event);
+  //console.log(event.component.mesh);
+  console.log("event.component.mesh.uuid")
+  console.log(event.component.mesh.uuid)
+  //console.log(selectObjectUUID)
+  selectObjectUUID.value = event.component.mesh.uuid;
 }
 
 </script>

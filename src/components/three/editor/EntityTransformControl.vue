@@ -9,7 +9,7 @@
 // 
 import { TransformControls } from 'three/examples/jsm/controls/TransformControls';
 import {RendererInjectionKey, SceneInjectionKey, Mesh } from 'troisjs';
-import { inject, onActivated, onMounted, onUnmounted, onUpdated, ref } from 'vue';
+import { inject, onMounted, onUnmounted, ref, watch } from 'vue';
 /*
 export default {
   inject:{
@@ -28,8 +28,24 @@ export default {
   }
 }
 */
+const props = defineProps({
+  selectObjectID:String
+})
 const renderer = inject(RendererInjectionKey);
 const scene = inject(SceneInjectionKey);
+
+//watch props changes params
+watch(props,()=>{
+  if(props.selectObjectID){
+    let obj3d = scene.getObjectByProperty('uuid',props.selectObjectID)
+    if(obj3d){
+      transControls.attach(obj3d);
+    }else{
+      transControls.detach();
+    }
+  }
+})
+
 const transformControls = ref();
 const refBox = ref();
 let transControls;
@@ -49,10 +65,6 @@ onMounted(() => {
   scene.add(transControls)
   //scene.add(transformControls.value) //nope, error proxy
   window.addEventListener( 'keydown', controlTransform);
-})
-onActivated(()=>{
-  console.log('onActivated')
-  console.log(renderer.three.cameraCtrl)//okay
 })
 
 onUnmounted(() =>{

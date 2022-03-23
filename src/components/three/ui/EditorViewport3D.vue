@@ -7,7 +7,7 @@
 // https://troisjs.github.io/guide/core/renderer.html#props-from-three-webglrenderer
 // https://troisjs.github.io/guide/core/renderer.html#custom-render-function
 
-import { inject, onMounted, onUnmounted, ref, unref } from 'vue';
+import { inject, onMounted, onUnmounted, ref, unref, watch } from 'vue';
 //import { Box, Camera, LambertMaterial, PointLight, Renderer, Scene, AmbientLight } from 'troisjs';
 import { AmbientLight,Box,LambertMaterial, Camera, Renderer, Scene, Mesh } from 'troisjs';
 import { TransformControls } from 'three/examples/jsm/controls/TransformControls';
@@ -17,6 +17,9 @@ import EntityTransformControl from '../editor/EntityTransformControl.vue';
 import { ENTITIES } from '../context/EntityComponents.mjs';
 
 const entities = inject('entities');
+
+const selectObjectUUID = inject('selectObjectUUID');
+
 const renderer = ref();
 //const camera = ref();
 const transformControls = ref();
@@ -25,6 +28,11 @@ const scene = ref();
 const refBox = ref();
 //const enabled = ref(true);
 //console.log(TransformControls);
+
+//watch(selectObjectUUID,()=>{
+  //console.log("selectObjectUUID")
+  //console.log(selectObjectUUID)
+//})
 
 function controlTransform(e){
   console.log(e.code)
@@ -103,11 +111,9 @@ function checkEntityComp(entity){
     <Scene ref="scene">
       <AmbientLight :intensity="0.1"/>
       <Mesh ref="refBox" />
-      <EntityTransformControl/>
+      <EntityTransformControl :selectObjectID="selectObjectUUID"/>
       <!--
-        <Box >
-        <LambertMaterial />
-      </Box>
+        <Box><LambertMaterial /></Box>
       -->
       
       <template v-for="entity in  entities" :key="entity.id">

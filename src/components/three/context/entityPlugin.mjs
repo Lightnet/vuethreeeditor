@@ -8,6 +8,7 @@
 import { ref } from 'vue'
 import { isEmpty, nanoid16 } from '../../../lib/helper.mjs'
 import useFetch from '../../hook/useFetch.mjs'
+import { EntitiesInjectKey } from './EntityKeys.mjs'
 
 export const entityPlugin = {
   install(app, options) {
@@ -27,7 +28,7 @@ export const entityPlugin = {
     const log = console.log;
     
     //console.log(entities)
-    app.provide('entities', entities); // mutable
+    app.provide(EntitiesInjectKey, entities); // mutable
     app.provide('projectID', projectID);
     app.provide('projectName', projectName);
     app.provide('sceneID', sceneID);
@@ -39,6 +40,7 @@ export const entityPlugin = {
 
     app.provide('enablePhysics', enablePhysics);
     app.provide('enableOrbitControl', enableOrbitControl);
+
     // need to set up filter...
     const addEntity = (entity)=>{
       
@@ -94,6 +96,9 @@ export const entityPlugin = {
             }
             if(args.type=="parameters"){
               item.parameters = args.value;
+            }
+            if(args.type=="material"){
+              item.material = args.value;
             }
 
             apiUpdateEntity(item);
@@ -199,9 +204,10 @@ export const entityPlugin = {
 export default entityPlugin;
 /*
 import { ref, inject } from "vue";
+import { EntitiesInjectKey } from './EntityKeys.mjs'
 
 const deleteEntityID = inject('deleteEntityID');
-const entities = inject('entities');
+const entities = inject('EntitiesInjectKey');1
   
 function clickDelete(id){
   console.log("delete:", id)

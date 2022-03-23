@@ -4,9 +4,10 @@
   Created by: Lightnet
 */
 import { ref, inject } from "vue";
+import { EntitiesInjectKey } from "../context/EntityKeys.mjs";
 
 const deleteEntityID = inject('deleteEntityID');
-const entities = inject('entities');
+const entities = inject(EntitiesInjectKey);
   
 function clickDelete(id){
   //console.log("delete:", id)

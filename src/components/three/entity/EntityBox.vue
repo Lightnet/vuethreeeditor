@@ -5,6 +5,7 @@
 */
 // https://vuedose.tips/going-3d-with-trois-js-and-vue-3/
 import { Box, LambertMaterial } from 'troisjs';
+import EntityMaterialParse from "../material/EntityMaterialParse.vue";
 import { inject } from 'vue';
 
 const selectObjectUUID = inject("selectObjectUUID");
@@ -52,7 +53,7 @@ function onPointerEvent(event) {
     v-bind="parameters"
     @click="onPointerEvent"
     >
-    <LambertMaterial />
+    <EntityMaterialParse :material="props.material" />
   </Box>
 </template>
 <!--

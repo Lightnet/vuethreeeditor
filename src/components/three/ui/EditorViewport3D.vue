@@ -15,8 +15,9 @@ import { TransformControls } from 'three/examples/jsm/controls/TransformControls
 import EntityBox from '../entity/EntityBox.vue';
 import EntityTransformControl from '../editor/EntityTransformControl.vue';
 import { ENTITIES } from '../context/EntityComponents.mjs';
+import { EntitiesInjectKey } from '../context/EntityKeys.mjs';
 
-const entities = inject('entities');
+const entities = inject(EntitiesInjectKey);
 
 const selectObjectUUID = inject('selectObjectUUID');
 

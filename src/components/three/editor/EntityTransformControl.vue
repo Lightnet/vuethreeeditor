@@ -6,7 +6,7 @@
 
 // https://sbcode.net/threejs/transform-controls/
 // https://github.com/mrdoob/three.js/blob/master/examples/misc_controls_transform.html
-// 
+// https://threejs.org/examples/#misc_controls_transform
 import { TransformControls } from 'three/examples/jsm/controls/TransformControls';
 import {RendererInjectionKey, SceneInjectionKey, Mesh } from 'troisjs';
 import { inject, onMounted, onUnmounted, ref, watch } from 'vue';

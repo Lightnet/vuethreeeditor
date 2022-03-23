@@ -4,8 +4,9 @@
   Created by: Lightnet
 */
 import { ref, inject, unref } from "vue";
+import { EntitiesInjectKey } from "../context/EntityKeys.mjs";
 
-const entities = inject('entities');
+const entities = inject(EntitiesInjectKey);
 const updateEntity = inject('updateEntity');
 
 const selectEntity = ref("");
@@ -15,6 +16,8 @@ const entity = ref({});
 const isTransform = ref(false);
 const isParameters = ref(false);
 const isMaterial = ref(false);
+
+const materialindex = ref(0);
 
 function onSelectEntity(event){
   entity.value=null;
@@ -129,21 +132,21 @@ function onUpdateMaterial(event){
   //entity.value.parameters[event.target.name]=Number(event.target.value);
 
   if(event.target.type=="color"){
-    entity.value.parameters[event.target.name] = String(event.target.value)
+    entity.value.material[materialindex.value][event.target.name] = String(event.target.value)
   }else if(event.target.type=="text"){
-    entity.value.parameters[event.target.name] = String(event.target.value)
+    entity.value.material[materialindex.value][event.target.name] = String(event.target.value)
   }else if(event.target.type=="number"){
-    entity.value.parameters[event.target.name] = Number(event.target.value)
+    entity.value.material[materialindex.value][event.target.name] = Number(event.target.value)
   }else if(event.target.type=="checkbox"){
-    entity.value.parameters[event.target.name] = Boolean(event.target.checked)
+    entity.value.material[materialindex.value][event.target.name] = Boolean(event.target.checked)
   }else{
-    entity.value.parameters[event.target.name] = String(event.target.value)
+    entity.value.material[materialindex.value][event.target.name] = String(event.target.value)
   }
   
   updateEntity({
-      type:"parameters"
+      type:"material"
     , objectid: entity.value.objectid
-    , value: entity.value.parameters
+    , value: entity.value.material
   })
 }
 
@@ -248,7 +251,7 @@ function existCheckBox(prop,value){
       <template v-if="entity.material">
         <label> Materials: </label> <button @click="isMaterial = !isMaterial"> {{isMaterial ? "-":"+"}} </button> <br/>
         <template v-if="isMaterial">
-          <template v-for="(value, propertyName) in entity.material" :key="propertyName">
+          <template v-for="(value, propertyName) in entity.material[materialindex]" :key="propertyName">
             <label> {{propertyName}}</label>
             <input :name="propertyName" :type="checkType(propertyName,value)" :value="value" @change="onUpdateMaterial" v-bind="existCheckBox" /><br/>
           </template>

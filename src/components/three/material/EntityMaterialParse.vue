@@ -14,7 +14,7 @@ import {
 const props = defineProps({
   material:Array
 })
-console.log(props)
+//console.log(props)
 
 </script>
 <template>

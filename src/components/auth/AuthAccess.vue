@@ -1,16 +1,16 @@
-<script>
+<script setup>
 /*
   LICENSE: MIT
   Created by: Lightnet
 */
 
+import { inject } from 'vue';
+import { AuthStatusInjectKey } from "./AuthKeys.mjs"
 // https://vuejs.org/api/built-in-directives.html#v-else-if
 
-export default {
-  inject: ['message','authStatus'],
-}
-</script>
+const authStatus = inject(AuthStatusInjectKey)
 
+</script>
 <template >
   <template v-if="authStatus=='auth'">
     <slot>

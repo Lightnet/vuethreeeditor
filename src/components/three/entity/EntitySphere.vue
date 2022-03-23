@@ -7,6 +7,11 @@
 // https://vuedose.tips/going-3d-with-trois-js-and-vue-3/
 
 import { Sphere, LambertMaterial } from 'troisjs';
+import EntityMaterialParse from "../material/EntityMaterialParse.vue";
+import { inject } from 'vue';
+import { SelectObjectUUIDInjectKey } from '../context/EntityKeys.mjs';
+
+const selectObjectUUID = inject(SelectObjectUUIDInjectKey);
 
 const props = defineProps({
     objectid: String
@@ -26,8 +31,10 @@ const position = props.position || [0,0,0]
 const rotation = props.rotation || [0,0,0]
 const scale = props.scale || [1,1,1]
 const parameters = props.parameters || {radius:1,widthSegments:32,heightSegments:16}
-//console.log(position);
-console.log(parameters);
+
+function onPointerEvent(event) {
+  selectObjectUUID.value = event.component.mesh.uuid;
+}
 
 </script>
 
@@ -37,12 +44,8 @@ console.log(parameters);
     :rotation="{ x: rotation[0],y: rotation[1],z: rotation[2]}"
     :scale="{ x: scale[0],y: scale[1],z: scale[2]}"
     v-bind="parameters"
+    @click="onPointerEvent"
     >
-    <LambertMaterial />
+    <EntityMaterialParse :material="props.material" />
   </Sphere>
 </template>
-<!--
-<Box>
-    <LambertMaterial />
-  </Box>
--->

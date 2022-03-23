@@ -4,10 +4,12 @@
   Created by: Lightnet
 */
 import {inject} from "vue";
-const projectID = inject('projectID');
-const projectName = inject('projectName');
-const sceneID = inject('sceneID');
-const sceneName = inject('sceneName');
+import { ProjectIDInjectKey, ProjectNameInjectKey, SceneIDInjectKey, SceneNameInjectKey } from "../context/EntityKeys.mjs";
+
+const projectID = inject(ProjectIDInjectKey);
+const projectName = inject(ProjectNameInjectKey);
+const sceneID = inject(SceneIDInjectKey);
+const sceneName = inject(SceneNameInjectKey);
 
 </script>
 

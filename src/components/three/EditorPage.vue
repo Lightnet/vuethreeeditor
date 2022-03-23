@@ -20,7 +20,10 @@ if(projectid){
 </script>
 
 <template>
-  <AuthAccess>
-    <Editor :projectid="projectID"/>
-  </AuthAccess>
+  <Editor :projectid="projectID"/>
 </template>
+<!--
+<AuthAccess>
+  <Editor :projectid="projectID"/>
+</AuthAccess>
+-->

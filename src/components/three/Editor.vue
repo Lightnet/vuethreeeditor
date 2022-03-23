@@ -10,13 +10,20 @@ import EditorSideBarTop from "./ui/EditorSideBarTop.vue";
 import EditorSideBarRight from "./ui/EditorSideBarRight.vue";
 import EditorSideBarLeft from "./ui/EditorSideBarLeft.vue";
 import EditorViewport3D from "./ui/EditorViewport3D.vue";
+import { 
+  ProjectIDInjectKey
+, ProjectNameInjectKey
+, SceneIDInjectKey
+, SceneNameInjectKey 
+, MapEntityInjectKey
+} from "./context/EntityKeys.mjs";
 
-const projectID = inject('projectID');
-const projectName = inject('projectName');
-const sceneID = inject('sceneID');
-const sceneName = inject('sceneName');
+const projectID = inject(ProjectIDInjectKey);
+const projectName = inject(ProjectNameInjectKey);
+const sceneID = inject(SceneIDInjectKey);
+const sceneName = inject(SceneNameInjectKey);
 
-const mapEntityID = inject('mapEntityID');
+const mapEntityID = inject(MapEntityInjectKey);
 
 const props = defineProps({
   projectid:String

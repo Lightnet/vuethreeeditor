@@ -171,6 +171,10 @@ function loadProject(){
   emit('loadProject',toRaw(projectID.value))
 }
 
+function quickLoadProjectID(id){
+  emit('loadProject',toRaw(id))
+}
+
 </script>
 
 <template>
@@ -195,7 +199,8 @@ function loadProject(){
             <td> {{project.description}} </td>
             <td>
               <button @click="clickEditProject(project.id)"> Edit </button>
-              <button @click="clickLoadProject(project.id)"> Load </button>
+              <button @click="clickLoadProject(project.id)"> Confirm Load </button>
+              <button @click="quickLoadProjectID(project.id)"> Quick Load </button>
               <button @click="clickDeleteProject(project.id)"> Delete </button>
             </td>
           </tr>

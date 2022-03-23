@@ -8,7 +8,23 @@
 import { ref } from 'vue'
 import { isEmpty, nanoid16 } from '../../../lib/helper.mjs'
 import useFetch from '../../hook/useFetch.mjs'
-import { EntitiesInjectKey } from './EntityKeys.mjs'
+import { 
+  AddEntityInjectKey
+, DeleteEntityIDInjectKey
+, EnableOrbitControlInjectKey
+, EnablePhysicsInjectKey
+, EntitiesInjectKey
+, MapEntityInjectKey
+, ProjectIDInjectKey
+, ProjectNameInjectKey
+, SceneIDInjectKey
+, SceneNameInjectKey
+, SelectObjectIDInjectKey
+, SelectObjectInjectKey
+, SelectObjectUUIDInjectKey
+, UpdateEntityInjectKey 
+
+} from './EntityKeys.mjs'
 
 export const entityPlugin = {
   install(app, options) {
@@ -29,17 +45,17 @@ export const entityPlugin = {
     
     //console.log(entities)
     app.provide(EntitiesInjectKey, entities); // mutable
-    app.provide('projectID', projectID);
-    app.provide('projectName', projectName);
-    app.provide('sceneID', sceneID);
-    app.provide('sceneName', sceneName);
+    app.provide(ProjectIDInjectKey, projectID);
+    app.provide(ProjectNameInjectKey, projectName);
+    app.provide(SceneIDInjectKey, sceneID);
+    app.provide(SceneNameInjectKey, sceneName);
 
-    app.provide('selectObject', selectObject);
-    app.provide('selectObjectID', selectObjectID);
-    app.provide('selectObjectUUID', selectObjectUUID);
+    app.provide(SelectObjectInjectKey, selectObject);
+    app.provide(SelectObjectIDInjectKey, selectObjectID);
+    app.provide(SelectObjectUUIDInjectKey, selectObjectUUID);
 
-    app.provide('enablePhysics', enablePhysics);
-    app.provide('enableOrbitControl', enableOrbitControl);
+    app.provide(EnablePhysicsInjectKey, enablePhysics);
+    app.provide(EnableOrbitControlInjectKey, enableOrbitControl);
 
     // need to set up filter...
     const addEntity = (entity)=>{
@@ -76,7 +92,7 @@ export const entityPlugin = {
       //console.log(entity)
     }
 
-    app.provide('addEntity',addEntity)
+    app.provide(AddEntityInjectKey,addEntity)
 
     const updateEntity = (args)=>{
       console.log(args)
@@ -110,7 +126,7 @@ export const entityPlugin = {
         })
       }
     }
-    app.provide('updateEntity',updateEntity)
+    app.provide(UpdateEntityInjectKey,updateEntity)
 
     const deleteEntityID = (id)=>{
 
@@ -118,13 +134,13 @@ export const entityPlugin = {
       entities.value = entities.value.filter(item=>item.objectid!==id)
       //console.log(entities)
     }
-    app.provide('deleteEntityID',deleteEntityID)
+    app.provide(DeleteEntityIDInjectKey,deleteEntityID)
 
     const mapEntityID = (objs)=>{
       entities.value = objs;
     }
 
-    app.provide('mapEntityID',mapEntityID)
+    app.provide(MapEntityInjectKey,mapEntityID)
 
     //need to set up url save, delete, update entity objects
 
@@ -204,10 +220,10 @@ export const entityPlugin = {
 export default entityPlugin;
 /*
 import { ref, inject } from "vue";
-import { EntitiesInjectKey } from './EntityKeys.mjs'
+import { EntitiesInjectKey, DeleteEntityIDInjectKey } from './EntityKeys.mjs'
 
-const deleteEntityID = inject('deleteEntityID');
-const entities = inject('EntitiesInjectKey');1
+const deleteEntityID = inject(DeleteEntityIDInjectKey);
+const entities = inject(EntitiesInjectKey);
   
 function clickDelete(id){
   console.log("delete:", id)

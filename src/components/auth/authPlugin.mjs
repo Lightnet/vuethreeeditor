@@ -10,8 +10,19 @@
 import axios from 'axios'
 import { ref } from 'vue'
 import { parseJwt } from '../../lib/helper.mjs'
-import useFetch from '../hook/useFetch.mjs'
 import AuthAccess from "./AuthAccess.vue"
+import { 
+  API_URL_InjectKey
+, AuthStatusInjectKey
+, UserInjectKey
+, TokenInjectKey
+, ExpireInjectKey
+, GetAccessInjectKey
+, LoginInjectKey
+, RegisterInjectKey
+, LogoutInjectKey
+, TokenJWTInjectKey
+} from './AuthKeys.mjs'
 export const authPlugin = {
   install(app, options) {
     // configure the app
@@ -32,13 +43,11 @@ export const authPlugin = {
     //const API_URL="http://localhost:3003"
     const API_URL="http://localhost:3000"
 
-    app.provide('API_URL', API_URL) // read only
-    app.provide('AUTHKEY', '0000') // read only
-    app.provide('authStatus', authStatus) //mutable
-    app.provide('token', token) //mutable
-    app.provide('user', user) //mutable
-    app.provide('expire', expire) //mutable
-    app.component('auth-access', AuthAccess);
+    app.provide(API_URL_InjectKey, API_URL) // read only
+    app.provide(AuthStatusInjectKey, authStatus) //mutable
+    app.provide(TokenInjectKey, token) //mutable
+    app.provide(UserInjectKey, user) //mutable
+    app.provide(ExpireInjectKey, expire) //mutable
 
     //need to fixed this later...
     async function getAccess(){
@@ -54,14 +63,12 @@ export const authPlugin = {
         user.value = response.data.user;
       }
     }
-    app.provide('getAccess',getAccess)
+    app.provide(GetAccessInjectKey,getAccess)
 
     function login(alias,passphrase){
-      //console.log(API_URL)
       const instance = axios.create({
         baseURL: API_URL
       });
-
       instance.interceptors.request.use(async (config) => {
         let begettoken = true;
           if (begettoken) {
@@ -102,7 +109,7 @@ export const authPlugin = {
         })
     }
 
-    app.provide('login',login)
+    app.provide(LoginInjectKey,login)
 
     function register(alias,passphrase){
       //console.log(API_URL)
@@ -140,7 +147,7 @@ export const authPlugin = {
           console.log(error);
         })
     }
-    app.provide('register',register)
+    app.provide(RegisterInjectKey,register)
 
     const logout = async ()=>{
       console.log("logout is being called")
@@ -163,7 +170,7 @@ export const authPlugin = {
         });
     }
 
-    app.provide('logout',logout)
+    app.provide(LogoutInjectKey,logout)
     /*
     import {inject} from 'vue';
     const logout = inject('logout')
@@ -203,13 +210,8 @@ export const authPlugin = {
     });
 
     const tokenJWT = ref(instance)
-    app.provide('tokenJWT', tokenJWT) //mutable
+    app.provide(TokenJWTInjectKey, tokenJWT) //mutable
 
-
-    //app.config.globalProperties.$authStatus = value =>{
-      //app.provide('authStatus', value)//nope
-    //}
-    //app.config.globalProperties.API_URL = "http://localhost:3000"
   }
 }
 

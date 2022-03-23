@@ -5,45 +5,27 @@
 */
 
 import { inject, onMounted, onUnmounted, onUpdated, ref, watch, watchEffect } from 'vue';
-import { useRouter, useRoute } from 'vue-router';
+import { useRoute } from 'vue-router';
+import {GetAccessInjectKey, AuthStatusInjectKey} from "./auth/AuthKeys.mjs"
 const currentPath = ref("/");
-const getAccess = inject('getAccess');
-const authStatus = inject('authStatus');
-const router = useRouter();
-const route = useRoute();
-//console.log(router);
-//console.log(route);
+const getAccess = inject(GetAccessInjectKey);
+const authStatus = inject(AuthStatusInjectKey);
 
-//watch(route,(route,prevRoute)=>{//pass
-  //console.log(route)
-//})
+const route = useRoute();
+
 watch(route,()=>{//pass
-  //console.log(route)
-  //console.log(route.path)
-  //console.log(route.name)
-  //console.log(route.query)
   currentPath.value=route.path;
 })
 
-watchEffect(() =>{ // ref() pass
-  //console.log(route)//nope
-  //console.log("watchEffect")
-  //console.log(currentPath.value)
-})
-
-//onUpdated(()=>{
-  //console.log("update...")
-  //console.log(route);
-//})
 
 onMounted(()=>{
   getAccess();
-  //window.addEventListener('hashchange', hashchange)
-})
-onUnmounted(()=>{
-  //window.removeEventListener('hashchange', hashchange)
+  
 })
 
+onUnmounted(()=>{
+  
+})
 </script>
 <template>
   <div>

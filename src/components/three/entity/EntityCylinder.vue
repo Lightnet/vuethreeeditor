@@ -4,7 +4,12 @@
   Created by: Lightnet
 */
 
-import { Cylinder, LambertMaterial } from 'troisjs';
+import { Cylinder } from 'troisjs';
+import EntityMaterialParse from "../material/EntityMaterialParse.vue";
+import { inject } from 'vue';
+import { SelectObjectUUIDInjectKey } from '../context/EntityKeys.mjs';
+
+const selectObjectUUID = inject(SelectObjectUUIDInjectKey);
 
 const props = defineProps({
     objectid: String
@@ -23,13 +28,11 @@ const props = defineProps({
 const position = props.position || [0,0,0]
 const rotation = props.rotation || [0,0,0]
 const scale = props.scale || [1,1,1]
-const parameters = props.parameters || 
-{radiusTop:1
-, radiusBottom : 1 
-, height: 1 
-, radialSegments: 8
-};
-//console.log(position);
+const parameters = props.parameters || {radiusTop:1, radiusBottom : 1 , height: 1 , radialSegments: 8};
+
+function onPointerEvent(event) {
+  selectObjectUUID.value = event.component.mesh.uuid;
+}
 
 </script>
 
@@ -39,12 +42,8 @@ const parameters = props.parameters ||
     :rotation="{ x: rotation[0],y: rotation[1],z: rotation[2]}"
     :scale="{ x: scale[0],y: scale[1],z: scale[2]}"
     v-bind="parameters"
+    @click="onPointerEvent"
     >
-    <LambertMaterial />
+    <EntityMaterialParse :material="props.material" />
   </Cylinder>
 </template>
-<!--
-<Box>
-    <LambertMaterial />
-  </Box>
--->

@@ -1,21 +1,18 @@
-<script>
+<script setup>
 /*
   LICENSE: MIT
   Created by: Lightnet
 */
-export default {
-  inject: ['logout','authStatus'],
-  data() {
-    return {
-    }
-  },
-  methods:{
-    async clickLogout(event) {
-      console.log("logout...")
-      let status = await this.logout()
-      console.log(status);
-    },
-  }
+import { inject } from 'vue';
+import { AuthStatusInjectKey, LogoutInjectKey } from "./AuthKeys.mjs";
+
+const logout = inject(LogoutInjectKey);
+const authStatus = inject(AuthStatusInjectKey);
+
+async function clickLogout(event) {
+  console.log("logout...")
+  let status = await logout()
+  console.log(status);
 }
 </script>
 <template>

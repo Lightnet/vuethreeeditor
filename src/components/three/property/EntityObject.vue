@@ -3,11 +3,11 @@
   LICENSE: MIT
   Created by: Lightnet
 */
-import { ref, inject, unref } from "vue";
-import { EntitiesInjectKey } from "../context/EntityKeys.mjs";
+import { ref, inject } from "vue";
+import { EntitiesInjectKey, UpdateEntityInjectKey } from "../context/EntityKeys.mjs";
 
 const entities = inject(EntitiesInjectKey);
-const updateEntity = inject('updateEntity');
+const updateEntity = inject(UpdateEntityInjectKey);
 
 const selectEntity = ref("");
 const isRadian = ref(true);

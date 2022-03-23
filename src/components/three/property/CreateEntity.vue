@@ -3,12 +3,13 @@
   LICENSE: MIT
   Created by: Lightnet
 */
-import { ref, inject, onMounted, toRef, toRefs, unref } from "vue";
+import { ref, inject, onMounted,unref } from "vue";
 import { ENTITIES } from "../context/EntityComponents.mjs";
+import { AddEntityInjectKey, ProjectIDInjectKey, SceneIDInjectKey } from "../context/EntityKeys.mjs";
 
-const addEntity = inject('addEntity');
-const projectID = inject('projectID');
-const sceneID = inject('sceneID');
+const addEntity = inject(AddEntityInjectKey);
+const projectID = inject(ProjectIDInjectKey);
+const sceneID = inject(SceneIDInjectKey);
 
 //let entities = [];
 const entities = ENTITIES;

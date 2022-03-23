@@ -1,27 +1,25 @@
-<script>
+<script setup>
 /*
   LICENSE: MIT
   Created by: Lightnet
 */
-export default {
-  inject: ['authStatus','login'],
-  data() {
-    return {
-      alias:"q",
-      passphrase:"q",
-    }
-  },
-  methods:{
-    async clickLogin(event) {
-      let baccess = await this.login(this.alias,this.passphrase)
-      console.log(baccess)
-    },
-    clickForgot(event) {
-      console.log("login...")
-      //console.log(this.status)
-      console.log(this.authStatus)
-    },
-  }
+import { inject, ref } from 'vue';
+import { AuthStatusInjectKey, LoginInjectKey } from "./AuthKeys.mjs";
+
+const authStatus = inject(AuthStatusInjectKey)
+const login = inject(LoginInjectKey)
+
+const alias = ref("q");
+const passphrase = ref("q");
+
+async function clickLogin(event) {
+  let baccess = await login(alias.value,passphrase.value)
+  console.log(baccess)
+}
+function  clickForgot(event) {
+  console.log("login...")
+  //console.log(this.status)
+  console.log(authStatus.value)
 }
 </script>
 <template>

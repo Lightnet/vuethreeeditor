@@ -3,12 +3,15 @@
   LICENSE: MIT
   Created by: Lightnet
 */
+
 // https://vuedose.tips/going-3d-with-trois-js-and-vue-3/
-import { Box, LambertMaterial } from 'troisjs';
+
+import { Box } from 'troisjs';
 import EntityMaterialParse from "../material/EntityMaterialParse.vue";
 import { inject } from 'vue';
+import { SelectObjectUUIDInjectKey } from '../context/EntityKeys.mjs';
 
-const selectObjectUUID = inject("selectObjectUUID");
+const selectObjectUUID = inject(SelectObjectUUIDInjectKey);
 
 const props = defineProps({
     objectid: String
@@ -28,23 +31,17 @@ const position = props.position || [0,0,0]
 const rotation = props.rotation || [0,0,0]
 const scale = props.scale || [1,1,1]
 const parameters = props.parameters || {width:1,height:1,depth:1,}
-//console.log(position);
 
 function onPointerEvent(event) {
   //console.log(event);
   //console.log(event.component.mesh);
-  console.log("event.component.mesh.uuid")
-  console.log(event.component.mesh.uuid)
+  //console.log("event.component.mesh.uuid")
+  //console.log(event.component.mesh.uuid)
   //console.log(selectObjectUUID)
   selectObjectUUID.value = event.component.mesh.uuid;
 }
 
 </script>
-<!-- 
-:width="parameters.width"
-    :height="parameters.height"
-    :depth="parameters.depth"
--->
 <template>
   <Box 
     :position="{ x: position[0],y: position[1],z: position[2]}"
@@ -56,8 +53,3 @@ function onPointerEvent(event) {
     <EntityMaterialParse :material="props.material" />
   </Box>
 </template>
-<!--
-<Box>
-  <LambertMaterial />
-</Box>
--->

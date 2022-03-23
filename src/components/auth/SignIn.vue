@@ -4,8 +4,10 @@
   Created by: Lightnet
 */
 import { inject, ref } from 'vue';
+import { useRouter } from 'vue-router';
 import { AuthStatusInjectKey, LoginInjectKey } from "./AuthKeys.mjs";
 
+const router = useRouter();
 const authStatus = inject(AuthStatusInjectKey)
 const login = inject(LoginInjectKey)
 
@@ -13,8 +15,12 @@ const alias = ref("q");
 const passphrase = ref("q");
 
 async function clickLogin(event) {
-  let baccess = await login(alias.value,passphrase.value)
-  console.log(baccess)
+  let status = await login(alias.value,passphrase.value)
+  //console.log(status);
+  if(status.api=="LOGIN"){
+    //console.log("[login]")
+    router.push("/")
+  }
 }
 function  clickForgot(event) {
   console.log("login...")

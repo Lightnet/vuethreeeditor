@@ -1,6 +1,6 @@
 
 https://vuejs.org/guide/components/provide-inject.html#inject
-
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol
 
 https://vuejs.org/guide/components/provide-inject.html#working-with-symbol-keys
 

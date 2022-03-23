@@ -151,7 +151,7 @@ export const authPlugin = {
 
     const logout = async ()=>{
       console.log("logout is being called")
-      instance.post('/signout')
+      return instance.post('/signout')
         .then(response=>{
           if((response.statusText=='OK')&&(response.status==200)){
             let data = response.data;
@@ -164,6 +164,7 @@ export const authPlugin = {
               console.log("sign out");
               authStatus.value="login";
             }
+            return data;
           }
         }).catch(error=>{
           console.log(error)

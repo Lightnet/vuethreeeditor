@@ -7,42 +7,79 @@
 // https://sbcode.net/threejs/transform-controls/
 // https://github.com/mrdoob/three.js/blob/master/examples/misc_controls_transform.html
 // 
-// 
-// 
-// 
-// 
+import { TransformControls } from 'three/examples/jsm/controls/TransformControls';
+import {RendererInjectionKey, SceneInjectionKey, Mesh } from 'troisjs';
+import { inject, onActivated, onMounted, onUnmounted, onUpdated, ref } from 'vue';
+/*
+export default {
+  inject:{
+      renderer:{from:RendererInjectionKey}
+    , scene:{from:SceneInjectionKey}
+  },
+  mounted() {
+    console.log("EntityTransformControl");
+    console.log(this.renderer.three)
+    console.log(this.renderer.three.renderer.domElement)
+    console.log(this.renderer.three.cameraCtrl)
+    console.log(this.renderer.cameraCtrl)
+    console.log(this.renderer.camera)
+    console.log(this.scene)
+    console.log("EntityTransformControl///");
+  }
+}
+*/
+const renderer = inject(RendererInjectionKey);
+const scene = inject(SceneInjectionKey);
+const transformControls = ref();
+const refBox = ref();
+let transControls;
 
-import { transform } from 'troisjs';
-
-const props = defineProps({
-    objectid: String
-  , dataType: String
-  , name: String
-  , visible:Boolean
-  , parameters:Object
-  , position:Array
-  , rotation:Array
-  , scale:Array
-})
-//console.log(props);
-const position = props.position || [0,0,0]
-const rotation = props.rotation || [0,0,0]
-const scale = props.scale || [1,1,1]
-const parameters = props.parameters || {width:1,height:1,depth:1,}
-//console.log(position);
-function onPointerEvent(event) {
-  console.log(event);
-  console.log(event.component.mesh)
+function detectTransformHandle ( event ) {
+  //console.log(event);
+  //console.log(renderer.three.cameraCtrl)//okay
+  renderer.three.cameraCtrl.enabled = !event.value;
 }
 
+//does not work as renderer is not setup yet
+onMounted(() => {
+  transControls = new TransformControls(renderer.three.camera, renderer.three.renderer.domElement)
+  transformControls.value = transControls;
+  transformControls.value.addEventListener('dragging-changed', detectTransformHandle);
+  transControls.attach( refBox.value.mesh );
+  scene.add(transControls)
+  //scene.add(transformControls.value) //nope, error proxy
+  window.addEventListener( 'keydown', controlTransform);
+})
+onActivated(()=>{
+  console.log('onActivated')
+  console.log(renderer.three.cameraCtrl)//okay
+})
+
+onUnmounted(() =>{
+  transControls.detach();
+  scene.remove(transControls)
+  transformControls.value.removeEventListener( 'keydown', detectTransformHandle);
+  window.removeEventListener( 'keydown', controlTransform);
+});
+
+function controlTransform(e){
+  console.log(e.code)
+  switch ( e.code ) {
+    case 'KeyW': // W
+      transformControls.value.setMode( 'translate' );
+      break;
+    case 'KeyE': // E
+      transformControls.value.setMode( 'rotate' );
+      break;
+    case 'KeyR': // R
+      transformControls.value.setMode( 'scale' );
+      break;
+    case 'Escape': // Esc
+      //controls.reset(); // nope
+      break;
+  }
+}
 </script>
 <template>
-  <Box 
-    :position="{ x: position[0],y: position[1],z: position[2]}"
-    :rotation="{ x: rotation[0],y: rotation[1],z: rotation[2]}"
-    :scale="{ x: scale[0],y: scale[1],z: scale[2]}"
-    v-bind="parameters"
-    @click="onPointerEvent"
-    >
-  </Box>
+  <Mesh ref="refBox"/>    
 </template>

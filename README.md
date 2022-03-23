@@ -21,6 +21,25 @@
 - troisjs package can render client only and not SSR server render.
   -  Bug around import and require conflicts from three and troisjs for camera orbit.
 - window undefined for ssr
+- script setup user create object mount inject renderer doesn't load correctly.
+  - one reason is orbit camera is null
+    -  work when doing some event handle as render update variables.
+```vue
+<script>
+export default {
+  inject:{
+      renderer:{from:RendererInjectionKey}
+    , scene:{from:SceneInjectionKey}
+  },
+  mounted() {
+    console.log("EntityTransformControl");
+    console.log(this.renderer.three)
+    console.log(this.renderer.three.renderer.domElement)
+    console.log(this.scene)
+  }
+}
+</script>
+```
 
 # Set up:
   Need to install nodejs.

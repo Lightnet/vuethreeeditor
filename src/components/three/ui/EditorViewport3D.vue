@@ -13,6 +13,7 @@ import { AmbientLight,Box,LambertMaterial, Camera, Renderer, Scene, Mesh } from 
 import { TransformControls } from 'three/examples/jsm/controls/TransformControls';
 
 import EntityBox from '../entity/EntityBox.vue';
+import EntityTransformControl from '../editor/EntityTransformControl.vue';
 import { ENTITIES } from '../context/EntityComponents.mjs';
 
 const entities = inject('entities');
@@ -52,6 +53,8 @@ function detectTransformHandle ( event ) {
 }
 onMounted(() =>{
   //https://troisjs.github.io/guide/core/raf.html
+  console.log("renderer.value.three.cameraCtrl")
+  console.log(renderer.value.three.cameraCtrl)
 
   //console.log("mount editor...")
   //console.log(renderer.value)
@@ -100,7 +103,7 @@ function checkEntityComp(entity){
     <Scene ref="scene">
       <AmbientLight :intensity="0.1"/>
       <Mesh ref="refBox" />
-      
+      <EntityTransformControl/>
       <!--
         <Box >
         <LambertMaterial />

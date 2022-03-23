@@ -21,9 +21,9 @@ const mapEntityID = inject('mapEntityID');
 const props = defineProps({
   projectid:String
 });
-console.log(props)
-console.log("Editor onMount!",props.projectid)
-console.log(projectID)
+//console.log(props)
+//console.log("Editor onMount!",props.projectid)
+//console.log(projectID)
 projectID.value = props.projectid;
 
 getProjectData();

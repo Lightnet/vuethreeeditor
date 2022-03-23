@@ -9,20 +9,29 @@
 //import { TransformControls } from 'three/examples/jsm/controls/TransformControls';
 //import { Box, Camera, LambertMaterial, PointLight, Renderer, Scene, AmbientLight } from 'troisjs';
 
-import { inject, onMounted, onUnmounted, ref } from 'vue';
+import { inject, onMounted, onUnmounted, ref, toRaw, toRef, unref } from 'vue';
 import { Camera, Renderer, Scene } from 'troisjs';
 
 import EntityBox from '../entity/EntityBox.vue';
 import EntityTransformControl from '../editor/EntityTransformControl.vue';
 import { ENTITIES } from '../context/EntityComponents.mjs';
-import { EntitiesInjectKey, SelectObjectUUIDInjectKey } from '../context/EntityKeys.mjs';
+import { 
+  EntitiesInjectKey
+, SelectObjectIDInjectKey
+, SelectObjectUUIDInjectKey
+, UpdateEntityInjectKey
+} from '../context/EntityKeys.mjs';
 
 const entities = inject(EntitiesInjectKey);
 
 const selectObjectUUID = inject(SelectObjectUUIDInjectKey);
 
-const renderer = ref();
-const scene = ref();
+const selectObjectID = inject(SelectObjectIDInjectKey);
+const updateEntity = inject(UpdateEntityInjectKey);
+
+const renderer = ref();//full access scene, three and other configs.
+const scene = ref();//not access?
+const entity = ref({});
 
 onMounted(() =>{
   //https://troisjs.github.io/guide/core/raf.html
@@ -45,8 +54,55 @@ function checkEntityComp(entity){
   }
 }
 
-function updateObjectInfo(){
+function updateTransform(mode){
+  entity.value=null;
+  console.log("update object:",mode)
+  console.log(renderer.value.scene)
+  let obj3d = renderer.value.scene.getObjectByProperty('uuid',selectObjectUUID.value)
+  if(obj3d){
+    console.log("FOUND//////////?",obj3d)
+    entity.value = entities.value.find(item=>item.objectid==unref(selectObjectID))
+    if(mode == "translate"){//position
+      //console.log(obj3d.position)
+      //entity.value.position[obj3d.position.x,obj3d.position.y,obj3d.position.z];
+      entity.value.position[0]=obj3d.position.x;
+      entity.value.position[1]=obj3d.position.y;
+      entity.value.position[2]=obj3d.position.z;
+      //console.log(entity.value.position)
+      let query = {
+        objectid: entity.value.objectid
+        , type:"position"
+        , value:entity.value.position
+      }
+      console.log("query: ",query)
+      updateEntity(query)
+    }
+    if(mode == "rotate"){
+      entity.value.rotation[0]=obj3d.rotation.x;
+      entity.value.rotation[1]=obj3d.rotation.y;
+      entity.value.rotation[2]=obj3d.rotation.z;
+      let query = {
+        objectid:selectObjectID.value
+        , type:"rotation"
+        , value:entity.value.rotation
+        //, value:[obj3d.rotation.x,obj3d.rotation.y,obj3d.rotation.z]
+      };
+      updateEntity(query)
+    }
 
+    if(mode == "scale"){
+      //objEntity.scale[obj3d.scale.x,obj3d.scale.y,obj3d.scale.z];
+      entity.value.scale[0]=obj3d.scale.x;
+      entity.value.scale[1]=obj3d.scale.y;
+      entity.value.scale[2]=obj3d.scale.z;
+      updateEntity({
+        objectid:selectObjectID.value
+        , type:"scale"
+        , value:entity.value.scale
+        //, value:[obj3d.scale.x,obj3d.scale.y,obj3d.scale.z]
+      })
+    }
+  }
 }
 
 //resize="window"
@@ -60,7 +116,7 @@ function updateObjectInfo(){
         <AmbientLight :intensity="0.01"/>
         <Box><LambertMaterial /></Box>
       -->
-      <EntityTransformControl :selectObjectID="selectObjectUUID"/>
+      <EntityTransformControl :selectObjectID="selectObjectUUID" @update-transform="updateTransform"/>
       <template v-for="entity in  entities" :key="entity.id">
         <component :is="checkEntityComp(entity)" v-bind="entity" />
       </template>

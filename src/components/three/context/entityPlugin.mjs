@@ -102,6 +102,8 @@ export const entityPlugin = {
           if(item.objectid==args.objectid){
             console.log(item)
             if(args.type=="position"){
+              //console.log("args.value")
+              //console.log(args.value)
               item.position = args.value;
             }
             if(args.type=="rotation"){

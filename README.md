@@ -1,5 +1,9 @@
 # Vue Three Editor
 
+# Status:
+  - stable and some bugs.
+  - simple set up editor
+
 # Packages:
 - vue
 - three
@@ -17,7 +21,55 @@
 
   Troisjs package reduce time to develop on vuejs components. Looking the Troisjs src code that have easy coding.
 
+# Features:
+- Simple account
+- Docs (work in progress)
+  - entity setup prefab
+  - 
+- Editor
+  - debug
+    - lights helper not added
+    - camera helper not added
+  - tools
+    - transform controls
+      - select object to display the helper transform
+      - default key from three.js transformcontrol
+      - Not all geometry work as only box and plane is added.
+  - project
+    - project list ( added )
+    - delete ( added )
+    - create ( added )
+    - edit ( added )
+  - scene ( added )
+    - scene list ( not added )
+    - delete ( not added )
+    - update ( not added )
+    - create ( not added )
+  - entity
+    - save ( added )
+    - load ( added )
+    - update ( added )
+    - delete ( added )
+  - Physics ( work in progress )
+    - simple cube fall
+  - express ( added )
+    - access ( added )
+    - entity objects ( added )
+    - project ( added )
+    - scene ( added )
+    - files ( not added )
+  - material ( added )
+    - simple geometry color and wireframe
+  - geometry
+    - box ( added )
+    - plane ( added )
+  - lights ( added )
+    - Tested basic lights and working some need target object or vector to work.
+
+
 # Notes:
+- transform controls ray overlay not select mesh due to plane select first and cube.
+- transform control and input transform ui does not update correctly
 - troisjs package can render client only and not SSR server render.
   -  Bug around import and require conflicts from three and troisjs for camera orbit.
 - window undefined for ssr

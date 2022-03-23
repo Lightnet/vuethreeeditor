@@ -9,9 +9,10 @@
 import { Box } from 'troisjs';
 import EntityMaterialParse from "../material/EntityMaterialParse.vue";
 import { inject } from 'vue';
-import { SelectObjectUUIDInjectKey } from '../context/EntityKeys.mjs';
+import { SelectObjectUUIDInjectKey, SelectObjectIDInjectKey } from '../context/EntityKeys.mjs';
 
 const selectObjectUUID = inject(SelectObjectUUIDInjectKey);
+const selectObjectID = inject(SelectObjectIDInjectKey);
 
 const props = defineProps({
     objectid: String
@@ -38,6 +39,9 @@ function onPointerEvent(event) {
   //console.log("event.component.mesh.uuid")
   //console.log(event.component.mesh.uuid)
   //console.log(selectObjectUUID)
+  console.log("props.objectid///")
+  console.log(props.objectid)
+  selectObjectID.value = props.objectid;
   selectObjectUUID.value = event.component.mesh.uuid;
 }
 

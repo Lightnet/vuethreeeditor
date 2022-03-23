@@ -7,9 +7,10 @@
 import { Plane } from 'troisjs';
 import EntityMaterialParse from "../material/EntityMaterialParse.vue";
 import { inject } from 'vue';
-import { SelectObjectUUIDInjectKey } from '../context/EntityKeys.mjs';
+import { SelectObjectUUIDInjectKey, SelectObjectIDInjectKey } from '../context/EntityKeys.mjs';
 
 const selectObjectUUID = inject(SelectObjectUUIDInjectKey);
+const selectObjectID = inject(SelectObjectIDInjectKey);
 
 const props = defineProps({
     objectid: String
@@ -31,6 +32,7 @@ const scale = props.scale || [1,1,1]
 const parameters = props.parameters || {width:1,height:1}
 
 function onPointerEvent(event) {
+  selectObjectID.value = props.objectid;
   selectObjectUUID.value = event.component.mesh.uuid;
 }
 

@@ -31,6 +31,7 @@ export default {
 const props = defineProps({
   selectObjectID:String
 })
+const emit = defineEmits(['updateTransform']);
 const renderer = inject(RendererInjectionKey);
 const scene = inject(SceneInjectionKey);
 
@@ -47,13 +48,16 @@ watch(props,()=>{
 })
 
 const transformControls = ref();
-const refBox = ref();
+//const refBox = ref();
 let transControls;
 
-function detectTransformHandle ( event ) {
-  //console.log(event);
+function detectTransformHandle (event){
+  console.log(event);
   //console.log(renderer.three.cameraCtrl)//okay
   renderer.three.cameraCtrl.enabled = !event.value;
+  if(event.value==false){
+    emit('updateTransform',transformControls.value.mode)
+  }
 }
 
 //does not work as renderer is not setup yet
@@ -61,7 +65,7 @@ onMounted(() => {
   transControls = new TransformControls(renderer.three.camera, renderer.three.renderer.domElement)
   transformControls.value = transControls;
   transformControls.value.addEventListener('dragging-changed', detectTransformHandle);
-  transControls.attach( refBox.value.mesh );
+  //transControls.attach( refBox.value.mesh );
   scene.add(transControls)
   //scene.add(transformControls.value) //nope, error proxy
   window.addEventListener( 'keydown', controlTransform);
@@ -105,5 +109,7 @@ function controlTransform(e){
 }
 </script>
 <template>
-  <Mesh ref="refBox"/>    
+  <!--
+  <Mesh ref="refBox"/>
+  -->
 </template>

@@ -23,7 +23,7 @@ const projectName = inject(ProjectNameInjectKey);
 const sceneID = inject(SceneIDInjectKey);
 const sceneName = inject(SceneNameInjectKey);
 
-const mapEntityID = inject(MapEntityInjectKey);
+const mapEntity = inject(MapEntityInjectKey);
 
 const props = defineProps({
   projectid:String
@@ -87,7 +87,9 @@ async function getSceneEntities(){
   if(data.api=='ENTITIES'){
     console.log('API get entities!');
     if(data.entities.length>=0){
-      mapEntityID(data.entities);
+      mapEntity(data.entities);
+    }else{
+      mapEntity([]);
     }
   }
 }

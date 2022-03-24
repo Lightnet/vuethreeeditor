@@ -143,7 +143,18 @@ export const entityPlugin = {
     app.provide(DeleteEntityIDInjectKey,deleteEntityID)
 
     const mapEntityID = (objs)=>{
-      entities.value = objs;
+      //let len = entities.value.length
+      //for( var i = 0; i < len; i++){ 
+        //entities.value.splice(i, 1); 
+      //}
+      //console.log("entities.value");
+      //const _entities = ref([])
+      //entities.value = _entities.value;
+      //console.log(entities.value);
+      //entities.value = [];
+      //entities.value = objs;
+      entities.value = [...objs];
+      //console.log(entities.value);
     }
 
     app.provide(MapEntityInjectKey,mapEntityID)

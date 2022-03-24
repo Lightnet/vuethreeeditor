@@ -7,7 +7,7 @@
 // https://troisjs.github.io/guide/core/renderer.html#props-from-three-webglrenderer
 // https://troisjs.github.io/guide/core/renderer.html#custom-render-function
 
-import { inject, onMounted, onUnmounted, ref, unref } from 'vue';
+import { inject, onMounted, onUnmounted, ref, toRaw, unref, watch } from 'vue';
 import { Camera, Renderer, Scene } from 'troisjs';
 
 import EntityBox from '../entity/EntityBox.vue';
@@ -21,6 +21,7 @@ import {
 } from '../context/EntityKeys.mjs';
 
 const entities = inject(EntitiesInjectKey);
+const ObjEntities = ref([]);
 
 const selectObjectUUID = inject(SelectObjectUUIDInjectKey);
 
@@ -30,6 +31,13 @@ const updateEntity = inject(UpdateEntityInjectKey);
 const renderer = ref();//full access scene, three and other configs.
 const scene = ref();//not access?
 const entity = ref({});
+
+watch(entities,()=>{
+  //console.log("unref(entities)")
+  //console.log(entities._rawValue)
+  //console.log(entities)
+  ObjEntities.value = unref(entities.value);
+})
 
 onMounted(() =>{
   //https://troisjs.github.io/guide/core/raf.html
@@ -43,6 +51,7 @@ onUnmounted(() =>{
 
 //check entity object types for element setup component
 function checkEntityComp(entity){
+  //console.log("init?")
   let componentEntity = ENTITIES.find(item=>item.dataType == entity.dataType)
   if(componentEntity){
     return componentEntity.comp;
@@ -114,7 +123,7 @@ function updateTransform(mode){
         <Box><LambertMaterial /></Box>
       -->
       <EntityTransformControl :selectObjectID="selectObjectUUID" @update-transform="updateTransform"/>
-      <template v-for="entity in  entities" :key="entity.id">
+      <template v-for="entity in ObjEntities" :key="entity.objectid">
         <component :is="checkEntityComp(entity)" v-bind="entity" />
       </template>
     </Scene>

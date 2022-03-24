@@ -38,7 +38,7 @@ async function getScenes(){
   }
   //console.log(data);
   if(data.api=="SCENES"){
-    console.log(data.scenes)
+    //console.log(data.scenes)
     scenes.value = data.scenes;
   }
 }
@@ -48,7 +48,7 @@ function clickCreateScene(){
 }
 
 async function CreateScene(){
-  console.log(sceneName.value)
+  //console.log(sceneName.value)
   if(isEmpty(sceneName.value)){
     console.log("Empty Field!")
     return;
@@ -68,7 +68,7 @@ async function CreateScene(){
     console.log("ERROR FETCH CREATE SCENE");
     return;
   }
-  console.log(data);
+  //console.log(data);
   if(data.api==API.CREATE){
     console.log("CREATE SCENE")
     //setScenes(data.scene)
@@ -104,7 +104,7 @@ async function updateScene(){
     console.log("ERROR FETCH GET ASSETS");
     return;
   }
-  console.log(data);
+  //console.log(data);
   if(data.api==API.UPDATE){
     //setScenes(data.scenes)
     scenes.value = scenes.value.map(item=>{
@@ -142,7 +142,7 @@ async function deleteScene(){
     console.log("ERROR FETCH DELETE Scene");
     return;
   }
-  console.log(data);
+  //console.log(data);
   if(data.api==API.DELETE){
     //setScenes(data.scenes)
     console.log("DELETE")
@@ -189,7 +189,6 @@ async function getSceneEntities(){
   if(data.api=='ENTITIES'){
     console.log('API get entities!');
     if(data.entities.length>=0){
-      mapEntities([]);
       mapEntities(data.entities);
     }
   }

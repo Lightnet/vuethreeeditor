@@ -3,7 +3,7 @@
 # Status:
   - stable and some bugs.
   - simple set up editor
-  - loading different scene with different entities does not update the UI.
+  - work in progress and testing.
 
 # Packages:
 - vue
@@ -47,7 +47,7 @@
     - update ( not added )
     - create ( not added )
     - load ( added )
-      -  bugs objects load not clear data.
+      - entities load correctly
   - entity
     - save ( added )
     - load ( added )
@@ -71,7 +71,7 @@
 
 
 # Notes:
-- transform controls ray overlay not select mesh due to plane select first and cube.
+- transform controls ray overlay not select mesh due to plane select first and cube. raycasting.
 - transform control and input transform ui does not update correctly
 - troisjs package can render client only and not SSR server render.
   -  Bug around import and require conflicts from three and troisjs for camera orbit.

@@ -39,7 +39,7 @@ export default {
   },
   methods: {
     onChange(event) {
-      console.log(event.target.value)
+      //console.log(event.target.value)
     }
   },
   computed: {

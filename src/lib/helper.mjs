@@ -57,3 +57,6 @@ export function parseJwt(token) {
 
   return JSON.parse(jsonPayload);
 };
+
+// https://www.codegrepper.com/code-examples/javascript/vue+comparing+two+objects+to+see+if+they+are+the+same
+export const isEqual = (...objects) => objects.every(obj => JSON.stringify(obj) === JSON.stringify(objects[0]));

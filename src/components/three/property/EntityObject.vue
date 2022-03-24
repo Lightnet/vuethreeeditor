@@ -3,11 +3,16 @@
   LICENSE: MIT
   Created by: Lightnet
 */
-import { ref, inject } from "vue";
-import { EntitiesInjectKey, UpdateEntityInjectKey } from "../context/EntityKeys.mjs";
 
+// https://www.codegrepper.com/code-examples/javascript/vue+comparing+two+objects+to+see+if+they+are+the+same
+
+import { ref, inject, watch, unref, toRaw } from "vue";
+import { EntitiesInjectKey, UpdateEntityInjectKey } from "../context/EntityKeys.mjs";
+const isEqual = (...objects) => objects.every(obj => JSON.stringify(obj) === JSON.stringify(objects[0]));
 const entities = inject(EntitiesInjectKey);
 const updateEntity = inject(UpdateEntityInjectKey);
+
+const oldEntities = ref([]);
 
 const selectEntity = ref("");
 const isRadian = ref(true);
@@ -19,14 +24,25 @@ const isMaterial = ref(false);
 
 const materialindex = ref(0);
 
+watch(entities,()=>{
+  if(isEqual(oldEntities._rawValue, entities._rawValue)==true){
+    //console.log("<<<<<<<<<<<<<<<<")
+  }else{
+    //console.log(">>>>>>>>>>>>>>>>")
+    oldEntities.value = entities._rawValue;
+    selectEntity.value=""
+    entity.value={}
+  }
+})
+
 function onSelectEntity(event){
   entity.value=null;
 
-  console.log(event.target.value)
+  //console.log(event.target.value)
   selectEntity.value=event.target.value
   let refEntity= entities.value.find(item=>item.objectid == event.target.value)
   if(refEntity){//if found
-    console.log(refEntity)
+    //console.log(refEntity)
     entity.value=refEntity;
   }else{//clear if null
     entity.value=null;

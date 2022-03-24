@@ -1,4 +1,4 @@
-
+# provide inject:
 https://vuejs.org/guide/components/provide-inject.html#inject
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol
 
@@ -38,6 +38,7 @@ export default {
 
 ```vue
 <script setup>
+import {inject} from "vue";
 import { myInjectionKey } from './keys.js'
 const key = inject(myInjectionKey);
 console.log(key)

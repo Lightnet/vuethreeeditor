@@ -17,10 +17,14 @@ const {projectid} = route.query;
 if(projectid){
   projectID.value = String(projectid);
 }
+
+function eventTest(){
+  console.log("testsss test....")
+}
 </script>
 
 <template>
-  <Editor :projectid="projectID"/>
+  <Editor :projectid="projectID" @test="eventTest"/>
 </template>
 <!--
 <AuthAccess>

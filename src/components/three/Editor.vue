@@ -17,6 +17,7 @@ import {
 , SceneNameInjectKey 
 , MapEntityInjectKey
 } from "./context/EntityKeys.mjs";
+import Modal from "../modal/Modal.vue";
 
 const projectID = inject(ProjectIDInjectKey);
 const projectName = inject(ProjectNameInjectKey);
@@ -94,6 +95,10 @@ async function getSceneEntities(){
   }
 }
 
+function eventTest(){
+  console.log("test....")
+}
+
 </script>
 <template>
 
@@ -103,6 +108,8 @@ async function getSceneEntities(){
     <EditorSideBarRight/>
     <EditorViewport3D/>
   </div>
+
+  <Modal @test="eventTest"/>
 </template>
 
 <style scoped>

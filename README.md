@@ -3,6 +3,7 @@
 # Status:
   - stable and some bugs.
   - simple set up editor
+  - loading different scene with different entities does not update the UI.
 
 # Packages:
 - vue
@@ -41,10 +42,12 @@
     - create ( added )
     - edit ( added )
   - scene ( added )
-    - scene list ( not added )
+    - scene list ( added )
     - delete ( not added )
     - update ( not added )
     - create ( not added )
+    - load ( added )
+      -  bugs objects load not clear data.
   - entity
     - save ( added )
     - load ( added )

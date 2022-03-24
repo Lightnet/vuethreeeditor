@@ -7,10 +7,13 @@ import { ref, inject } from "vue";
 import { isEmpty, nanoid16 } from "../../../lib/helper.mjs";
 import useFetch from "../../hook/useFetch.mjs";
 import { API } from "../context/API.mjs";
-import { ProjectIDInjectKey, ScenesInjectKey } from "../context/EntityKeys.mjs";
+import { MapEntityInjectKey, ProjectIDInjectKey, SceneIDInjectKey, ScenesInjectKey } from "../context/EntityKeys.mjs";
 
 const projectID = inject(ProjectIDInjectKey);
 const scenes = inject(ScenesInjectKey);
+const editorSceneID = inject(SceneIDInjectKey);
+
+const mapEntities = inject(MapEntityInjectKey);
 
 const view = ref("scenes")
 const sceneID = ref("")
@@ -152,6 +155,47 @@ async function deleteScene(){
 function clickBack(){
   view.value="scenes"
 }
+
+function clickloadSceneID(id){
+  let tscene = scenes.value.find(item=>item.objectid == id)
+  if(tscene){
+    sceneID.value = tscene.objectid;
+    sceneDescription.value = tscene.description;
+    sceneName.value = tscene.name;// local
+    editorSceneID.value = tscene.objectid; //
+    getSceneEntities();
+  }
+}
+
+async function getSceneEntities(){
+  if(isEmpty(sceneID.value)){
+    console.log("Empty sceneID!");
+    return;
+  }
+  let data = await useFetch('api/entity',{
+    method:'POST'
+    , headers: {"Content-Type": "application/json"}
+    , body: JSON.stringify({ 
+        api:'ENTITIES'
+      //, projectid:projectID.value1
+      , sceneid:sceneID.value
+    })
+  });
+  if(data.error){
+    console.log("ERROR FETCH GET ENTITIES");
+    return;
+  }
+  //console.log(data);
+  if(data.api=='ENTITIES'){
+    console.log('API get entities!');
+    if(data.entities.length>=0){
+      mapEntities([]);
+      mapEntities(data.entities);
+    }
+  }
+}
+
+
 </script>
 
 <template>
@@ -163,6 +207,7 @@ function clickBack(){
       <div v-for="scene in scenes" :key="scene.objectid"> 
         <label> {{scene.name}}</label>
         <button @click="clickEditScene(scene.objectid)">Edit</button>
+        <button @click="clickloadSceneID(scene.objectid)">Load</button>
         <button @click="clickDeleteScene(scene.objectid)">Delete</button>
       </div>
     </div>

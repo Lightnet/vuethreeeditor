@@ -19,6 +19,7 @@ import {
 , ProjectNameInjectKey
 , SceneIDInjectKey
 , SceneNameInjectKey
+, ScenesInjectKey
 , SelectObjectIDInjectKey
 , SelectObjectInjectKey
 , SelectObjectUUIDInjectKey
@@ -34,6 +35,7 @@ export const entityPlugin = {
     const projectName = ref("")
     const sceneID = ref("")
     const sceneName = ref("")
+    const scenes = ref([])
 
     const selectObject = ref({})
     const selectObjectID = ref("")
@@ -49,6 +51,8 @@ export const entityPlugin = {
     app.provide(ProjectNameInjectKey, projectName);
     app.provide(SceneIDInjectKey, sceneID);
     app.provide(SceneNameInjectKey, sceneName);
+
+    app.provide(ScenesInjectKey, scenes);
 
     app.provide(SelectObjectInjectKey, selectObject);
     app.provide(SelectObjectIDInjectKey, selectObjectID);

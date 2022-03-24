@@ -13,6 +13,8 @@ export const ProjectNameInjectKey = Symbol();
 export const SceneIDInjectKey = Symbol();
 export const SceneNameInjectKey = Symbol();
 
+export const ScenesInjectKey = Symbol();
+
 export const SelectObjectInjectKey = Symbol();
 export const SelectObjectIDInjectKey = Symbol();
 export const SelectObjectUUIDInjectKey = Symbol();

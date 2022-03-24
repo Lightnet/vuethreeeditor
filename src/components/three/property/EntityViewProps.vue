@@ -7,11 +7,13 @@
 import CreateEntity from "./CreateEntity.vue";
 import EntityObject from "./EntityObject.vue";
 import EntityObjects from "./EntityObjects.vue";
+import EntityScenes from "./EntityScenes.vue";
 
 const routes = {
   'create': CreateEntity,
   'entities': EntityObjects,
   'entity': EntityObject,
+  'scenes': EntityScenes,
 }
 
 export default {
@@ -27,6 +29,7 @@ export default {
         "create"
         ,"entities"
         ,"entity"
+        ,"scenes"
       ]
       ,viewSelect:this.view
     }
@@ -46,7 +49,6 @@ export default {
   },
 };
 </script>
-
 <template>
   <div>
     <label>View</label>
@@ -59,7 +61,5 @@ export default {
     <component :is="currentView" />
   </div>
 </template>
-
 <style>
-
 </style>

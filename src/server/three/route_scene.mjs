@@ -9,9 +9,11 @@ import clientDB from '../../lib/database.mjs';
 import { isEmpty } from '../../lib/helper.mjs';
 const router = express.Router();
 
+const log = console.log;
+
 router.get('/scene', async (req, res) => {
   //res.json({ error: 'Not found' });
-  res.json({ error: 'not found!' });
+  res.json({ error: 'scene not found!' });
 })
 
 router.post('/scene', async (req, res) => {
@@ -39,9 +41,9 @@ router.post('/scene', async (req, res) => {
 
   if(api==API.CREATE){
     let data = req.body;
-
+    console.log(data)
     try{
-
+      console.log("CREATE???????....")
       const Scene = db.model('Scene');
       let newScene = new Scene({
           projectid:data.projectid
@@ -50,21 +52,20 @@ router.post('/scene', async (req, res) => {
         , name: data.name
         , description: data.description
       })
-
-      await newScene.save();
-      //let saveScene = await newScene.save();
+      //await newScene.save();
+      let saveScene = await newScene.save();
       //log(saveScene);
 
       return res.json({api:'CREATE',scene:saveScene});
-
     }catch(e){
-      //log(e);
+      log(e);
       return res.json({error:"CREATE SCENE FAIL"});
     }
   }
 
   if(api==API.SCENES){
     let data = req.body;
+    console.log(data)
     try{
       let scenes = await Scene.find({projectid: data.projectid})
         .select('projectid id objectid  name description')

@@ -6,6 +6,7 @@
 
 import EntityViewProps from "../property/EntityViewProps.vue"
 
+//create
 </script>
 
 <template>
@@ -14,7 +15,7 @@ import EntityViewProps from "../property/EntityViewProps.vue"
   </div>
 </template>
 
-<style scoped>
+<style>
 .sidebarleft {
   position: fixed;
   top:20px;

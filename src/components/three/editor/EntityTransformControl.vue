@@ -52,7 +52,7 @@ const transformControls = ref();
 let transControls;
 
 function detectTransformHandle (event){
-  console.log(event);
+  //console.log(event);
   //console.log(renderer.three.cameraCtrl)//okay
   renderer.three.cameraCtrl.enabled = !event.value;
   if(event.value==false){
@@ -79,7 +79,7 @@ onUnmounted(() =>{
 });
 
 function controlTransform(e){
-  console.log(e.code)
+  //console.log(e.code)
   switch ( e.code ) {
     case 'KeyQ': // W
       transformControls.value.setSpace( transformControls.value.space === 'local' ? 'world' : 'local' );

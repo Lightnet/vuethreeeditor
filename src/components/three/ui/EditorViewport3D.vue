@@ -6,10 +6,8 @@
 // https://troisjs.github.io/guide/
 // https://troisjs.github.io/guide/core/renderer.html#props-from-three-webglrenderer
 // https://troisjs.github.io/guide/core/renderer.html#custom-render-function
-//import { TransformControls } from 'three/examples/jsm/controls/TransformControls';
-//import { Box, Camera, LambertMaterial, PointLight, Renderer, Scene, AmbientLight } from 'troisjs';
 
-import { inject, onMounted, onUnmounted, ref, toRaw, toRef, unref } from 'vue';
+import { inject, onMounted, onUnmounted, ref, unref } from 'vue';
 import { Camera, Renderer, Scene } from 'troisjs';
 
 import EntityBox from '../entity/EntityBox.vue';
@@ -37,7 +35,6 @@ onMounted(() =>{
   //https://troisjs.github.io/guide/core/raf.html
   //console.log("renderer.value.three.cameraCtrl")
   //console.log(renderer.value.three.cameraCtrl)
-
 });
 
 onUnmounted(() =>{
@@ -56,11 +53,11 @@ function checkEntityComp(entity){
 
 function updateTransform(mode){
   entity.value=null;
-  console.log("update object:",mode)
-  console.log(renderer.value.scene)
+  //console.log("update object:",mode)
+  //console.log(renderer.value.scene)
   let obj3d = renderer.value.scene.getObjectByProperty('uuid',selectObjectUUID.value)
   if(obj3d){
-    console.log("FOUND//////////?",obj3d)
+    //console.log("FOUND//////////?",obj3d)
     entity.value = entities.value.find(item=>item.objectid==unref(selectObjectID))
     if(mode == "translate"){//position
       //console.log(obj3d.position)
@@ -74,7 +71,7 @@ function updateTransform(mode){
         , type:"position"
         , value:entity.value.position
       }
-      console.log("query: ",query)
+      //console.log("query: ",query)
       updateEntity(query)
     }
     if(mode == "rotate"){

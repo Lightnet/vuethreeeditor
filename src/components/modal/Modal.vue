@@ -1,80 +1,39 @@
 <script setup>
 /*
-
+  LICENSE: MIT
+  Created by: Lightnet
 */
 
 // https://vuejs.org/guide/built-ins/teleport.html#basic-usage
 // https://dev.to/mandrewcito/vue-js-draggable-div-3mee
-import { inject, onMounted, onUnmounted, reactive, ref, watch } from 'vue';
+import { onMounted, onUnmounted, reactive, ref, watch } from 'vue';
 import { getCurrentInstance } from 'vue';
-import { useEmit } from "../event/eventBusPlugin.mjs";
 
 const app = getCurrentInstance()
-//console.log("app.appContext");
-//console.log(app.appContext);
-
-//const EventBus = inject('EventBus');
-//EventBus.emit('test')
-//app.on('test',()=>{
-  //console.log("FOO!")
-//})
-const vemit = useEmit();
-
 const props = defineProps({
   isOpen:Boolean,
   width:String,
   height:String
 });
-//console.log(props)
-
+console.log(props)
+const isOpen = ref(props.isOpen ? true : false)
 watch(props,()=>{
-  if(typeof props.isOpen !== 'undefined'){
+  if(typeof props.isOpen === 'boolean'){
     isOpen.value =props.isOpen;
   }
 })
-
-//app.emit('test')
-//app.appContext.emit('test')//nope
-
+//console.log(isOpen.value)
 const emits = defineEmits(['onClose']);
 const width = ref(props.width || "200px")
-console.log("width///")
-console.log(width)
 const height = ref( props.height || "200px")
-const isOpen = ref(props.isOpen || true)
-
 const modal = ref()
 const modalDrag = ref()
-
-const positions = reactive({
-  clientX:0,
-  clientY:0,
-  movementX:0,
-  movementY:0,
-})
-
-function clickTest(){
-  //EventBus.emit('test')
-  vemit('test',{test:'tst'})
-}
+const positions = reactive({clientX:0,clientY:0,movementX:0,movementY:0,})
 
 function onClose(){
-  console.log(isOpen.value);
+  //console.log(isOpen.value);
   isOpen.value=false;
 }
-
-onMounted(()=>{
-  //console.log(modal.value)
-  //console.log(modalDrag.value)
-  console.log("$root")
-  //console.log($root)
-  console.log(app.appContext.config.globalProperties.foo)
-})
-
-onUnmounted(()=>{
-  //console.log("$root")
-  //console.log($root)
-})
 
 function dragMouseDown(event) {
   event.preventDefault()

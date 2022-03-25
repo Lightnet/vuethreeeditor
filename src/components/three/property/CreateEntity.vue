@@ -11,7 +11,6 @@ const addEntity = inject(AddEntityInjectKey);
 const projectID = inject(ProjectIDInjectKey);
 const sceneID = inject(SceneIDInjectKey);
 
-//let entities = [];
 const entities = ENTITIES;
 const selectEntity = ref("box");
 
@@ -20,10 +19,7 @@ const tmpEntity = ref({});
 
 function clickCreate(event){
   //console.log(event)
-  console.log("CREATE?")
-  //console.log(this)
-  console.log(parameters)
-  console.log(unref(parameters))
+  //console.log("CREATE?")
   addEntity({
       projectid:projectID.value
     , sceneid:sceneID.value
@@ -38,6 +34,7 @@ function clickCreate(event){
     , material:tmpEntity.value.material
   });
 }
+
 function onSelectEntity(event){
   console.log(event.target.value)
   selectEntity.value=event.target.value
@@ -117,7 +114,7 @@ function checkParams(){
         <option value=""> Select Entity </option>
         <option v-for="entity in entities" :key="entity.name" :value="entity.name"> {{entity.name}} </option>
       </select>
-      <button @click="clickCreate"> Create </button>
+      
     </div>
     <div>
       <label> Entity:{{selectEntity}} </label><br/>
@@ -126,8 +123,11 @@ function checkParams(){
         <label > {{propertyName}}</label>
         <input :name="propertyName" :type="checkType(propertyName,value)" v-bind="existCheckBox" :value="value" @change="updateParameters" /><br/>
         </template>
+        <!--
         <button @click="checkParams"> Check Params </button>
+        -->
       </template>
+      <button @click="clickCreate"> Create </button>
       
     </div>
   </div>

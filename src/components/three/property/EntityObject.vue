@@ -24,11 +24,10 @@ const isMaterial = ref(false);
 
 const materialindex = ref(0);
 
+//check if scene has change to clear entity object
 watch(entities,()=>{
   if(isEqual(oldEntities._rawValue, entities._rawValue)==true){
-    //console.log("<<<<<<<<<<<<<<<<")
   }else{
-    //console.log(">>>>>>>>>>>>>>>>")
     oldEntities.value = entities._rawValue;
     selectEntity.value=""
     entity.value={}
@@ -37,12 +36,9 @@ watch(entities,()=>{
 
 function onSelectEntity(event){
   entity.value=null;
-
-  //console.log(event.target.value)
   selectEntity.value=event.target.value
   let refEntity= entities.value.find(item=>item.objectid == event.target.value)
   if(refEntity){//if found
-    //console.log(refEntity)
     entity.value=refEntity;
   }else{//clear if null
     entity.value=null;
@@ -201,11 +197,12 @@ function existCheckBox(prop,value){
 }
 
 </script>
-
 <template>
+  <!--
   <div>
     <button @click="clickEntity"> Check Entity Obj </button>
   </div>
+  -->
   <div>
     <label> Entity </label>
     <select v-model="selectEntity" @change="onSelectEntity">
@@ -218,69 +215,86 @@ function existCheckBox(prop,value){
       <label> Entity ID: {{entity.objectid}}</label>
     </div>
     <template v-if="(entity.position != null) || (entity.rotation !=null) || (entity.scale != null)">
-    <div>
-      <label> Transform</label> <button @click="isTransform = !isTransform"> {{isTransform ? "-":"+"}} </button>
-    </div>
-    <template v-if="isTransform">
-    <div>
-      <template v-if="entity.position">
-        <label> Position: </label><br/>
-        <template v-for="(value, propertyName) in entity.position" :key="propertyName">
-          <label> {{numToAxe(propertyName)}}</label>
-          <input :name="propertyName" :value="value" @change="onUpdatePosition" /><br/>
+      <div>
+        <label> Transform</label> <button @click="isTransform = !isTransform"> {{isTransform ? "-":"+"}} </button>
+      </div>
+      <template v-if="isTransform">
+      
+        <template v-if="entity.position">
+          <div>
+            <label> Position: </label><br/>
+          </div>
+          <template v-for="(value, propertyName) in entity.position" :key="propertyName">
+            <div>
+            <label> {{numToAxe(propertyName)}}</label>
+            <input :name="propertyName" :value="value" @change="onUpdatePosition" /><br/>
+            </div>
+          </template>
+        </template>
+        <template v-if="entity.rotation">
+          <div>
+            <div>
+              <label> Rotation: </label> <button @click="isRadian = !isRadian">{{isRadian ? "Radian" : "Degree"}} </button> <br/>
+            </div>
+            <template v-for="(value, propertyName) in entity.rotation" :key="propertyName">
+              <div>
+              <label> {{numToAxe(propertyName)}}</label>
+              <input :name="propertyName" :value="convertRadToDeg(value)" @change="onUpdateRotation" /><br/>
+              </div>
+            </template>
+          </div>
+        </template>
+        <template v-if="entity.scale">
+          <div>
+            <label> Scale: </label><br/>
+          </div>
+          <template v-for="(value, propertyName) in entity.scale" :key="propertyName">
+            <div>
+              <label> {{numToAxe(propertyName)}}</label>
+              <input :name="propertyName" :value="value" @change="onUpdateScale" /><br/>
+            </div>
+          </template>
         </template>
       </template>
-    </div>
 
-    <div>
-      <template v-if="entity.rotation">
-        <label> Rotation: </label> <button @click="isRadian = !isRadian">{{isRadian ? "Radian" : "Degree"}} </button> <br/>
-        <template v-for="(value, propertyName) in entity.rotation" :key="propertyName">
-          <label> {{numToAxe(propertyName)}}</label>
-          <input :name="propertyName" :value="convertRadToDeg(value)" @change="onUpdateRotation" /><br/>
-        </template>
-      </template>
-    </div>
-
-    <div>
-      <template v-if="entity.scale">
-        <label> Scale: </label><br/>
-        <template v-for="(value, propertyName) in entity.scale" :key="propertyName">
-          <label> {{numToAxe(propertyName)}}</label>
-          <input :name="propertyName" :value="value" @change="onUpdateScale" /><br/>
-        </template>
-      </template>
-    </div>
     </template>
 
-    </template>
-
-  
-    <div>
-      <template v-if="entity.parameters">
-        <label> Parameters: </label> <button @click="isParameters = !isParameters"> {{isParameters ? "-":"+"}} </button> <br/>
+    <template v-if="entity.parameters">
+      <div>
+        <div>
+          <label> Parameters: </label> <button @click="isParameters = !isParameters"> {{isParameters ? "-":"+"}} </button> <br/>
+        </div>
         <template v-if="isParameters">
-          <template v-for="(value, propertyName) in entity.parameters" :key="propertyName">
-            <label> {{propertyName}}</label>
-            <input :name="propertyName" :type="checkType(propertyName,value)" :value="value" @change="onUpdateParameters" v-bind="existCheckBox" /><br/>
-          </template>
+          <div>
+            <template v-for="(value, propertyName) in entity.parameters" :key="propertyName">
+              <div>
+                <label> {{propertyName}}</label>
+                <input :name="propertyName" :type="checkType(propertyName,value)" :value="value" @change="onUpdateParameters" v-bind="existCheckBox" /><br/>
+              </div>
+            </template>
+          </div>
         </template>
-      </template>
-    </div>
-
-
-    <div>
-      <template v-if="entity.material">
-        <label> Materials: </label> <button @click="isMaterial = !isMaterial"> {{isMaterial ? "-":"+"}} </button> <br/>
+      </div>
+    </template>
+    
+    <template v-if="entity.material">
+      <div>
+        <div>
+          <label> Materials: </label> <button @click="isMaterial = !isMaterial"> {{isMaterial ? "-":"+"}} </button> <br/>
+        </div>
         <template v-if="isMaterial">
-          <template v-for="(value, propertyName) in entity.material[materialindex]" :key="propertyName">
-            <label> {{propertyName}}</label>
-            <input :name="propertyName" :type="checkType(propertyName,value)" :value="value" @change="onUpdateMaterial" v-bind="existCheckBox" /><br/>
-          </template>
+          <div>
+            <template v-for="(value, propertyName) in entity.material[materialindex]" :key="propertyName">
+              <div>
+                <label> {{propertyName}}</label>
+                <input :name="propertyName" :type="checkType(propertyName,value)" :value="value" @change="onUpdateMaterial" v-bind="existCheckBox" /><br/>
+              </div>
+            </template>
+          </div>
         </template>
-      </template>
-    </div>
-
+      </div>
+    </template>
+    
   </template>
 </template>
 

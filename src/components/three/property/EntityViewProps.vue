@@ -53,7 +53,7 @@ export default {
   <div>
     <label>View</label>
     <select v-model="viewSelect" @change="onChange($event)">
-      <option value=""> Selet View </option>
+      <option value=""> Select View </option>
       <option v-for="view in views" :key="view" > {{view}} </option>
     </select>
   </div>

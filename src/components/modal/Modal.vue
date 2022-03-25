@@ -5,16 +5,13 @@
 
 // https://vuejs.org/guide/built-ins/teleport.html#basic-usage
 // https://dev.to/mandrewcito/vue-js-draggable-div-3mee
-import { inject, onMounted, onUnmounted, reactive, ref } from 'vue';
+import { inject, onMounted, onUnmounted, reactive, ref, watch } from 'vue';
 import { getCurrentInstance } from 'vue';
-import { 
-  useEmit
-} from "../event/eventBusPlugin.mjs";
+import { useEmit } from "../event/eventBusPlugin.mjs";
 
 const app = getCurrentInstance()
-
-console.log("app.appContext");
-console.log(app.appContext);
+//console.log("app.appContext");
+//console.log(app.appContext);
 
 //const EventBus = inject('EventBus');
 //EventBus.emit('test')
@@ -23,14 +20,28 @@ console.log(app.appContext);
 //})
 const vemit = useEmit();
 
+const props = defineProps({
+  isOpen:Boolean,
+  width:String,
+  height:String
+});
+//console.log(props)
+
+watch(props,()=>{
+  if(typeof props.isOpen !== 'undefined'){
+    isOpen.value =props.isOpen;
+  }
+})
 
 //app.emit('test')
 //app.appContext.emit('test')//nope
 
 const emits = defineEmits(['onClose']);
-const width = ref("200px")
-const height = ref("200px")
-const isOpen = ref(true)
+const width = ref(props.width || "200px")
+console.log("width///")
+console.log(width)
+const height = ref( props.height || "200px")
+const isOpen = ref(props.isOpen || true)
 
 const modal = ref()
 const modalDrag = ref()
@@ -99,9 +110,13 @@ function closeDragElement(){
           <button @click="onClose"> Close</button>
         </div>
         <div>
-          Hello World! <button @click="clickTest"> Test Root </button>
+          <slot></slot>
         </div>
       </div>
     </template>
   </Teleport>
 </template>
+<!--
+Hello World! <button @click="clickTest"> Test Root </button>
+
+-->

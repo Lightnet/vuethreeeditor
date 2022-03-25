@@ -113,11 +113,13 @@ router.delete('/assets', async function (req, res) {
         //need to delete file data either on server database or local...
         // delete public filed > name < path c:/path/project/public/files
         fs.unlinkSync( assets.filepath )
+        //console.log("delete file:", assets.filepath)
         return res.json({
           api:'DELETE'
           , id:data.id
         });
       }else{
+        //console.log("delete fail")
         return res.json({error:"FAIL! Empty Asset!"});
       }
     }catch(e){

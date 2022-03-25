@@ -108,8 +108,9 @@ function eventTest(){
     <EditorSideBarRight/>
     <EditorViewport3D/>
   </div>
-
+  <!--
   <Modal @test="eventTest"/>
+  -->
 </template>
 
 <style scoped>

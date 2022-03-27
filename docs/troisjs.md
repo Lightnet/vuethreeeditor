@@ -162,6 +162,8 @@ export default {
 
 
 
+- https://github.com/troisjs/trois/blob/master/src/plugin.ts
+  - List of component and object3d
 
 
 https://github.com/troisjs/trois/tree/master/src/meshes

@@ -11,3 +11,5 @@ console.log("entry client...")
 router.isReady().then(() => {
   app.mount('#app')
 })
+
+// https://cdn.skypack.dev/vue@3.2.30/dist/vue.esm-browser.prod.js

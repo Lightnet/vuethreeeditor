@@ -8,31 +8,16 @@ import { inject, onMounted, onUnmounted, onUpdated, ref, watch, watchEffect } fr
 import { useRoute } from 'vue-router';
 import {GetAccessInjectKey, AuthStatusInjectKey} from "./auth/AuthKeys.mjs"
 import {OnInjectKey} from "./event/eventBusPlugin.mjs";
+
 const currentPath = ref("/");
 const getAccess = inject(GetAccessInjectKey);
 const authStatus = inject(AuthStatusInjectKey);
-//const EventBus = inject('EventBus');
-//EventBus.addEventListener('test',()=>{
-  //console.log("APP ROOT TEST")
-//})
-
-//const $on = useEmitOn();
-//$on('test',()=>{
-  //console.log("TEST ROOT !!!")
-//})
-
-//on('test',(data)=>{
-  //console.log("TEST ROOT !s!!")
-  //console.log(data)
-//})
+const route = useRoute();
 
 const on = inject(OnInjectKey);
 on('test',()=>{
   console.log("TEST ROOT !s!!")
 })
-
-
-const route = useRoute();
 
 watch(route,()=>{//pass
   currentPath.value=route.path;
@@ -43,7 +28,6 @@ onMounted(()=>{
 })
 
 onUnmounted(()=>{
-  
 })
 </script>
 <template>

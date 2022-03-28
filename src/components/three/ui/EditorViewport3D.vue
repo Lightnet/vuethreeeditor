@@ -20,6 +20,7 @@ import {
 , UpdateEntityInjectKey
 } from '../context/EntityKeys.mjs';
 import EntityTroisjsText from "../entity/EntityTroisjsText.vue"
+import EntityText2D from "../entity/EntityText2D.mjs"
 
 const entities = inject(EntitiesInjectKey);
 const ObjEntities = ref([]);
@@ -119,7 +120,7 @@ function updateTransform(mode){
   <Renderer ref="renderer"  resize="div" orbitCtrl >
     <Camera ref="camera" :position="{ z: 10 }" />
     <Scene ref="scene">
-      <EntityTroisjsText/>
+      <EntityText2D :position="{y:3}"/>
       <!--
         <AmbientLight :intensity="0.01"/>
         <Box><LambertMaterial /></Box>

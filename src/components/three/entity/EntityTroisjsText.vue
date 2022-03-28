@@ -11,7 +11,7 @@
 
 import { RendererInjectionKey, SceneInjectionKey } from 'troisjs'
 import {inject, onMounted, onUnmounted} from "vue";
-import { Text } from 'troika-three-text'
+import { Text } from 'troika-three-text';
 const renderer = inject(RendererInjectionKey);
 console.log(renderer)
 const scene = inject(SceneInjectionKey);

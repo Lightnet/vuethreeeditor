@@ -2,9 +2,10 @@
 
 import { inject } from 'vue';
 import { useRouter, useRoute } from 'vue-router'
+import { TokenInjectKey, UserInjectKey } from '../auth/AuthKeys.mjs';
 
-const user = inject('user')
-const token = inject('token')
+const user = inject(UserInjectKey)
+const token = inject(TokenInjectKey)
 
 const router = useRouter()
 const route = useRoute()

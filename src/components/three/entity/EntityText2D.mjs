@@ -14,7 +14,7 @@ export default defineComponent({
     text2D.fontSize = 0.2
     //text2D.position.z = -2
     text2D.color = props.color;
-    watch(()=>{
+    watchEffect(()=>{
       text2D.text = props.text;
       text2D.sync()
     });

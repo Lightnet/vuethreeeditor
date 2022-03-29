@@ -179,10 +179,10 @@ export const authPlugin = {
 
     const instance = axios.create({
       baseURL:API_URL
-    , headers: {
+    //, headers: {
       //'X-Custom-Header': 'foobar'
-      "Content-Type": "application/json"
-    }
+      //"Content-Type": "application/json"
+    //}
     });
 
     instance.interceptors.request.use(async (config) => {

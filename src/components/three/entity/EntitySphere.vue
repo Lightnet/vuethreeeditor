@@ -9,9 +9,10 @@
 import { Sphere, LambertMaterial } from 'troisjs';
 import EntityMaterialParse from "../material/EntityMaterialParse.vue";
 import { inject } from 'vue';
-import { SelectObjectUUIDInjectKey } from '../context/EntityKeys.mjs';
+import { SelectObjectIDInjectKey, SelectObjectUUIDInjectKey } from '../context/EntityKeys.mjs';
 
 const selectObjectUUID = inject(SelectObjectUUIDInjectKey);
+const selectObjectID = inject(SelectObjectIDInjectKey);
 
 const props = defineProps({
     objectid: String
@@ -33,6 +34,7 @@ const scale = props.scale || [1,1,1]
 const parameters = props.parameters || {radius:1,widthSegments:32,heightSegments:16}
 
 function onPointerEvent(event) {
+  selectObjectID.value = props.objectid;
   selectObjectUUID.value = event.component.mesh.uuid;
 }
 

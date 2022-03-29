@@ -13,7 +13,7 @@
     "vite": "vite",
     "devs": "nodemon server.mjs",
     "build": "vite build",
-    "buildw": "vite build --watch",
+    "buildw": "vite build --watch --mode development",
     "preview": "vite preview",
     "ssrbuild": "npm run build:client && npm run build:server",
     "build:client": "vite build --ssrManifest --outDir dist/client",

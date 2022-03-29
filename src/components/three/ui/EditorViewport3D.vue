@@ -7,7 +7,7 @@
 // https://troisjs.github.io/guide/core/renderer.html#props-from-three-webglrenderer
 // https://troisjs.github.io/guide/core/renderer.html#custom-render-function
 
-import { inject, onMounted, onUnmounted, ref, toRaw, unref, watch } from 'vue';
+import { inject, onMounted, onUnmounted, ref, toRaw, unref, watch, watchEffect } from 'vue';
 import { PerspectiveCamera, Renderer, Scene, Group } from 'troisjs';
 
 import EntityBox from '../entity/EntityBox.vue';
@@ -40,7 +40,7 @@ const entity = ref({});
   //ObjEntities.value = unref(entities.value);
 //})
 
-watch(()=>{
+watchEffect(()=>{
   console.log(entities)
   ObjEntities.value = unref(entities.value);
 })

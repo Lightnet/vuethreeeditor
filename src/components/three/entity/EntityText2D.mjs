@@ -1,4 +1,4 @@
-import { defineComponent, watch } from 'vue';
+import { defineComponent, watchEffect } from 'vue';
 import { Object3D } from 'troisjs';
 import { Text } from 'troika-three-text';
 export default defineComponent({

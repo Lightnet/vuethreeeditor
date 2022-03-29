@@ -18,6 +18,7 @@ import {
 , MapEntityInjectKey
 } from "./context/EntityKeys.mjs";
 import Modal from "../modal/Modal.vue";
+import EntityConfig from "./context/EntityConfig.mjs"
 
 const projectID = inject(ProjectIDInjectKey);
 const projectName = inject(ProjectNameInjectKey);
@@ -40,6 +41,7 @@ getProjectData();
 async function getProjectData(){
   if(isEmpty(projectID.value)){
     console.log("Empty projectID!",projectID.value);
+    EntityConfig.setSave(false)
     return;
   }
   let data = await useFetch('api/project',{
@@ -56,6 +58,7 @@ async function getProjectData(){
   }
   console.log(data);
   if(data.api=='PROJECT'){
+    EntityConfig.setSave(true)
     console.log('API get Project!');
     //setSceneID(data.sceneid);
     //setProjectName(data.name);

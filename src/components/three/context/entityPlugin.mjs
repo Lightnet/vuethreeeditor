@@ -8,6 +8,9 @@
 import { ref } from 'vue'
 import { isEmpty, nanoid16 } from '../../../lib/helper.mjs'
 import useFetch from '../../hook/useFetch.mjs'
+
+import EntityConfig from './EntityConfig.mjs'
+
 import { 
   AddEntityInjectKey
 , DeleteEntityIDInjectKey
@@ -63,7 +66,7 @@ export const entityPlugin = {
 
     // need to set up filter...
     const addEntity = (entity)=>{
-      
+      console.log(EntityConfig)
       let newEntity={};
       newEntity.objectid = entity.objectid || nanoid16()
       newEntity.name = entity.name || "GROUP"
@@ -76,7 +79,7 @@ export const entityPlugin = {
       }
 
       if(entity.parameters){
-        newEntity.parameters = entity.parameters
+        newEntity.parameters = entity.parameters;
       }
 
       if(entity.shape){
@@ -88,7 +91,9 @@ export const entityPlugin = {
         newEntity.material = entity.material
       }
 
-      apiSaveEntity(entity.projectid, entity.sceneid, newEntity)
+      if(EntityConfig.autoSave){
+        apiSaveEntity(entity.projectid, entity.sceneid, newEntity)
+      }
 
       //entities.value.push(ref(newEntity))
       entities.value.push(newEntity)
@@ -122,9 +127,9 @@ export const entityPlugin = {
             if(args.type=="material"){
               item.material = args.value;
             }
-
-            apiUpdateEntity(item);
-
+            if(EntityConfig.autoSave){
+              apiUpdateEntity(item);
+            }
 
             return item;
           }
@@ -136,7 +141,10 @@ export const entityPlugin = {
 
     const deleteEntityID = (id)=>{
 
-      apiDeleteEntity(id);
+      if(EntityConfig.autoSave){
+        apiDeleteEntity(id);
+      }
+      
       entities.value = entities.value.filter(item=>item.objectid!==id)
       //console.log(entities)
     }

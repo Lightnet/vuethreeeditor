@@ -35,10 +35,13 @@ const renderer = ref();//full access scene, three and other configs.
 const scene = ref();//not access?
 const entity = ref({});
 
-watch(entities,()=>{
-  //console.log("unref(entities)")
-  //console.log(entities._rawValue)
+//watch(entities,()=>{
   //console.log(entities)
+  //ObjEntities.value = unref(entities.value);
+//})
+
+watch(()=>{
+  console.log(entities)
   ObjEntities.value = unref(entities.value);
 })
 

@@ -3,7 +3,7 @@
   LICENSE: MIT
   Created by: Lightnet
 */
-import { ref, inject, onMounted,unref } from "vue";
+import { ref, inject, onMounted,unref, toRaw } from "vue";
 import { ENTITIES } from "../context/EntityComponents.mjs";
 import { AddEntityInjectKey, ProjectIDInjectKey, SceneIDInjectKey } from "../context/EntityKeys.mjs";
 
@@ -20,7 +20,8 @@ const tmpEntity = ref({});
 function clickCreate(event){
   //console.log(event)
   //console.log("CREATE?")
-  addEntity({
+  console.log(toRaw(parameters.value))
+  let entity = {
       projectid:projectID.value
     , sceneid:sceneID.value
     , name:tmpEntity.value.name
@@ -28,11 +29,11 @@ function clickCreate(event){
     , dataType:tmpEntity.value.dataType
     , shape:tmpEntity.value.shape
     , mass:tmpEntity.value.mass
-    //, parameters:unref(parameters)
-    //, parameters:parameters._rawValue
-    , parameters:JSON.parse(JSON.stringify(parameters.value))
+    , parameters: toRaw(parameters.value)
     , material:tmpEntity.value.material
-  });
+  }
+  console.log(entity)
+  addEntity(entity);
 }
 
 function onSelectEntity(event){

@@ -13,7 +13,7 @@ const props = defineProps({
   , parameters: Object
 })
 //console.log(props);
-const parameters = props.parameters || {color:"#000000",intensity:1}
+const parameters = props.parameters || {color:"#ffffff",intensity:1}
 </script>
 
 <template>

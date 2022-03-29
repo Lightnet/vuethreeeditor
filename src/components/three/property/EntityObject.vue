@@ -38,6 +38,7 @@ function onSelectEntity(event){
   entity.value=null;
   selectEntity.value=event.target.value
   let refEntity= entities.value.find(item=>item.objectid == event.target.value)
+  console.log(refEntity)
   if(refEntity){//if found
     entity.value=refEntity;
   }else{//clear if null

@@ -1,23 +1,28 @@
-import { defineComponent } from 'vue';
+import { defineComponent, watch } from 'vue';
 import { Object3D } from 'troisjs';
 import { Text } from 'troika-three-text';
 export default defineComponent({
   name: 'Text2D',
   extends: Object3D,
-  setup() {
+  props:{
+    text:{type:String, default:"None"},
+    color:{type:String, default:"#9966FF"}
+  },
+  setup(props) {
     const text2D = new Text();
-    text2D.text = 'Hello world!'
+    text2D.text = props.text;
     text2D.fontSize = 0.2
     //text2D.position.z = -2
-    text2D.color = 0x9966FF
+    text2D.color = props.color;
+    watch(()=>{
+      text2D.text = props.text;
+      text2D.sync()
+    });
     return {
       text2D,
-      //group: new Group(),
-      //text2D: new Text(),
     }
   },
   created() {
-    //this.initObject3D(this.group)
     this.initObject3D(this.text2D)
   },
   //__hmrId: 'Group',

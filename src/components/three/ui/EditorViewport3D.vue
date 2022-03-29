@@ -8,7 +8,7 @@
 // https://troisjs.github.io/guide/core/renderer.html#custom-render-function
 
 import { inject, onMounted, onUnmounted, ref, toRaw, unref, watch } from 'vue';
-import { Camera, Renderer, Scene } from 'troisjs';
+import { PerspectiveCamera, Renderer, Scene, Group } from 'troisjs';
 
 import EntityBox from '../entity/EntityBox.vue';
 import EntityTransformControl from '../editor/EntityTransformControl.vue';
@@ -21,6 +21,7 @@ import {
 } from '../context/EntityKeys.mjs';
 import EntityTroisjsText from "../entity/EntityTroisjsText.vue"
 import EntityText2D from "../entity/EntityText2D.mjs"
+import EntityCamera from "../entity/EntityCamera.mjs"
 
 const entities = inject(EntitiesInjectKey);
 const ObjEntities = ref([]);
@@ -118,9 +119,14 @@ function updateTransform(mode){
 <template>
   <div class="viewport">
   <Renderer ref="renderer"  resize="div" orbitCtrl >
-    <Camera ref="camera" :position="{ z: 10 }" />
+    
     <Scene ref="scene">
-      <EntityText2D :position="{y:3}"/>
+      <EntityCamera ref="camera" :position="{ z: 10 }">
+        <Group :position="{y:0,z:-3}">
+          <EntityText2D text="Hello World" :position="{y:1,z:0}"/>
+        </Group>
+      </EntityCamera>
+      
       <!--
         <AmbientLight :intensity="0.01"/>
         <Box><LambertMaterial /></Box>

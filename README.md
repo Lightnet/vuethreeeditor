@@ -26,6 +26,8 @@
 
 ### Notes:
 - click on editor link.
+- add AmbientLight to see box or other objects. Since default to black.
+- bugs in browser or not update. Select entity object > AmbientLight > param > color to update the scene to see object.
 - none yet...
 
 

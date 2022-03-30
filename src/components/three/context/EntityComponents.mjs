@@ -18,9 +18,19 @@ import EntityRectAreaLight from "../entity/EntityRectAreaLight.vue"
 import EntitySpotLight from "../entity/EntitySpotLight.vue"
 
 import EntityBox from "../entity/EntityBox.vue"
+//import EntityCapsule from "../entity/EntityCapsule.vue"
+import EntityCone from "../entity/EntityCone.vue"
+import EntityCircle from "../entity/EntityCircle.vue"
 import EntityCylinder from "../entity/EntityCylinder.vue"
+import EntityDodecahedron from "../entity/EntityDodecahedron.vue"
+import EntityIcosahedron from "../entity/EntityIcosahedron.vue"
+import EntityOctahedron from "../entity/EntityOctahedron.vue"
 import EntityPlane from "../entity/EntityPlane.vue"
+import EntityRing from "../entity/EntityRing.vue"
 import EntitySphere from "../entity/EntitySphere.vue"
+import EntityTetrahedron from "../entity/EntityTetrahedron.vue"
+import EntityTorus from "../entity/EntityTorus.vue"
+import EntityTorusKnot from "../entity/EntityTorusKnot.vue"
 
 import EntityModelFBX from "../entity/EntityModelFBX.vue"
 import EntityModelGLTF from "../entity/EntityModelGLTF.vue"
@@ -204,6 +214,83 @@ if(!loaded){
     }]
   })
 
+  /*
+  addObjEntity({
+    name:"Capsule"
+    , isTransform:true
+    , dataType:API.ENTITYTYPES.CAPSULE
+    , comp:EntityCapsule
+    //, compRef:EntityBoxRef
+    , shape:"BOX"
+    , mass:1
+    , parameters:[
+      {
+          radius:1
+        , length: 1 
+        , capSubdivisions: 4 
+        , radialSegments: 8
+      },
+    ],
+    material:[{
+        index:0
+      , objectid:nanoid32()
+      , dataType:"meshStandardMaterial"
+      , name:"meshStandardMaterial"
+      , color:"#ffffff"
+      , wireframe:false
+    }]
+  })
+  */
+
+  addObjEntity({
+    name:"Circle"
+    , isTransform:true
+    , dataType:API.ENTITYTYPES.CIRCLE
+    , comp:EntityCircle
+    //, compRef:EntityBoxRef
+    , shape:"BOX"
+    , mass:1
+    , parameters:[
+      {
+          radius:1
+        , segments: 8 
+      },
+    ],
+    material:[{
+        index:0
+      , objectid:nanoid32()
+      , dataType:"meshStandardMaterial"
+      , name:"meshStandardMaterial"
+      , color:"#ffffff"
+      , wireframe:false
+    }]
+  })
+
+  addObjEntity({
+    name:"Cone"
+    , isTransform:true
+    , dataType:API.ENTITYTYPES.CONE
+    , comp:EntityCone
+    //, compRef:EntityBoxRef
+    , shape:"BOX"
+    , mass:1
+    , parameters:[
+      {
+          radius:1
+        , height: 1 
+        , radialSegments: 8 
+      },
+    ],
+    material:[{
+        index:0
+      , objectid:nanoid32()
+      , dataType:"meshStandardMaterial"
+      , name:"meshStandardMaterial"
+      , color:"#ffffff"
+      , wireframe:false
+    }]
+  })
+
   addObjEntity({
     name:"Cylinder"
     , isTransform:true
@@ -218,6 +305,103 @@ if(!loaded){
         , radiusBottom : 1 
         , height: 1 
         , radialSegments: 8
+      },
+    ],
+    material:[{
+        index:0
+      , objectid:nanoid32()
+      , dataType:"meshStandardMaterial"
+      , name:"meshStandardMaterial"
+      , color:"#ffffff"
+      , wireframe:false
+    }]
+  })
+
+  addObjEntity({
+    name:"Dodecahedron"
+    , isTransform:true
+    , dataType:API.ENTITYTYPES.DODECAHEDRON
+    , comp:EntityDodecahedron
+    //, compRef:EntityBoxRef
+    , shape:"BOX"
+    , mass:1
+    , parameters:[
+      {
+          radius:1
+        , detail: 0
+      },
+    ],
+    material:[{
+        index:0
+      , objectid:nanoid32()
+      , dataType:"meshStandardMaterial"
+      , name:"meshStandardMaterial"
+      , color:"#ffffff"
+      , wireframe:false
+    }]
+  })
+
+  addObjEntity({
+    name:"Icosahedron"
+    , isTransform:true
+    , dataType:API.ENTITYTYPES.ICOSAHEDRON
+    , comp:EntityIcosahedron
+    //, compRef:EntityBoxRef
+    , shape:"BOX"
+    , mass:1
+    , parameters:[
+      {
+          radius:1
+        , detail: 0
+      },
+    ],
+    material:[{
+        index:0
+      , objectid:nanoid32()
+      , dataType:"meshStandardMaterial"
+      , name:"meshStandardMaterial"
+      , color:"#ffffff"
+      , wireframe:false
+    }]
+  })
+
+  addObjEntity({
+    name:"Octahedron"
+    , isTransform:true
+    , dataType:API.ENTITYTYPES.OCTAHEDRON
+    , comp:EntityOctahedron
+    //, compRef:EntityBoxRef
+    , shape:"BOX"
+    , mass:1
+    , parameters:[
+      {
+          radius:1
+        , detail: 0
+      },
+    ],
+    material:[{
+        index:0
+      , objectid:nanoid32()
+      , dataType:"meshStandardMaterial"
+      , name:"meshStandardMaterial"
+      , color:"#ffffff"
+      , wireframe:false
+    }]
+  })
+
+  addObjEntity({
+    name:"Ring"
+    , isTransform:true
+    , dataType:API.ENTITYTYPES.RING
+    , comp:EntityRing
+    //, compRef:EntityBoxRef
+    , shape:"BOX"
+    , mass:1
+    , parameters:[
+      {
+        innerRadius:0.5
+        , outerRadius: 1
+        , thetaSegments: 8
       },
     ],
     material:[{
@@ -264,9 +448,85 @@ if(!loaded){
     , mass:1
     , parameters:[
       {
-        radius:1
+        radius: 1
         , widthSegments: 32
         , heightSegments: 16
+      },
+    ],
+    material:[{
+        index:0
+      , objectid:nanoid32()
+      , dataType:"meshStandardMaterial"
+      , name:"meshStandardMaterial"
+      , color:"#ffffff"
+      , wireframe:false
+    }]
+  })
+
+  addObjEntity({
+    name:"Tetrahedron"
+    , isTransform:true
+    , dataType:API.ENTITYTYPES.TETRAHERDON
+    , comp:EntityTetrahedron
+    //, compRef:EntityBoxRef
+    , shape:"SPHERE"
+    , mass:1
+    , parameters:[
+      {
+        radius:1
+        , detail: 0
+      },
+    ],
+    material:[{
+        index:0
+      , objectid:nanoid32()
+      , dataType:"meshStandardMaterial"
+      , name:"meshStandardMaterial"
+      , color:"#ffffff"
+      , wireframe:false
+    }]
+  })
+
+  addObjEntity({
+    name:"TorusKnot"
+    , isTransform:true
+    , dataType:API.ENTITYTYPES.TORUSKNOT
+    , comp:EntityTorusKnot
+    //, compRef:EntityBoxRef
+    , shape:"SPHERE"
+    , mass:1
+    , parameters:[
+      {
+          radius:1
+        , tube: 0.4
+        , tubularSegments: 64
+        , radialSegments:8
+      },
+    ],
+    material:[{
+        index:0
+      , objectid:nanoid32()
+      , dataType:"meshStandardMaterial"
+      , name:"meshStandardMaterial"
+      , color:"#ffffff"
+      , wireframe:false
+    }]
+  })
+
+  addObjEntity({
+    name:"Torus"
+    , isTransform:true
+    , dataType:API.ENTITYTYPES.TORUS
+    , comp:EntityTorus
+    //, compRef:EntityBoxRef
+    , shape:"SPHERE"
+    , mass:1
+    , parameters:[
+      {
+          radius:1
+        , tube: 0.4
+        , radialSegments:8
+        , tubularSegments:6
       },
     ],
     material:[{

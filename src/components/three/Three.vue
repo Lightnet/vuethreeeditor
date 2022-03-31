@@ -14,7 +14,7 @@
 
 import { ref } from '@vue/reactivity';
 import { onMounted } from '@vue/runtime-core';
-import { Box, Camera, LambertMaterial, PointLight, Renderer, Scene, Text, Sprite } from 'troisjs';
+import { Box, Camera, LambertMaterial, PointLight, Renderer, Scene, Text, Sprite } from 'troisjs/build/trois.module';
 import TestMesh from "./entity/EntityTroisjsObject.vue";
 import TestMesh2 from "./entity/EntityTroisjsObject2.vue";
 

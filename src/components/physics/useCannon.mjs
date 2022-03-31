@@ -34,6 +34,9 @@ export default function useCannon(options) {
   return obj
 
   function addMesh(mesh) {
+    //need to get userData for config for editor setup.
+
+    console.log(mesh);
     const shape = getShape(mesh.geometry)
     if (shape) {
       if (mesh.isInstancedMesh) {

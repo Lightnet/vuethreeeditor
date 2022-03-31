@@ -34,6 +34,7 @@ export default defineComponent({
       this.cannon.step()
     },
     add(o) {
+      console.log("ADD?");
       this.addToParent(o)
       this.cannon.addMesh(o)
     },

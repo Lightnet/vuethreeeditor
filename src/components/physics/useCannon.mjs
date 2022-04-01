@@ -119,6 +119,9 @@ export default function useCannon(options) {
     const mass = mesh.userData.mass ? mesh.userData.mass : 0
     const damping = mesh.userData.damping ? mesh.userData.damping : 0.01
 
+    const collisionFilterGroup = mesh.userData.collisionFilterGroup ? mesh.userData.collisionFilterGroup : 1;
+    const collisionFilterMask = mesh.userData.collisionFilterMask ? mesh.userData.collisionFilterMask : -1;
+
     const velocity = mesh.userData.velocity ? new Vec3(
       mesh.userData.velocity.x,
       mesh.userData.velocity.y,
@@ -127,7 +130,18 @@ export default function useCannon(options) {
     if(mesh.userData.isTrigger){
       isTrigger=true;
     }
-    const body = new Body({ shape, position, velocity, quaternion, mass, linearDamping: damping, angularDamping: damping ,isTrigger:isTrigger})
+    const body = new Body({ 
+      shape
+    , position
+    , velocity
+    , quaternion
+    , mass
+    , linearDamping: damping
+    , angularDamping: damping 
+    , isTrigger:isTrigger
+    , collisionFilterGroup: collisionFilterGroup
+    , collisionFilterMask: collisionFilterMask
+    })
     body.addEventListener('collide', (event) => {
       //console.log('collide')
       if(mesh.userData.onCollide){

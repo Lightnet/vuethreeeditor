@@ -24,36 +24,27 @@ function onBeforeStep() {
 
 }
 
-const GROUP1 = 1;
-const GROUP2 = 2;
-const GROUP3 = 4;
-
 function initMesh(iMesh){
   iMesh.userData.mass = 1;
-  iMesh.userData.collisionFilterGroup = GROUP1;
-  iMesh.userData.collisionFilterMask = GROUP3;
 }
 
 function initMeshPlane(iMesh){
+  //console.log(iMesh)
+  //imesh.userData.body//nope
   iMesh.userData.mass = 0;
   iMesh.userData.test="text"
-  iMesh.userData.collisionFilterGroup = GROUP3;
-  iMesh.userData.collisionFilterMask = GROUP1;
 }
 
 function initMeshTrigger(iMesh){
   //console.log(iMesh)
   iMesh.userData.mass = 0;
-  iMesh.userData.collisionFilterGroup = GROUP3;
-  iMesh.userData.collisionFilterMask = GROUP1;
   iMesh.userData.shapeType="Box";
   iMesh.userData.isTrigger=true;
   iMesh.userData.onCollide=function(event){
     console.log("collide?")
   }
-  //console.log(iMesh.userData)
   console.log("iMesh.userData.body")
-  console.log(iMesh.userData.body)
+  console.log(iMesh.userData)
 }
 
 </script>
@@ -68,6 +59,7 @@ function initMeshTrigger(iMesh){
         <PhongMaterial color="#aaaaaa" />
       </Plane>
       <CannonWorld :gravity="{ x: 0, y: -9.82, z: 0 }" @before-step="onBeforeStep">
+
         <Box @created="initMesh" :position="{ x: 0, y: 10, z: 0 }">
           <PhongMaterial color="#ffffff" />
         </Box>

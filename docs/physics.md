@@ -52,6 +52,12 @@ initObject3D(o3d: Object3D) {
 
 - https://pmndrs.github.io/cannon-es/docs/classes/Body.html#collisionFilterGroup
 - https://github.com/pmndrs/cannon-es/blob/master/examples/collision_filter.html
+
+```
+collisionFilterGroup default 1
+collisionFilterMask default -1
+```
+
 ```js
 // Collision filter groups - must be powers of 2!
 const GROUP1 = 1
@@ -64,7 +70,7 @@ collisionFilterGroup: GROUP1, // Put the sphere in group 1
 })
 ```
 
-
+https://github.com/schteppe/cannon.js/blob/master/tools/threejs/CannonDebugRenderer.js
 
 
 

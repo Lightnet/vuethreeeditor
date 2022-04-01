@@ -6,13 +6,12 @@
   Information: Testing.
 
 */
+import ThreeCannon from "./ThreeCannon.vue";
 if(!import.meta.env.SSR){
   //return;
 }else{
   //return {};
 }
-import ThreeCannon from "./ThreeCannon.vue";
-
 </script>
 
 <template>

@@ -55,10 +55,20 @@ function initMeshPlane(iMesh){
 function initMeshTrigger(iMesh){
   //console.log(iMesh)
   iMesh.userData.mass = 0;
+  iMesh.userData.shapeType="Box";
   iMesh.userData.isTrigger=true;
   iMesh.userData.onCollide=function(event){
     console.log("collide?")
   }
+  //console.log(iMesh.userData)
+  console.log("iMesh.userData.body")
+  console.log(iMesh.userData.body)
+  //if(iMesh.userData.body){
+    //iMesh.userData.body.isTrigger=true;
+    //iMesh.userData.body.addEventListener('collide', (event) => {
+      //console.log("collide",event)
+    //})
+  //}
 }
 // resize="window" orbitCtrl 
 

@@ -92,7 +92,7 @@ async function main(){
     , '/message'
     , '/signin'
     , '/signout'
-    , '/testlab'
+    , '/threecannon'
     //, '/texteditor'
   ]
   //  https://www.w3schools.com/jsref/jsref_indexof_array.asp
@@ -101,7 +101,9 @@ async function main(){
     //console.log(pages.indexOf(req.originalUrl))
     if((pages.indexOf(req.originalUrl) != -1)&&(req.method=="GET")){
       console.log("load html???")
-      return res.sendFile(path.join(__dirname, '../client/index.html'));
+      //return res.sendFile(path.join(__dirname, '../client/index.html'));
+      console.log(path.join(__dirname, '../../dist/index.html'))
+      return res.sendFile(path.join(__dirname, '../../dist/index.html'));
     }
     next()
   })

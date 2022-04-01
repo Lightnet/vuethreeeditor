@@ -37,11 +37,13 @@ export default function useCannon(options) {
     //need to get userData for config for editor setup.
 
     console.log(mesh);
-    const shape = getShape(mesh.geometry)
+    const shape = getShape(mesh)
     if (shape) {
       if (mesh.isInstancedMesh) {
+        //console.log("isInstancedMesh")
         handleInstancedMesh(mesh, shape)
       } else if (mesh.isMesh) {
+        //console.log("isMesh")
         handleMesh(mesh, shape)
       }
     } else {
@@ -85,16 +87,16 @@ export default function useCannon(options) {
     }
   }
 
-  function getShape(geometry) {
-    const parameters = geometry.parameters
-    switch (geometry.type) {
+  function getShape(mesh) {
+    const parameters = mesh.geometry.parameters
+    //console.log(mesh.userData)
+    switch (mesh.geometry.type) {
       case 'BoxGeometry':
         return new Box(new Vec3(
           parameters.width / 2,
           parameters.height / 2,
           parameters.depth / 2
         ))
-
       case 'PlaneGeometry':
         return new Plane()
 
@@ -121,8 +123,21 @@ export default function useCannon(options) {
       mesh.userData.velocity.x,
       mesh.userData.velocity.y,
       mesh.userData.velocity.z) : new Vec3(0, 0, 0)
-
-    const body = new Body({ shape, position, velocity, quaternion, mass, linearDamping: damping, angularDamping: damping })
+    let isTrigger = false;
+    if(mesh.userData.isTrigger){
+      isTrigger=true;
+    }
+    const body = new Body({ shape, position, velocity, quaternion, mass, linearDamping: damping, angularDamping: damping ,isTrigger:isTrigger})
+    body.addEventListener('collide', (event) => {
+      //console.log('collide')
+      if(mesh.userData.onCollide){
+        mesh.userData.onCollide(event);
+      }
+      //console.log(event.body)
+      //if (event.body === sphereBody) {
+        //console.log('The sphere entered the trigger!', event)
+      //}
+    })
     world.addBody(body)
 
     mesh.userData.body = body

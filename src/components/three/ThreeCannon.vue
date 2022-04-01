@@ -49,8 +49,23 @@ function initMeshPlane(iMesh){
   //iMesh.userData.body.velocity.set(0, 0, 0);
   //iMesh.userData.body.quaternion.set(0, 0, 0, 1);
   iMesh.userData.mass = 0;
+  iMesh.userData.test="text"
+}
+
+function initMeshTrigger(iMesh){
+  //console.log(iMesh)
+  iMesh.userData.mass = 0;
+  iMesh.userData.isTrigger=true;
+  iMesh.userData.onCollide=function(event){
+    console.log("collide?")
+  }
 }
 // resize="window" orbitCtrl 
+
+let testuser ={
+  //text:"test"
+}
+
 </script>
 <template>
   <div>
@@ -66,9 +81,14 @@ function initMeshPlane(iMesh){
         <TestChildAdd> Test ssss </TestChildAdd>
       </TestAdd>
       <CannonWorld :gravity="{ x: 0, y: -9.82, z: 0 }" @before-step="onBeforeStep">
-        <Box @created="initMesh">
+        <Box @created="initMesh" :position="{ x: 0, y: 10, z: 0 }">
           <PhongMaterial color="#ffffff" />
         </Box>
+
+        <Box @created="initMeshTrigger">
+          <PhongMaterial color="#ffffff" />
+        </Box>
+
         <Box :position="{ y: -4 }" @created="initMeshPlane">
           <PhongMaterial color="black" />
         </Box>

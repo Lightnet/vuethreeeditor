@@ -14,6 +14,7 @@ export default defineComponent({
     gravity: { type: Object, default: () => ({ x: 0, y: 0, z: -9.82 }) },
     broadphase: { type: String },
     onBeforeStep: Function,
+    isPause: {type:Boolean, default:false},
   },
   created() {
     this._parent = this.getParent()
@@ -21,9 +22,12 @@ export default defineComponent({
     this.cannon = useCannon({ gravity: this.gravity, broadphase: this.broadphase })
   },
   mounted() {
-    //console.log(this.renderer)
-    //console.log(this.scene)
-    this.renderer.onBeforeRender(this.step)
+    //this.renderer.onBeforeRender(this.step) //loop 
+    this.renderer.onBeforeRender(()=>{
+      if(!this.isPause){
+        this.step();
+      }
+    }) //loop 
   },
   unmounted() {
     this.renderer.offBeforeRender(this.step)

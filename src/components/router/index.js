@@ -13,6 +13,7 @@ import NotFound from '../pages/NotFound.vue';
 import ThreeCannonPage from "../three/ThreeCannonPage.vue"
 import ThreePage from "../three/ThreePage.vue"
 import Three2 from "../three/Three2.vue"
+import TestLab from "../pages/TestLab.vue"
 //import AccessTest from '../auth/AccessTest.vue';
 
 const routes = [
@@ -25,6 +26,7 @@ const routes = [
   {path:"/signin",name:"Sign In",component:SignIn},
   {path:"/signup",name:"Sign Up",component:SignUp},
   {path:"/signout",name:"Sign Out",component:SignOut},
+  {path:"/testlab",name:"Test Lab",component:TestLab},
   {path:'/:catchAll(.*)*',name:"PageNotFound",component:NotFound},
 ]
 

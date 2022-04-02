@@ -14,6 +14,7 @@ import authPlugin from './components/auth/authPlugin.mjs'
 import entityPlugin from './components/three/context/entityPlugin.mjs';
 import router from "./components/router"
 import eventBusPlugin from "./components/event/eventBusPlugin.mjs"
+import notifyPlugin from "./components/notify/notifyPlugin.mjs"
 
 //import EventBus from "./components/event/EventBus"
 
@@ -24,6 +25,7 @@ app.config.globalProperties.foo="bar";
 app.use(authPlugin);
 app.use(entityPlugin);
 app.use(eventBusPlugin);
+app.use(notifyPlugin);
 app.use(router);
 //app.provide('EventBus',EventBus);
 

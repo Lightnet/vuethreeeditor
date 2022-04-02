@@ -20,8 +20,8 @@ import CannonWorld from '../physics/CannonWorld.mjs';
 
 const { randFloat: rnd, randFloatSpread: rndFS } = MathUtils;
 
-function onBeforeStep() {
-
+function onBeforeStep(cannon) {
+  //console.log(cannon);
 }
 
 const GROUP1 = 1;

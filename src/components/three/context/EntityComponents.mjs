@@ -48,8 +48,8 @@ if(!loaded){
     , isTransform:true
     , dataType:API.ENTITYTYPES.SCENE
     , comp:EntityScene
-    //, compRef:EntitySceneRef
     , shape:"BOX"
+    , isPhysics:false
     , mass:1
     , parameters:[
       {
@@ -67,7 +67,7 @@ if(!loaded){
     , isTransform:true
     , dataType:API.ENTITYTYPES.CAMERA
     , comp:EntityCamera
-    //, compRef:EntitySceneRef
+    , isPhysics:false
     , shape:"BOX"
     , mass:1
     , parameters:[
@@ -85,6 +85,7 @@ if(!loaded){
     , isTransform:true
     , dataType:API.ENTITYTYPES.POINTLIGHT
     , comp:EntityPointLight
+    , isPhysics:false
     , shape:"BOX"
     , mass:1
     , parameters:[
@@ -102,6 +103,7 @@ if(!loaded){
     , isTransform:true
     , dataType:API.ENTITYTYPES.DIRECTONALLIGHT
     , comp:EntityDirectionalLight
+    , isPhysics:false
     , shape:"BOX"
     , mass:1
     , parameters:[
@@ -117,6 +119,7 @@ if(!loaded){
     , isTransform:true
     , dataType:API.ENTITYTYPES.HEMISPHERELIGHT
     , comp:EntityHemisphereLight
+    , isPhysics:false
     , shape:"BOX"
     , mass:1
     , parameters:[
@@ -133,6 +136,7 @@ if(!loaded){
     , isTransform:true
     , dataType:API.ENTITYTYPES.RECTAREALIGHT
     , comp:EntityRectAreaLight
+    , isPhysics:false
     , shape:"BOX"
     , mass:1
     , parameters:[
@@ -150,6 +154,7 @@ if(!loaded){
     , isTransform:true
     , dataType:API.ENTITYTYPES.SPOTLIGHT
     , comp:EntitySpotLight
+    , isPhysics:false
     , shape:"BOX"
     , mass:1
     , parameters:[
@@ -170,9 +175,9 @@ if(!loaded){
     , isTransform:false
     , dataType:API.ENTITYTYPES.AMBIENTLIGHT
     , comp:EntityAmbientLight
-    //, compRef:EntityPointLightRef
+    , isPhysics:null
     , shape:null
-    , mass:1
+    , mass:null
     , parameters:[
       {
         color:"#ffffff"
@@ -186,7 +191,7 @@ if(!loaded){
     , isTransform:true
     , dataType:API.ENTITYTYPES.BOX
     , comp:EntityBox
-    //, compRef:EntityBoxRef
+    , isPhysics:false
     , shape:"BOX"
     , mass:1
     , parameters:[
@@ -247,7 +252,7 @@ if(!loaded){
     , isTransform:true
     , dataType:API.ENTITYTYPES.CIRCLE
     , comp:EntityCircle
-    //, compRef:EntityBoxRef
+    , isPhysics:false
     , shape:"BOX"
     , mass:1
     , parameters:[
@@ -271,7 +276,7 @@ if(!loaded){
     , isTransform:true
     , dataType:API.ENTITYTYPES.CONE
     , comp:EntityCone
-    //, compRef:EntityBoxRef
+    , isPhysics:false
     , shape:"BOX"
     , mass:1
     , parameters:[
@@ -296,7 +301,7 @@ if(!loaded){
     , isTransform:true
     , dataType:API.ENTITYTYPES.CYLINDER
     , comp:EntityCylinder
-    //, compRef:EntityBoxRef
+    , isPhysics:false
     , shape:"CYLINDER"
     , mass:1
     , parameters:[
@@ -322,7 +327,7 @@ if(!loaded){
     , isTransform:true
     , dataType:API.ENTITYTYPES.DODECAHEDRON
     , comp:EntityDodecahedron
-    //, compRef:EntityBoxRef
+    , isPhysics:false
     , shape:"BOX"
     , mass:1
     , parameters:[
@@ -346,7 +351,7 @@ if(!loaded){
     , isTransform:true
     , dataType:API.ENTITYTYPES.ICOSAHEDRON
     , comp:EntityIcosahedron
-    //, compRef:EntityBoxRef
+    , isPhysics:false
     , shape:"BOX"
     , mass:1
     , parameters:[
@@ -370,7 +375,7 @@ if(!loaded){
     , isTransform:true
     , dataType:API.ENTITYTYPES.OCTAHEDRON
     , comp:EntityOctahedron
-    //, compRef:EntityBoxRef
+    , isPhysics:false
     , shape:"BOX"
     , mass:1
     , parameters:[
@@ -394,7 +399,7 @@ if(!loaded){
     , isTransform:true
     , dataType:API.ENTITYTYPES.RING
     , comp:EntityRing
-    //, compRef:EntityBoxRef
+    , isPhysics:false
     , shape:"BOX"
     , mass:1
     , parameters:[
@@ -419,7 +424,7 @@ if(!loaded){
     , isTransform:true
     , dataType:API.ENTITYTYPES.PLANE
     , comp:EntityPlane
-    //, compRef:EntityBoxRef
+    , isPhysics:false
     , shape:"BOX"
     , mass:1
     , parameters:[
@@ -443,7 +448,7 @@ if(!loaded){
     , isTransform:true
     , dataType:API.ENTITYTYPES.SPHERE
     , comp:EntitySphere
-    //, compRef:EntityBoxRef
+    , isPhysics:false
     , shape:"SPHERE"
     , mass:1
     , parameters:[
@@ -468,7 +473,7 @@ if(!loaded){
     , isTransform:true
     , dataType:API.ENTITYTYPES.TETRAHERDON
     , comp:EntityTetrahedron
-    //, compRef:EntityBoxRef
+    , isPhysics:false
     , shape:"SPHERE"
     , mass:1
     , parameters:[
@@ -492,7 +497,7 @@ if(!loaded){
     , isTransform:true
     , dataType:API.ENTITYTYPES.TORUSKNOT
     , comp:EntityTorusKnot
-    //, compRef:EntityBoxRef
+    , isPhysics:false
     , shape:"SPHERE"
     , mass:1
     , parameters:[
@@ -518,7 +523,7 @@ if(!loaded){
     , isTransform:true
     , dataType:API.ENTITYTYPES.TORUS
     , comp:EntityTorus
-    //, compRef:EntityBoxRef
+    , isPhysics:false
     , shape:"SPHERE"
     , mass:1
     , parameters:[
@@ -544,7 +549,7 @@ if(!loaded){
     , isTransform:true
     , dataType:API.ENTITYTYPES.MODELFBX
     , comp:EntityModelFBX
-    //, compRef:EntityBoxRef
+    , isPhysics:false
     , shape:"BOX"
     , mass:1
     , parameters:[
@@ -567,7 +572,7 @@ if(!loaded){
     , isTransform:true
     , dataType:API.ENTITYTYPES.MODELGLTF
     , comp:EntityModelGLTF
-    //, compRef:EntityBoxRef
+    , isPhysics:false
     , shape:"BOX"
     , mass:1
     , parameters:[

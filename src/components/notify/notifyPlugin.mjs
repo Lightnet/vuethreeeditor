@@ -12,6 +12,7 @@ export const notifyPlugin = {
       // type
       // text
       // title
+      // header
       // duration
       // speed
       // data?

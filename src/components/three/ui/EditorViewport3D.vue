@@ -13,36 +13,63 @@ import { PerspectiveCamera, Renderer, Scene, Group } from 'troisjs';
 import EntityBox from '../entity/EntityBox.vue';
 import EntityTransformControl from '../editor/EntityTransformControl.vue';
 import { ENTITIES } from '../context/EntityComponents.mjs';
+import CannonWorld from '../../physics/CannonWorld.mjs';
 import { 
   EntitiesInjectKey
 , SelectObjectIDInjectKey
 , SelectObjectUUIDInjectKey
 , UpdateEntityInjectKey
+, SceneBackGroundColorInjectKey
+, RenderAlphaInjectKey
+, RenderAntisaliasInjectKey
+, RenderAutoClearInjectKey
+, RenderPointerInjectKey
+, RenderShadowInjectKey
+, EnableOrbitControlInjectKey
+, GravityPhysicsInjectKey
+, EnablePhysicsInjectKey
 } from '../context/EntityKeys.mjs';
-import EntityTroisjsText from "../entity/EntityTroisjsText.vue"
+//import EntityTroisjsText from "../entity/EntityTroisjsText.vue"
 import EntityText2D from "../entity/EntityText2D.mjs"
 import EntityCamera from "../entity/EntityCamera.mjs"
 
+const entity = ref({});
+const objEntities = ref([]);
+const physEntities = ref([]);
 const entities = inject(EntitiesInjectKey);
-const ObjEntities = ref([]);
 
 const selectObjectUUID = inject(SelectObjectUUIDInjectKey);
-
 const selectObjectID = inject(SelectObjectIDInjectKey);
 const updateEntity = inject(UpdateEntityInjectKey);
 
 const renderer = ref();//full access scene, three and other configs.
 const scene = ref();//not access?
-const entity = ref({});
+const sceneBackGroundColor = inject(SceneBackGroundColorInjectKey)
 
-//watch(entities,()=>{
-  //console.log(entities)
-  //ObjEntities.value = unref(entities.value);
-//})
+const gravity = inject(GravityPhysicsInjectKey)
+const enablePhysics = inject(EnablePhysicsInjectKey)
+
+const isOrbitCtrl = inject(EnableOrbitControlInjectKey)
+const isAlpha = inject(RenderAlphaInjectKey)
+const isAntialias = inject(RenderAntisaliasInjectKey)
+const isAutoClear = inject(RenderAutoClearInjectKey)
+const isPointer = inject(RenderPointerInjectKey)
+const isShadow = inject(RenderShadowInjectKey)
 
 watchEffect(()=>{
   console.log(entities)
-  ObjEntities.value = unref(entities.value);
+  //objEntities.value = unref(entities.value);
+  //objEntities.value = []
+  let objEnties = unref(entities.value);
+  objEntities.value = objEnties.filter(item=>item?.isPhysics !== true)
+  //objEntities.value = objEnties.filter(item=>{
+    //if(item?.isPhysics == false){
+
+    //}
+  //});
+  physEntities.value = objEnties.filter(item=>item?.isPhysics == true);
+
+  console.log("isOrbitCtrl: ",isOrbitCtrl.value)
 })
 
 onMounted(() =>{
@@ -117,26 +144,41 @@ function updateTransform(mode){
   }
 }
 
+function onBeforeStep(cannon){
+
+}
+
 //resize="window"
 </script>
 <template>
   <div class="viewport">
-  <Renderer ref="renderer"  resize="div" orbitCtrl >
+  <Renderer ref="renderer" :resize="true" :orbitCtrl="isOrbitCtrl" :alpha="isAlpha" :antialias="isAntialias" :autoClear="isAutoClear" :pointer="isPointer" :shadow="isShadow" >
     
-    <Scene ref="scene">
+    <Scene ref="scene" :background="sceneBackGroundColor">
       <EntityCamera ref="camera" :position="{ z: 10 }">
         <Group :position="{y:0,z:-3}">
           <EntityText2D text="Hello World" :position="{y:1,z:0}"/>
         </Group>
       </EntityCamera>
       
-      <!--
-        <AmbientLight :intensity="0.01"/>
-        <Box><LambertMaterial /></Box>
-      -->
       <EntityTransformControl :selectObjectID="selectObjectUUID" @update-transform="updateTransform"/>
-      <template v-for="entity in ObjEntities" :key="entity.objectid">
-        <component :is="checkEntityComp(entity)" v-bind="entity" />
+      <template v-if="enablePhysics">
+        <template v-for="entity in objEntities" :key="entity.objectid">
+          <component :is="checkEntityComp(entity)" v-bind="entity" />
+        </template>
+        <CannonWorld :gravity="{ x: gravity[0], y:gravity[1], z: gravity[2] }" @before-step="onBeforeStep">
+          <template v-for="entity in physEntities" :key="entity.objectid">
+            <component :is="checkEntityComp(entity)" v-bind="entity" />
+          </template>
+        </CannonWorld>
+      </template>
+      <template v-else>
+        <template v-for="entity in objEntities" :key="entity.objectid">
+          <component :is="checkEntityComp(entity)" v-bind="entity" />
+        </template>
+        <template v-for="entity in physEntities" :key="entity.objectid">
+          <component :is="checkEntityComp(entity)" v-bind="entity" />
+        </template>
       </template>
     </Scene>
   </Renderer>

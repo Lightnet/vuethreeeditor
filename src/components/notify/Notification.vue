@@ -1,11 +1,12 @@
-<script>
+<script>import { isEmpty } from "../../lib/helper.mjs"
+
 
 export default {
   emits:['onDelete'],
   props:{
     type:{type:String,default:"info"},
-    header:{type:String,default:"header"},
-    text:{type:String,default:"None"},
+    header:{type:String,default:""},
+    //text:{type:String,default:"None"},
     autoClose:{type:Boolean,default:true},
     //color:{type:String,default:"info"},
     timeToDelete:{type:Number,default:300},
@@ -13,25 +14,37 @@ export default {
   },
   data(){
     return {
+      title:"",
       isClosing:false,
       timeoutId0:null,
-      timeoutId1:null
+      timeoutId1:null,
+      timeoutId2:null
     }
   },
   watch:{
   },
   mounted(){
-    console.log("MOUNT!!")
+    if(isEmpty(this.header)){
+      this.title = this.type;
+    }else{
+      //console.log("NOT EMPTU")
+      this.title = this.header;
+    }
+    //console.log("MOUNT!!")
     if(this.autoClose){
-      this.timeoutId0 = setTimeout(()=>{
-        this.isClosing=true;
+      this.timeoutId0 = setTimeout(()=>{//close
+        //this.isClosing=true;
         this.$emit('onDelete')
       }, this.timeToClose);
+      this.timeoutId2 = setTimeout(()=>{//close event animation
+        this.isClosing=true;
+      }, this.timeToClose - this.timeToDelete);
     }
   },
   unmounted(){
     clearTimeout(this.timeoutId0);
     clearTimeout(this.timeoutId1);
+    clearTimeout(this.timeoutId2);
   },
   computed: {
     checkClass(){
@@ -73,13 +86,12 @@ export default {
   <div class="notification" :class="checkClass">
     <button @click="hide" class="closeButton"> x </button>
     <div class="header">
-      {{header}}
+      {{title}}
     </div>
     <slot></slot>
   </div>
 </template>
 <style>
-
 .notification {
   max-width: 430px;
   max-height: 200px;

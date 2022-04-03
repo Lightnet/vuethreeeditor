@@ -7,6 +7,7 @@
 // https://www.codegrepper.com/code-examples/javascript/vue+comparing+two+objects+to+see+if+they+are+the+same
 
 import { ref, inject, watch, unref, toRaw } from "vue";
+import { boolean } from "webidl-conversions";
 import { EntitiesInjectKey, UpdateEntityInjectKey } from "../context/EntityKeys.mjs";
 const isEqual = (...objects) => objects.every(obj => JSON.stringify(obj) === JSON.stringify(objects[0]));
 const entities = inject(EntitiesInjectKey);
@@ -46,12 +47,12 @@ function onSelectEntity(event){
   }
 }
 
-function clickEntity(){
+//function clickEntity(){
   //console.log(entity.value);
   //console.log(entity.value.objectid);
   //console.log(entity.value.name);
-  console.log(entities);
-}
+  //console.log(entities);
+//}
 
 function onUpdatePosition(event){
   //console.log(event.target.type);
@@ -197,6 +198,26 @@ function existCheckBox(prop,value){
   }
 }
 
+function updateIsPhysics(event){
+
+  entity.value.isPhysics = Boolean(event.target.checked)
+
+  updateEntity({
+      type:"isPhysics"
+    , objectid: entity.value.objectid
+    , value: entity.value.isPhysics
+  })
+}
+
+function updatePhysicsMass(event){
+  entity.value.isPhysics = Number(event.target.value)
+  updateEntity({
+      type:"mass"
+    , objectid: entity.value.objectid
+    , value: entity.value.mass
+  })
+}
+
 </script>
 <template>
   <!--
@@ -214,6 +235,9 @@ function existCheckBox(prop,value){
   <template v-if="entity">
     <div>
       <label> Entity ID: {{entity.objectid}}</label>
+    </div>
+    <div>
+      <label> Name: {{entity.name}}</label>
     </div>
     <template v-if="(entity.position != null) || (entity.rotation !=null) || (entity.scale != null)">
       <div>
@@ -278,6 +302,20 @@ function existCheckBox(prop,value){
       </div>
     </template>
     
+    <template v-if="(typeof entity.isPhysics !== 'undefined')">
+      <div>
+        <div>
+          <label> Physcis: </label>
+        </div>
+        <div>
+          <label> isPhyscis: </label> <input type="checkbox" @change="updateIsPhysics" :checked="entity.isPhysics" />
+        </div>
+        <div>
+          <label> Mass: </label> <input type="number" @change="updatePhysicsMass" v-model="entity.mass" />
+        </div>
+      </div>
+    </template>
+
     <template v-if="entity.material">
       <div>
         <div>

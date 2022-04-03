@@ -16,8 +16,6 @@ import router from "./components/router"
 import eventBusPlugin from "./components/event/eventBusPlugin.mjs"
 import notifyPlugin from "./components/notify/notifyPlugin.mjs"
 
-//import EventBus from "./components/event/EventBus"
-
 const app = createApp(App);
 app.config.unwrapInjectedRef = true
 app.config.globalProperties.foo="bar";
@@ -27,7 +25,6 @@ app.use(entityPlugin);
 app.use(eventBusPlugin);
 app.use(notifyPlugin);
 app.use(router);
-//app.provide('EventBus',EventBus);
 
 /*
 const app = createApp({

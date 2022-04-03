@@ -29,6 +29,7 @@ function clickCreate(event){
     , dataType:tmpEntity.value.dataType
     , shape:tmpEntity.value.shape
     , mass:tmpEntity.value.mass
+    , isPhysics:tmpEntity.value.isPhysics
     , parameters: toRaw(parameters.value)
     , material:tmpEntity.value.material
   }

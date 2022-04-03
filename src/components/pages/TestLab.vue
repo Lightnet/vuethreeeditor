@@ -25,7 +25,7 @@ function onDelete(){
 function clickInfo(){
   notify({
     type:"info",
-    header:"Test",
+    //header:"Test",
     text:"Hello World Info!"
   })
 }
@@ -33,7 +33,7 @@ function clickInfo(){
 function clickSuccess(){
   notify({
     type:"success",
-    header:"Test",
+    //header:"Test",
     text:"Hello World Info!"
   })
 }
@@ -41,7 +41,7 @@ function clickSuccess(){
 function clickError(){
   notify({
     type:"error",
-    header:"Test",
+    //header:"Test",
     text:"Hello World Info!"
   })
 }
@@ -49,7 +49,6 @@ function clickError(){
 function clickWarning(){
   notify({
     type:"warning",
-    header:"Test",
     text:"Hello World Info!"
   })
 }

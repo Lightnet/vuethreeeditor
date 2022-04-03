@@ -19,19 +19,12 @@ function deleteNotification(id){
     , id:id
   })
 }
-
+// :text="notify.text"
 </script>
 <template>
   <NotifyContainer>
-    <Notification 
-      v-for="notify in notifies" 
-      :type="notify.type"
-      :header="notify.header"
-      :text="notify.text"
-      :key="notify.id"
-
-      @onDelete="()=>deleteNotification(notify.id)"
-      />
-
+    <Notification v-for="notify in notifies" :type="notify.type" :header="notify.header" :key="notify.id" @onDelete="()=>deleteNotification(notify.id)" >
+    <label>{{notify.text}}</label>
+    </Notification>
   </NotifyContainer>
 </template>

@@ -15,12 +15,12 @@ import {
   AddEntityInjectKey
 , DeleteEntityIDInjectKey
 , EnableOrbitControlInjectKey
-, EnablePhysicsInjectKey
-, EntitiesInjectKey
-, MapEntityInjectKey
+, EnablePauseInjectKey, EnablePhysicsInjectKey
+, EnablePhysicsPauseInjectKey, EntitiesInjectKey
+, GravityPhysicsInjectKey, MapEntityInjectKey
 , ProjectIDInjectKey
 , ProjectNameInjectKey
-, SceneIDInjectKey
+, RenderAlphaInjectKey, RenderAntisaliasInjectKey, RenderAutoClearInjectKey, RenderPointerInjectKey, RenderShadowInjectKey, SceneBackGroundColorInjectKey, SceneIDInjectKey
 , SceneNameInjectKey
 , ScenesInjectKey
 , SelectObjectIDInjectKey
@@ -33,40 +33,72 @@ import {
 export const entityPlugin = {
   install(app, options) {
     // configure the app
+    
+    
+    const log = console.log;
+    
+    //ENTITIES
     const entities = ref([]) // mutable
+    app.provide(EntitiesInjectKey, entities); // mutable
+
+    //PROJECT
     const projectID = ref("")
     const projectName = ref("")
+    app.provide(ProjectIDInjectKey, projectID);
+    app.provide(ProjectNameInjectKey, projectName);
+
+    //SCENE
     const sceneID = ref("")
     const sceneName = ref("")
     const scenes = ref([])
+    app.provide(SceneIDInjectKey, sceneID);
+    app.provide(SceneNameInjectKey, sceneName);
+    app.provide(ScenesInjectKey, scenes);
 
+    //const sceneBackGroundColor = ref("#ffffff")
+    const sceneBackGroundColor = ref("#000000")
+    app.provide(SceneBackGroundColorInjectKey, sceneBackGroundColor);
+
+    // SELECT OBJECT
     const selectObject = ref({})
     const selectObjectID = ref("")
     const selectObjectUUID = ref("")
-
-    const enablePhysics = ref(false)
-    const enableOrbitControl = ref(true)
-    const log = console.log;
-    
-    //console.log(entities)
-    app.provide(EntitiesInjectKey, entities); // mutable
-    app.provide(ProjectIDInjectKey, projectID);
-    app.provide(ProjectNameInjectKey, projectName);
-    app.provide(SceneIDInjectKey, sceneID);
-    app.provide(SceneNameInjectKey, sceneName);
-
-    app.provide(ScenesInjectKey, scenes);
-
     app.provide(SelectObjectInjectKey, selectObject);
     app.provide(SelectObjectIDInjectKey, selectObjectID);
     app.provide(SelectObjectUUIDInjectKey, selectObjectUUID);
 
+    // PHYSICS
+    const enablePhysics = ref(false)
+    const enablePhysicsPause = ref(false)
+    const gravityPhysics = ref([0,-9.82,0])
     app.provide(EnablePhysicsInjectKey, enablePhysics);
+    app.provide(EnablePhysicsPauseInjectKey, enablePhysicsPause);
+    app.provide(GravityPhysicsInjectKey, gravityPhysics);
+    
+    // THREE?
+    const isPause = ref(false)
+    app.provide(EnablePauseInjectKey, isPause);
+
+    // RENDERER
+    const enableOrbitControl = ref(true)
     app.provide(EnableOrbitControlInjectKey, enableOrbitControl);
+    const RenderAlpha = ref(false);
+    app.provide(RenderAlphaInjectKey, RenderAlpha);
+    const RenderAntisalias = ref(false);
+    app.provide(RenderAntisaliasInjectKey, RenderAntisalias);
+    const RenderAutoClear = ref(true);
+    app.provide(RenderAutoClearInjectKey, RenderAutoClear);
+    const RenderPointer = ref(false);
+    app.provide(RenderPointerInjectKey, RenderPointer);
+    const RenderShadow = ref(false);
+    app.provide(RenderShadowInjectKey, RenderShadow);
+
 
     // need to set up filter...
     const addEntity = (entity)=>{
       console.log(EntityConfig)
+      console.log("entity>>>>")
+      console.log(entity)
       let newEntity={};
       newEntity.objectid = entity.objectid || nanoid16()
       newEntity.name = entity.name || "GROUP"
@@ -77,14 +109,17 @@ export const entityPlugin = {
         newEntity.rotation = entity.rotation || [0,0,0]
         newEntity.scale = entity.scale || [1,1,1]
       }
-
       if(entity.parameters){
         newEntity.parameters = entity.parameters;
       }
-
+      if(typeof entity.isPhysics == 'boolean'){
+        newEntity.isPhysics = entity.isPhysics || false;
+        newEntity.mass = entity.mass || 0;
+      }
+      
       if(entity.shape){
         newEntity.shape = entity.shape
-        newEntity.mass = entity.mass
+        //newEntity.mass = entity.mass
       }
 
       if(entity.material){
@@ -127,6 +162,13 @@ export const entityPlugin = {
             if(args.type=="material"){
               item.material = args.value;
             }
+            if(args.type=="isPhysics"){
+              item.isPhysics = args.value;
+            }
+            if(args.type=="mass"){
+              item.mass = args.value;
+            }
+
             if(EntityConfig.autoSave){
               apiUpdateEntity(item);
             }
@@ -151,20 +193,8 @@ export const entityPlugin = {
     app.provide(DeleteEntityIDInjectKey,deleteEntityID)
 
     const mapEntityID = (objs)=>{
-      //let len = entities.value.length
-      //for( var i = 0; i < len; i++){ 
-        //entities.value.splice(i, 1); 
-      //}
-      //console.log("entities.value");
-      //const _entities = ref([])
-      //entities.value = _entities.value;
-      //console.log(entities.value);
-      //entities.value = [];
-      //entities.value = objs;
       entities.value = [...objs];
-      //console.log(entities.value);
     }
-
     app.provide(MapEntityInjectKey,mapEntityID)
 
     //need to set up url save, delete, update entity objects

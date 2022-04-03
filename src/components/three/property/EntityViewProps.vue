@@ -8,12 +8,18 @@ import CreateEntity from "./CreateEntity.vue";
 import EntityObject from "./EntityObject.vue";
 import EntityObjects from "./EntityObjects.vue";
 import EntityScenes from "./EntityScenes.vue";
+import EntityPhysics from "./EntityPhysics.vue";
+import EntitySceneConfig from "./EntitySceneConfig.vue";
+import EntityRenderer from "./EntityRenderer.vue";
 
 const routes = {
   'create': CreateEntity,
   'entities': EntityObjects,
   'entity': EntityObject,
   'scenes': EntityScenes,
+  'physics': EntityPhysics,
+  'scene': EntitySceneConfig,
+  'renderer': EntityRenderer,
 }
 
 export default {
@@ -30,6 +36,9 @@ export default {
         ,"entities"
         ,"entity"
         ,"scenes"
+        ,"scene"
+        ,"physics"
+        ,"renderer"
       ]
       ,viewSelect:this.view
     }

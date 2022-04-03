@@ -1,7 +1,9 @@
 <template>
-  <div class="righttop_notify">
-    <slot></slot>
-  </div>
+  <teleport to="body">
+    <div class="righttop_notify">
+      <slot></slot>
+    </div>
+  </teleport>
 </template>
 <style>
 .righttop_notify {

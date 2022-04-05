@@ -3,6 +3,8 @@
   Created by: Lightnet
 */
 
+// https://github.com/pmndrs/cannon-es/tree/265d47476df6a47e9650bcdc4dd34ede608aa5a6/src/shapes
+
 var API = {
     CREATE:"CREATE"
   , GET:"GET"
@@ -13,6 +15,15 @@ var API = {
   , LIST:"LIST"
   , PROJECT:"PROJECT"
   , SCENES:"SCENES"
+  , SHAPES:{
+    NULL:"null",
+    BOX:"BOX",
+    SPHERE:"SPHERE",
+    PLANE:"PLANE",
+    CYLINDER:"CYLINDER",
+    HEIGHTFIELD:"HEIGHTFIELD",
+    TRIMESH:"TRIMESH",
+  }
   , ENTITYTYPES:{
       SCENE:"SCENE"
     , CAMERA:"CAMERA"

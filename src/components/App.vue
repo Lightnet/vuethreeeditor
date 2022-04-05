@@ -49,9 +49,10 @@ onUnmounted(()=>{
       <router-link to="/three2">Three2</router-link><span> | </span>
       <router-link to="/threecannon">Three Cannon</router-link><span> | </span>
       <router-link to="/testlab">Test Labs</router-link><span> | </span>
+      <router-link to="/editorlayout">Editor Layout</router-link><span> | </span>
     </template>
   </div>
-  <div id="view" style="height:calc(100% - 18px);width:calc(100% - 20px);">
+  <div id="view" style="height:calc(100% - 18px);width:100%;">
     <router-view></router-view>
   </div>
   <NotifyManager></NotifyManager>

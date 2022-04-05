@@ -57,19 +57,13 @@ const isPointer = inject(RenderPointerInjectKey)
 const isShadow = inject(RenderShadowInjectKey)
 
 watchEffect(()=>{
-  console.log(entities)
+  //console.log(entities)
   //objEntities.value = unref(entities.value);
   //objEntities.value = []
   let objEnties = unref(entities.value);
   objEntities.value = objEnties.filter(item=>item?.isPhysics !== true)
-  //objEntities.value = objEnties.filter(item=>{
-    //if(item?.isPhysics == false){
-
-    //}
-  //});
   physEntities.value = objEnties.filter(item=>item?.isPhysics == true);
-
-  console.log("isOrbitCtrl: ",isOrbitCtrl.value)
+  //console.log("isOrbitCtrl: ",isOrbitCtrl.value)
 })
 
 onMounted(() =>{

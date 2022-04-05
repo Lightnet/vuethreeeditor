@@ -42,7 +42,7 @@
 - Simple account
 - Docs (work in progress)
   - entity setup prefab
-  - 
+  - physics api
 - Editor
   - debug
     - lights helper not added
@@ -70,6 +70,14 @@
     - update ( added )
     - delete ( added )
   - Physics ( work in progress )
+    - isPhysics ( work in progress )
+    - mass ( work in progress )
+    - check type shape ( work in progress )
+    - trimesh ( not added )
+    - height field ( not added )
+    - debug wireframe ( not added )
+    - isTrigger ( added )
+    - onCollide ( work in progress )
     - simple cube fall
   - express ( added )
     - access ( added )
@@ -98,8 +106,6 @@
 - script setup user create object mount inject renderer doesn't load correctly.
   - one reason is orbit camera is null
     -  work when doing some event handle as render update variables.
-
-
 
 # Set up:
   Need to install nodejs.

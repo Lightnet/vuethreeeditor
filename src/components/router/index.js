@@ -11,6 +11,7 @@ import SignOut from '../auth/SignOut.vue';
 import EditorPage from '../three/EditorPage.vue';
 import NotFound from '../pages/NotFound.vue';
 import ThreeCannonPage from "../three/ThreeCannonPage.vue"
+import EditorLayoutTest from "../three/ui/EditorLayoutTest.vue"
 import ThreePage from "../three/ThreePage.vue"
 import Three2 from "../three/Three2.vue"
 import TestLab from "../pages/TestLab.vue"
@@ -27,6 +28,7 @@ const routes = [
   {path:"/signup",name:"Sign Up",component:SignUp},
   {path:"/signout",name:"Sign Out",component:SignOut},
   {path:"/testlab",name:"Test Lab",component:TestLab},
+  {path:"/editorlayout",name:"Test Lab",component:EditorLayoutTest},
   {path:'/:catchAll(.*)*',name:"PageNotFound",component:NotFound},
 ]
 

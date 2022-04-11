@@ -209,3 +209,16 @@ https://learnvue.co/2021/05/a-guide-to-vue-emit-how-to-emit-custom-events-in-vue
 
 
 https://www.npmjs.com/package/tiny-emitter
+
+
+https://masteringjs.io/tutorials/vue/v-on
+
+```
+v-on:keyup
+v-on:mouseenter
+v-on:focus
+v-on:change
+
+@ Shorthand
+Vue has a convenient shorthand for v-on: the @ symbol. For example, @click is functionally equivalent to v-on:click. Using @ saves you a few keystrokes, but v-on is more readable for people who aren't familiar with Vue.
+```

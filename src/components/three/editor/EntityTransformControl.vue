@@ -9,7 +9,7 @@
 // https://threejs.org/examples/#misc_controls_transform
 import { TransformControls } from 'three/examples/jsm/controls/TransformControls';
 import {RendererInjectionKey, SceneInjectionKey, Mesh } from 'troisjs';
-import { inject, onMounted, onUnmounted, ref, watch } from 'vue';
+import { inject, onMounted, onUnmounted, onUpdated, ref, watch, watchEffect } from 'vue';
 /*
 export default {
   inject:{
@@ -34,24 +34,47 @@ const props = defineProps({
 const emit = defineEmits(['updateTransform']);
 const renderer = inject(RendererInjectionKey);
 const scene = inject(SceneInjectionKey);
+let transControls;
+const transformControls = ref(null);
 
 //watch props changes params
 watch(props,()=>{
+  console.log("HELLO>>>>>>????")
   if(props.selectObjectID){
+    console.log("HELLOE????")
     let obj3d = scene.getObjectByProperty('uuid',props.selectObjectID)
     if(obj3d){
       transControls.attach(obj3d);
     }else{
       transControls.detach();
     }
+  }else{
+    transControls.detach();
   }
 })
+/*
+watchEffect(()=>{
+  console.log("change.....")
+  console.log(transformControls.value)
+  if(transformControls.value){
+    if(transformControls.value?.object == null){
+      transformControls.value?.detach();
+    }
+  }    
+})
 
-const transformControls = ref();
-//const refBox = ref();
-let transControls;
+watch(transformControls.value?.object,()=>{
+  console.log(" watch change.....")
+  if(transformControls.value){
+    if(transformControls.value?.object == null){
+      transformControls.value?.detach();
+    }
+  }    
+})
+*/
 
 function detectTransformHandle (event){
+  console.log("DRAG CHECK...")
   //console.log(event);
   //console.log(renderer.three.cameraCtrl)//okay
   renderer.three.cameraCtrl.enabled = !event.value;
@@ -68,14 +91,19 @@ onMounted(() => {
   //transControls.attach( refBox.value.mesh );
   scene.add(transControls)
   //scene.add(transformControls.value) //nope, error proxy
-  window.addEventListener( 'keydown', controlTransform);
+  window.addEventListener('keydown', controlTransform);
 })
+
+//onUpdated(()=>{
+  //console.log("UPDATE>>>>> transform control...")
+  //console.log(transformControls.value)
+//})
 
 onUnmounted(() =>{
   transControls.detach();
   scene.remove(transControls)
-  transformControls.value.removeEventListener( 'keydown', detectTransformHandle);
-  window.removeEventListener( 'keydown', controlTransform);
+  transformControls.value.removeEventListener('keydown', detectTransformHandle);
+  window.removeEventListener('keydown', controlTransform);
 });
 
 function controlTransform(e){

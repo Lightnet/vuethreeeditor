@@ -7,7 +7,6 @@
 // https://www.codegrepper.com/code-examples/javascript/vue+comparing+two+objects+to+see+if+they+are+the+same
 
 import { ref, inject, watch, unref, toRaw } from "vue";
-import { boolean } from "webidl-conversions";
 import { EntitiesInjectKey, UpdateEntityInjectKey } from "../context/EntityKeys.mjs";
 const isEqual = (...objects) => objects.every(obj => JSON.stringify(obj) === JSON.stringify(objects[0]));
 const entities = inject(EntitiesInjectKey);
@@ -22,6 +21,7 @@ const entity = ref({});
 const isTransform = ref(false);
 const isParameters = ref(false);
 const isMaterial = ref(false);
+const isPhysics = ref(false);
 
 const materialindex = ref(0);
 
@@ -305,14 +305,30 @@ function updatePhysicsMass(event){
     <template v-if="(typeof entity.isPhysics !== 'undefined')">
       <div>
         <div>
-          <label> Physcis: </label>
+          <label> Physics: </label> <button @click="isPhysics = !isPhysics"> {{isPhysics ? "-":"+"}} </button>
         </div>
-        <div>
-          <label> isPhyscis: </label> <input type="checkbox" @change="updateIsPhysics" :checked="entity.isPhysics" />
-        </div>
-        <div>
-          <label> Mass: </label> <input type="number" @change="updatePhysicsMass" v-model="entity.mass" />
-        </div>
+        <template v-if="isPhysics">
+          <div>
+            <label> isPhysics: </label> <input type="checkbox" @change="updateIsPhysics" :checked="entity.isPhysics" />
+          </div>
+          <template v-if="(typeof entity.shape !== 'undefined')">
+            <div>
+              <label> Shape: </label>
+              <select v-model="entity.shape">
+                <option value="null"> null </option>
+                <option value="BOX"> Box </option>
+                <option value="CYLINDER"> Cylinder </option>
+                <option value="CAPSULE"> Capsule </option>
+                <option value="SPHERE"> Sphere </option>
+                <option value="PLANE"> Plane </option>
+                <option value="TRIMESH"> TriMesh </option>
+              </select>
+            </div>
+          </template>
+          <div>
+            <label> Mass: </label> <input type="number" @change="updatePhysicsMass" v-model="entity.mass" />
+          </div>
+        </template>
       </div>
     </template>
 

@@ -14,6 +14,7 @@ import ThreeCannonPage from "../three/ThreeCannonPage.vue"
 import EditorLayoutTest from "../three/ui/EditorLayoutTest.vue"
 import ThreePage from "../three/ThreePage.vue"
 import Three2 from "../three/Three2.vue"
+import Three3 from "../three/Three3.vue"
 import TestLab from "../pages/TestLab.vue"
 //import AccessTest from '../auth/AccessTest.vue';
 
@@ -24,10 +25,11 @@ const routes = [
   {path:"/threecannon",name:"ThreeCannon",component:ThreeCannonPage},
   {path:"/three",name:"Three",component:ThreePage},
   {path:"/three2",name:"Three2",component:Three2},
+  {path:"/three3",name:"Three3",component:Three3},
   {path:"/signin",name:"Sign In",component:SignIn},
   {path:"/signup",name:"Sign Up",component:SignUp},
   {path:"/signout",name:"Sign Out",component:SignOut},
-  {path:"/testlab",name:"Test Lab",component:TestLab},
+  {path:"/testlabs",name:"Test Labs",component:TestLab},
   {path:"/editorlayout",name:"Test Lab",component:EditorLayoutTest},
   {path:'/:catchAll(.*)*',name:"PageNotFound",component:NotFound},
 ]

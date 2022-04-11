@@ -14,7 +14,6 @@ const leftBar = ref();
 const leftSideBar = ref();
 
 const contentCenter = ref();
-const parentWidth = ref();
 
 const rightX = ref(0);
 const isDrag = ref(false);
@@ -27,13 +26,11 @@ const rightSideBar = ref();
 console.log(document)
 
 function leftBarDown(event){
-  event.preventDefault()
+  //event.preventDefault()
   isDrag.value=true;
   positions.clientX = event.clientX
   positions.clientY = event.clientY
-  leftWidth.value = contentCenter.value.clientWidth;
-  console.log(contentCenter.value.parentNode.clientWidth)
-  parentWidth.value = contentCenter.value.parentNode.clientWidth;
+  leftWidth.value = contentCenter.value.clientWidth + leftSideBar.value.clientWidth;
   console.log("down?")
 }
 
@@ -46,20 +43,20 @@ function leftBarMove(event){
   positions.movementY = positions.clientY - event.clientY
   positions.clientX = event.clientX
   positions.clientY = event.clientY
-  //console.log(positions)
-  //leftBar.value.style.top = (leftBar.value.offsetTop - positions.movementY) + 'px'
+  
+  //pos.x
   leftX.value = (leftBar.value.offsetLeft - positions.movementX);
   leftBar.value.style.left = leftX.value + 'px'
-  leftSideBar.value.style.width = leftX.value + 'px'
-  contentCenter.value.style.left = leftX.value + 4 + 'px'
-  //console.log(leftSideBar.value.style.width)
-  //console.log(contentCenter.value)
-  //console.log(contentCenter.value.clientHeight)
-  //console.log(contentCenter.value.clientWidth)
-  //contentCenter.value.style.width = (leftWidth.value - leftX.value) + 'px';
-  let widthLeft = parentWidth.value - (leftBar.value.clientWidth + 8);
-  contentCenter.value.style.width = (widthLeft - leftX.value ) + 'px';
 
+  //left bar
+  leftSideBar.value.style.width = leftX.value + 'px'
+
+  // content middle
+  contentCenter.value.style.left = leftX.value + 8 + 'px'
+  let widthLeft = leftWidth.value - leftX.value ;
+  //let widthLeft = (  contentCenter.value.clientWidth + leftSideBar.value.clientWidt) - leftX.value ;
+  console.log(( leftX.value ) )
+  contentCenter.value.style.width = widthLeft + 'px';
 
   console.log("move?")
 }
@@ -147,7 +144,7 @@ function rightBarUp(event){
   position: absolute;
   top:20px;
   left: 208px;
-  width:calc(100% - 400px - 16px);
+  width:calc(100% - 400px - 8px);
   height:calc(100% - 40px);
   background-color: antiquewhite;
 }

@@ -47,8 +47,9 @@ onUnmounted(()=>{
       <router-link to="/editor">Editor</router-link><span> | </span>
       <router-link to="/three">Three</router-link><span> | </span>
       <router-link to="/three2">Three2</router-link><span> | </span>
+      <router-link to="/three3">Three3</router-link><span> | </span>
       <router-link to="/threecannon">Three Cannon</router-link><span> | </span>
-      <router-link to="/testlab">Test Labs</router-link><span> | </span>
+      <router-link to="/testlabs">Test Labs</router-link><span> | </span>
       <router-link to="/editorlayout">Editor Layout</router-link><span> | </span>
     </template>
   </div>

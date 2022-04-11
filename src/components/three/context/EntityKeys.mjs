@@ -18,6 +18,7 @@ export const ScenesInjectKey = Symbol();
 export const SelectObjectInjectKey = Symbol();
 export const SelectObjectIDInjectKey = Symbol();
 export const SelectObjectUUIDInjectKey = Symbol();
+export const ClearSelectObjectInjectKey = Symbol();
 
 export const GravityPhysicsInjectKey = Symbol();
 export const EnablePhysicsInjectKey = Symbol();

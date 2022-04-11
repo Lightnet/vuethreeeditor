@@ -13,7 +13,7 @@ import EntityConfig from './EntityConfig.mjs'
 
 import { 
   AddEntityInjectKey
-, DeleteEntityIDInjectKey
+, ClearSelectObjectInjectKey, DeleteEntityIDInjectKey
 , EnableOrbitControlInjectKey
 , EnablePauseInjectKey, EnablePhysicsInjectKey
 , EnablePhysicsPauseInjectKey, EntitiesInjectKey
@@ -66,6 +66,14 @@ export const entityPlugin = {
     app.provide(SelectObjectInjectKey, selectObject);
     app.provide(SelectObjectIDInjectKey, selectObjectID);
     app.provide(SelectObjectUUIDInjectKey, selectObjectUUID);
+
+    function clearSelectObject(){
+      selectObjectID.value="";
+      selectObjectUUID.value="";
+      console.log(selectObjectID.value)
+      console.log(selectObjectUUID.value)
+    }
+    app.provide(ClearSelectObjectInjectKey, clearSelectObject);
 
     // PHYSICS
     const enablePhysics = ref(false)

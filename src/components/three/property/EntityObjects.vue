@@ -4,14 +4,30 @@
   Created by: Lightnet
 */
 import { ref, inject } from "vue";
-import { EntitiesInjectKey, DeleteEntityIDInjectKey } from "../context/EntityKeys.mjs";
+import { 
+  EntitiesInjectKey
+, DeleteEntityIDInjectKey
+, SelectObjectIDInjectKey
+, SelectObjectUUIDInjectKey 
+, ClearSelectObjectInjectKey
+} from "../context/EntityKeys.mjs";
 
 const deleteEntityID = inject(DeleteEntityIDInjectKey);
 const entities = inject(EntitiesInjectKey);
+const selectObjectID = inject(SelectObjectIDInjectKey);
+const clearSelectObject = inject(ClearSelectObjectInjectKey);
   
 function clickDelete(id){
+  if(selectObjectID.value == id){
+    console.log("CLEAR SELECT?>")
+    clearSelectObject();
+    //selectObjectID.value=""; // clear select object transform control
+    //selectObjectUUID.value="";
+  }
+
   //console.log("delete:", id)
   deleteEntityID(id);
+  
 }
 </script>
 

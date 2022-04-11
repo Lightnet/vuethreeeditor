@@ -3,6 +3,7 @@ import { defineComponent } from 'vue'
 
 export default defineComponent({
   mounted() {
+    console.log("this.$parent")
     console.log(this.$parent)
     //console.log(this.renderer)
     //console.log(this.scene)

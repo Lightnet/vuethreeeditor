@@ -1,5 +1,9 @@
 <script>
 import { Box, Camera, LambertMaterial, PointLight, Renderer, Scene, Text, Sprite } from 'troisjs';
+import EntityEffectComposer from './postprocessing/EntityEffectComposer.vue';
+import EntityRenderPass from './postprocessing/EntityRenderPass.vue';
+import EntityUnrealBloomPass from './postprocessing/EntityUnrealBloomPass.vue';
+
 export default {
   components:{
     Renderer,
@@ -8,7 +12,10 @@ export default {
     Box,
     LambertMaterial,
     Scene,
-  },
+    EntityEffectComposer,
+    EntityRenderPass,
+    EntityUnrealBloomPass
+},
   mounted() {
     const renderer = this.$refs.renderer;
     console.log("renderer")
@@ -28,7 +35,7 @@ export default {
 </script>
 <template>
   <div id="viewport" style="height:100%;width:100%;"></div>
-  <Renderer ref="renderer">
+  <Renderer ref="renderer" resize="window" orbitCtrl>
     <Camera :position="{ z: 10 }" />
     <Scene>
       <PointLight :position="{ y: 50, z: 50 }" />
@@ -36,6 +43,12 @@ export default {
         <LambertMaterial />
       </Box>
     </Scene>
+    <EntityEffectComposer>
+      <EntityRenderPass />
+      <!--
+      <EntityUnrealBloomPass />
+      -->
+    </EntityEffectComposer>
   </Renderer>
 </template>
 <!--

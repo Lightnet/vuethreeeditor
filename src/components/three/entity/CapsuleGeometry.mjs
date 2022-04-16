@@ -1,7 +1,6 @@
 /*
   LICENSE: MIT
   Created by: Lightnet
-  //nope...
 */
 import { Geometry } from "troisjs";
 import { defineComponent } from "vue";

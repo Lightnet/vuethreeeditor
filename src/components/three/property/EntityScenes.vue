@@ -18,7 +18,7 @@ const mapEntities = inject(MapEntityInjectKey);
 const view = ref("scenes")
 const sceneID = ref("")
 const sceneDescription = ref("")
-const sceneName = ref("ss")
+const sceneName = ref("")
 
 getScenes();
 

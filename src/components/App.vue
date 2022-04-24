@@ -25,7 +25,7 @@ watch(route,()=>{//pass
 })
 
 onMounted(()=>{
-  //getAccess();
+  getAccess();
 })
 
 onUnmounted(()=>{

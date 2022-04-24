@@ -8,7 +8,7 @@ import {
   RenderPointerInjectKey,
   RenderShadowInjectKey,
 } from "../context/EntityKeys.mjs";
-import { inject } from 'vue';
+import { inject, ref } from 'vue';
 
 const isOrbitCtrl = inject(EnableOrbitControlInjectKey)
 const isAlpha = inject(RenderAlphaInjectKey)
@@ -16,6 +16,8 @@ const isAntialias = inject(RenderAntisaliasInjectKey)
 const isAutoClear = inject(RenderAutoClearInjectKey)
 const isPointer = inject(RenderPointerInjectKey)
 const isShadow = inject(RenderShadowInjectKey)
+
+const isPostProcessing = ref(false)
 
 </script>
 <template>
@@ -47,6 +49,25 @@ const isShadow = inject(RenderShadowInjectKey)
     <div>
       <label> Shadow: </label>
       <input type="checkbox" :checked="isShadow" @change="(e)=>isShadow=e.target.checked" />
+    </div>
+
+    <div>
+      <div>
+        <label> Post Processing: </label>
+        <input type="checkbox" :checked="isPostProcessing" @change="(e)=>isPostProcessing=e.target.checked" />
+      </div>
+      <template v-if="isPostProcessing">
+        <div>
+
+        </div>
+        <div>
+          <label> Type: </label>
+          <select>
+            <option> </option>
+          </select>
+          <button> Add </button>
+        </div>
+      </template>
     </div>
   </div>
 </template>

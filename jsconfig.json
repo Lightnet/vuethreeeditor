@@ -1,4 +1,7 @@
 {
+  "vueCompilerOptions":{
+    "experimentalDisableTemplateSupport": true
+  },
   "include": [
     "./src/**/*"
   ]
